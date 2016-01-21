@@ -77,33 +77,33 @@ class postfix (
       if($subjectselfsigned)
       {
         exec { 'openssl pk':
-          command => "/usr/bin/openssl genrsa -out /etc/pki/tls/private/postfix-key.key 2048",
-          creates => "/etc/pki/tls/private/postfix-key.key",
+          command => '/usr/bin/openssl genrsa -out /etc/pki/tls/private/postfix-key.key 2048',
+          creates => '/etc/pki/tls/private/postfix-key.key',
           require => Package['openssl'],
         }
 
         exec { 'openssl cert':
           command => "/usr/bin/openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '$subjectselfsigned' | /usr/bin/openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
-          creates => "/etc/pki/tls/certs/postfix.pem",
-          notify  => Service["postfix"],
+          creates => '/etc/pki/tls/certs/postfix.pem',
+          notify  => Service['postfix'],
           require => Exec['openssl pk'],
         }
       }
       else
       {
-        fail("to generate a selfsigned certificate I need a subject (variable subjectselfsigned)")
+        fail('to generate a selfsigned certificate I need a subject (variable subjectselfsigned)')
       }
     }
     else
     {
       if ($subjectselfsigned)
       {
-        fail("you need to enable selfsigned certificates using the variable generatecert")
+        fail('you need to enable selfsigned certificates using the variable generatecert')
       }
 
       if($tlscert==undef) or ($tlspk==undef) or ($opportunistictls==undef)
       {
-        fail("everytime you forget required a TLS file, God kills a kitten - OTLS($opportunistictls) - CERT($tlscert) - KEY($tlspk) - please think of the kittens")
+        fail("everytime you forget required a TLS file, God kills a kitten - OTLS(${opportunistictls}) - CERT(${tlscert}) - KEY(${tlspk}) - please think of the kittens")
       }
       else
       {
@@ -142,12 +142,12 @@ class postfix (
 
   file { '/etc/postfix/main.cf':
     ensure  => present,
-    owner   => "root",
-    group   => "root",
+    owner   => 'root',
+    group   => 'root',
     mode    => 0644,
     require => Package['postfix'],
-    notify  => Service["postfix"],
-    content => template("postfix/main.cf.erb")
+    notify  => Service['postfix'],
+    content => template("${module_name}/main.cf.erb")
   }
 
   service { 'postfix':
