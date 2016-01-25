@@ -36,133 +36,133 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class postfix (
-		$mynetworks = [ '127.0.0.1' ], $inetinterfaces = '127.0.0.1', $smtpdbanner = '$myhostname ESMTP',
-		$ipv6=false,
-		$relayhost=undef,
-		$opportunistictls=false,
-		$tlscert=undef,
-		$tlspk=undef,
-		$myhostname=undef,
-		$generatecert=false,
-		$subjectselfsigned=undef,
-		)
-		inherits postfix::params {
+    $mynetworks = [ '127.0.0.1' ], $inetinterfaces = '127.0.0.1', $smtpdbanner = '$myhostname ESMTP',
+    $ipv6=false,
+    $relayhost=undef,
+    $opportunistictls=false,
+    $tlscert=undef,
+    $tlspk=undef,
+    $myhostname=undef,
+    $generatecert=false,
+    $subjectselfsigned=undef,
+    )
+    inherits postfix::params {
 
-	Exec {
-		path => '/bin:/sbin:/usr/bin:/usr/sbin',
-	}
+  Exec {
+    path => '/bin:/sbin:/usr/bin:/usr/sbin',
+  }
 
-	validate_array($mynetworks)
+  validate_array($mynetworks)
 
-	if($tlscert) or ($tlspk) or ($opportunistictls)
-	{
+  if($tlscert) or ($tlspk) or ($opportunistictls)
+  {
 
-		exec { 'postfix mkdir /etc/pki/tls/private':
-			command => 'mkdir -p /etc/pki/tls/private',
-			creates => '/etc/pki/tls/private',
-		}
+    exec { 'postfix mkdir /etc/pki/tls/private':
+      command => 'mkdir -p /etc/pki/tls/private',
+      creates => '/etc/pki/tls/private',
+    }
 
-		exec { 'postfix mkdir /etc/pki/tls/certs':
-			command => 'mkdir -p /etc/pki/tls/certs',
-			creates => '/etc/pki/tls/certs',
-		}
+    exec { 'postfix mkdir /etc/pki/tls/certs':
+      command => 'mkdir -p /etc/pki/tls/certs',
+      creates => '/etc/pki/tls/certs',
+    }
 
-		package { 'openssl':
-			ensure  => 'installed',
-			require => Exec[ ['postfix mkdir /etc/pki/tls/certs', 'postfix mkdir /etc/pki/tls/certs' ] ]
-		}
+    package { 'openssl':
+      ensure  => 'installed',
+      require => Exec[ ['postfix mkdir /etc/pki/tls/certs', 'postfix mkdir /etc/pki/tls/certs' ] ]
+    }
 
-		if($generatecert)
-		{
-			if($subjectselfsigned)
-			{
-				exec { 'openssl pk':
-					command => "/usr/bin/openssl genrsa -out /etc/pki/tls/private/postfix-key.key 2048",
-					creates => "/etc/pki/tls/private/postfix-key.key",
-					require => Package['openssl'],
-				}
+    if($generatecert)
+    {
+      if($subjectselfsigned)
+      {
+        exec { 'openssl pk':
+          command => '/usr/bin/openssl genrsa -out /etc/pki/tls/private/postfix-key.key 2048',
+          creates => '/etc/pki/tls/private/postfix-key.key',
+          require => Package['openssl'],
+        }
 
-				exec { 'openssl cert':
-					command => "/usr/bin/openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '$subjectselfsigned' | /usr/bin/openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
-					creates => "/etc/pki/tls/certs/postfix.pem",
-					notify  => Service["postfix"],
-					require => Exec['openssl pk'],
-				}
-			}
-			else
-			{
-				fail("to generate a selfsigned certificate I need a subject (variable subjectselfsigned)")
-			}
-		}
-		else
-		{
-			if ($subjectselfsigned)
-			{
-				fail("you need to enable selfsigned certificates using the variable generatecert")
-			}
+        exec { 'openssl cert':
+          command => "/usr/bin/openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '$subjectselfsigned' | /usr/bin/openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
+          creates => '/etc/pki/tls/certs/postfix.pem',
+          notify  => Service['postfix'],
+          require => Exec['openssl pk'],
+        }
+      }
+      else
+      {
+        fail('to generate a selfsigned certificate I need a subject (variable subjectselfsigned)')
+      }
+    }
+    else
+    {
+      if ($subjectselfsigned)
+      {
+        fail('you need to enable selfsigned certificates using the variable generatecert')
+      }
 
-			if($tlscert==undef) or ($tlspk==undef) or ($opportunistictls==undef)
-			{
-				fail("everytime you forget required a TLS file, God kills a kitten - OTLS($opportunistictls) - CERT($tlscert) - KEY($tlspk) - please think of the kittens")
-			}
-			else
-			{
-				file { '/etc/pki/tls/private/postfix-key.key':
-					ensure  => present,
-					owner   => "root",
-					group   => "root",
-					mode    => 0644,
-					require => Package['openssl'],
-					notify  => Service["postfix"],
-					audit   => 'content',
-					source  => $tlspk
-				}
+      if($tlscert==undef) or ($tlspk==undef) or ($opportunistictls==undef)
+      {
+        fail("everytime you forget required a TLS file, God kills a kitten - OTLS(${opportunistictls}) - CERT(${tlscert}) - KEY(${tlspk}) - please think of the kittens")
+      }
+      else
+      {
+        file { '/etc/pki/tls/private/postfix-key.key':
+          ensure  => present,
+          owner   => "root",
+          group   => "root",
+          mode    => 0644,
+          require => Package['openssl'],
+          notify  => Service["postfix"],
+          audit   => 'content',
+          source  => $tlspk
+        }
 
-				file { '/etc/pki/tls/certs/postfix.pem':
-					ensure  => present,
-					owner   => "root",
-					group   => "root",
-					mode    => 0644,
-					require => Package['openssl'],
-					notify  => Service["postfix"],
-					audit   => 'content',
-					source  => $tlscert
-				}
-			}
-		}
-	}
+        file { '/etc/pki/tls/certs/postfix.pem':
+          ensure  => present,
+          owner   => "root",
+          group   => "root",
+          mode    => 0644,
+          require => Package['openssl'],
+          notify  => Service["postfix"],
+          audit   => 'content',
+          source  => $tlscert
+        }
+      }
+    }
+  }
 
-	package { $dependencies:
-		ensure => installed,
-	}
+  package { $dependencies:
+    ensure => installed,
+  }
 
-	package { 'postfix':
-		ensure => 'installed',
-	}
+  package { 'postfix':
+    ensure => 'installed',
+  }
 
-	file { '/etc/postfix/main.cf':
-		ensure  => present,
-		owner   => "root",
-		group   => "root",
-		mode    => 0644,
-		require => Package['postfix'],
-		notify  => Service["postfix"],
-		content => template("postfix/main.cf.erb")
-	}
+  file { '/etc/postfix/main.cf':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => 0644,
+    require => Package['postfix'],
+    notify  => Service['postfix'],
+    content => template("${module_name}/main.cf.erb")
+  }
 
-	service { 'postfix':
-		enable  => true,
-		ensure  => "running",
-		require => Package["postfix"],
-	}
+  service { 'postfix':
+    enable  => true,
+    ensure  => "running",
+    require => Package["postfix"],
+  }
 
-	if($switch_to_postfix)
-	{
-		exec { 'switch_mta_to_postfix':
-			command => $switch_to_postfix,
-			unless  => $check_postfix_mta,
-			require => [Package[$dependencies], Package['postfix']],
-		}
-	}
+  if($switch_to_postfix)
+  {
+    exec { 'switch_mta_to_postfix':
+      command => $switch_to_postfix,
+      unless  => $check_postfix_mta,
+      require => [Package[$dependencies], Package['postfix']],
+    }
+  }
 
 }
