@@ -87,6 +87,11 @@ myhostname = <%= @myhostname %>
 # parameters.
 #
 #mydomain = domain.tld
+#mydomain = domain.tld
+<%- if defined?(@mydomain) -%>
+mydomain = <%= @mydomain %>
+<%- end -%>
+
 
 # SENDING MAIL
 #
@@ -103,6 +108,9 @@ myhostname = <%= @myhostname %>
 #
 #myorigin = $myhostname
 #myorigin = $mydomain
+<%- if defined?(@myorigin) -%>
+myorigin = <%= @myorigin %>
+<%- end -%>
 
 # RECEIVING MAIL
 
@@ -175,7 +183,7 @@ inet_protocols = ipv4
 #
 # See also below, section "REJECTING MAIL FOR UNKNOWN LOCAL USERS".
 #
-mydestination = $myhostname, localhost.$mydomain, localhost
+mydestination = $myhostname.$mydomain, localhost
 #mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
 #mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain,
 #	mail.$mydomain, www.$mydomain, ftp.$mydomain
@@ -428,6 +436,9 @@ alias_database = hash:/etc/aliases
 # trying user and .forward.
 #
 #recipient_delimiter = +
+<%- if defined?(@recipient_delimitier) -%>
+recipient_delimiter = <%= @recipient_delimitier %>
+<%- end -%>
 
 # DELIVERY TO MAILBOX
 #
@@ -695,7 +706,7 @@ sample_directory = /usr/share/doc/postfix-2.6.6/samples
 
 # readme_directory: The location of the Postfix README files.
 #
-readme_directory = /usr/share/doc/postfix-2.6.6/README_FILES
+readme_directory = <%= @readme_directory %>
 
 <% if(@opportunistictls) %>
 #opportunistic TLS
@@ -722,3 +733,14 @@ smtpd_tls_cert_file=/etc/pki/tls/certs/postfix.pem
 # TLS pk
 smtpd_tls_key_file=/etc/pki/tls/private/postfix-key.key
 <% end %>
+
+<%- if defined?(@biff) -%>
+biff = <%= @biff %>
+<%- end -%>
+
+<%- if defined?(@append_dot_mydomain) -%>
+# appending .domain is the MUA's job.
+append_dot_mydomain = <%= @append_dot_mydomain %>
+<%- end -%>
+
+

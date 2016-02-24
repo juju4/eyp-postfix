@@ -36,7 +36,9 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class postfix (
-    $mynetworks = [ '127.0.0.1' ], $inetinterfaces = '127.0.0.1', $smtpdbanner = '$myhostname ESMTP',
+    $mynetworks = [ '127.0.0.1' ],
+    $inetinterfaces = '127.0.0.1',
+    $smtpdbanner = '$myhostname ESMTPi $mail_name',
     $ipv6=false,
     $relayhost=undef,
     $opportunistictls=false,
