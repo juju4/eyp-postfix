@@ -85,7 +85,7 @@ class postfix (
         }
 
         exec { 'openssl cert':
-          command => "/usr/bin/openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '$subjectselfsigned' | /usr/bin/openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
+          command => "/usr/bin/openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '${subjectselfsigned}' | /usr/bin/openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
           creates => '/etc/pki/tls/certs/postfix.pem',
           notify  => Service['postfix'],
           require => Exec['openssl pk'],
@@ -111,22 +111,22 @@ class postfix (
       {
         file { '/etc/pki/tls/private/postfix-key.key':
           ensure  => present,
-          owner   => "root",
-          group   => "root",
-          mode    => 0644,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
           require => Package['openssl'],
-          notify  => Service["postfix"],
+          notify  => Service['postfix'],
           audit   => 'content',
           source  => $tlspk
         }
 
         file { '/etc/pki/tls/certs/postfix.pem':
           ensure  => present,
-          owner   => "root",
-          group   => "root",
-          mode    => 0644,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
           require => Package['openssl'],
-          notify  => Service["postfix"],
+          notify  => Service['postfix'],
           audit   => 'content',
           source  => $tlscert
         }
@@ -134,7 +134,7 @@ class postfix (
     }
   }
 
-  package { $dependencies:
+  package { $postfix::params::dependencies:
     ensure => installed,
   }
 
@@ -146,24 +146,24 @@ class postfix (
     ensure  => present,
     owner   => 'root',
     group   => 'root',
-    mode    => 0644,
+    mode    => '0644',
     require => Package['postfix'],
     notify  => Service['postfix'],
     content => template("${module_name}/main.cf.erb")
   }
 
   service { 'postfix':
+    ensure  => 'running',
     enable  => true,
-    ensure  => "running",
-    require => Package["postfix"],
+    require => Package['postfix'],
   }
 
-  if($switch_to_postfix)
+  if($postfix::params::switch_to_postfix)
   {
     exec { 'switch_mta_to_postfix':
-      command => $switch_to_postfix,
-      unless  => $check_postfix_mta,
-      require => [Package[$dependencies], Package['postfix']],
+      command => $postfix::params::switch_to_postfix,
+      unless  => $postfix::params::check_postfix_mta,
+      require => [Package[$postfix::params::dependencies], Package['postfix']],
     }
   }
 
