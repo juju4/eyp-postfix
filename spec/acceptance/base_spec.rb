@@ -49,7 +49,7 @@ describe 'postfix class' do
     end
 
     it "check mail reception" do
-      expect(shell("ls -l/var/mail/").exit_code).to be_zero
+      expect(shell("ls -l /var/mail/").exit_code).to be_zero
     end
 
   end
