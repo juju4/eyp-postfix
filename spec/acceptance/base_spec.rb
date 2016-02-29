@@ -9,17 +9,15 @@ describe 'postfix class' do
       pp = <<-EOF
 
       class { 'postfix':
-           mynetworks => [ '127.0.0.0/8', '62.97.117.220/30' ],
+           mynetworks => [ '127.0.0.0/8' ],
            inetinterfaces => 'all',
            smtpdbanner => "\$myhostname ESMTP \$mail_name",
-           relayhost => '213.130.46.253',
-           myhostname => $::fqdn,
            biff => 'no',
            append_dot_mydomain => 'no',
            readme_directory => 'no',
            myorigin => 'test.es',
            recipient_delimiter => '+',
-           virtual_alias => { '@test.es' => 'root@localhost',}
+           virtual_alias => { '@test.es' => 'root@localhost',},
         }
 
       EOF
