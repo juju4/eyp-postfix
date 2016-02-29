@@ -45,7 +45,7 @@ describe 'postfix class' do
     end
 
     it "send test mail" do
-      expect(shell("echo \"Test mail\" | mail test@test.es").exit_code).to be_zero
+      expect(shell("echo Test | mail test@test.es").exit_code).to be_zero
     end
 
     it "check mail reception" do
