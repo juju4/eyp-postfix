@@ -17,6 +17,7 @@ describe 'postfix class' do
            readme_directory => 'no',
            myorigin => 'test.es',
            recipient_delimiter => '+',
+           mail_spool_directory => '/tmp',
            virtual_alias => { '@test.es' => 'root@localhost',},
         }
 
@@ -49,7 +50,11 @@ describe 'postfix class' do
     end
 
     it "check mail reception" do
-      expect(shell("ls -l /var/mail/").exit_code).to be_zero
+      expect(shell("grep \"Testing rspec puppet DUI\" /tmp/root").exit_code).to be_zero
+    end
+
+    it "check tmp folder for testing purposes" do
+      expect(shell("ls -l /tmp").exit_code).to be_zero
     end
 
   end

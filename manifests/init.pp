@@ -4,6 +4,7 @@ class postfix (
     $generatecert = $postfix::params::generatecert_default,
     $inetinterfaces = $postfix::params::inetinterfaces_default,
     $ipv6 = $postfix::params::ipv6_default,
+    $mail_spool_directoryi = $postfix::params::mail_spool_directory_default,
     $mydestination = $postfix::params::mydestination_default,
     $mydomain = $postfix::params::mydomain_default,
     $myhostname = $postfix::params::myhostname_default,
