@@ -20,7 +20,7 @@ class postfix::params {
   $mydestination_default = [ $::fqdn, 'localhost' ]
   $virtual_alias_default = undef
   $baseconf = '/etc/postfix'
-  $mail_spool_directory = '/var/mail'
+  $mail_spool_directory_default = '/var/mail'
 
   case $::osfamily
   {
