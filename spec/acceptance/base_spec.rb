@@ -11,7 +11,7 @@ describe 'postfix class' do
       class { 'postfix':
            mynetworks => [ '127.0.0.0/8' ],
            inetinterfaces => 'all',
-           smtpdbanner => "\$myhostname ESMTP \$mail_name",
+           smtpdbanner => "\\$myhostname ESMTP \\$mail_name",
            biff => 'no',
            append_dot_mydomain => 'no',
            readme_directory => 'no',
