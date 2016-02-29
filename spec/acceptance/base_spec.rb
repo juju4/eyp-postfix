@@ -57,10 +57,6 @@ describe 'postfix class' do
       expect(shell("grep \"Testing rspec puppet DUI\" /tmp/root").exit_code).to be_zero
     end
 
-    it "check tmp folder for testing purposes" do
-      expect(shell("cat /tmp/root").exit_code).to be_zero
-    end
-
   end
 
 end
