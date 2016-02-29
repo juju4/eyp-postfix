@@ -49,6 +49,8 @@ class postfix::params {
             {
               $daemondirectory='/usr/lib/postfix'
               $dependencies=['dpkg', 'grep', 'mailutils' ]
+              $switch_to_postfix=undef
+              $check_postfix_mta=undef
             }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }
