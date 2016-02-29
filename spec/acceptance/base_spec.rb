@@ -49,12 +49,16 @@ describe 'postfix class' do
       expect(shell("echo \"Testing rspec puppet DUI\" | mail test@test.es").exit_code).to be_zero
     end
 
+    it "sleep 10 to make sure mesage is delivered" do
+      expect(shell("sleep 10").exit_code).to be_zero
+    end
+
     it "check mail reception" do
       expect(shell("grep \"Testing rspec puppet DUI\" /tmp/root").exit_code).to be_zero
     end
 
     it "check tmp folder for testing purposes" do
-      expect(shell("ls -l /tmp").exit_code).to be_zero
+      expect(shell("cat /tmp/root").exit_code).to be_zero
     end
 
   end
