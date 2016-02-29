@@ -47,11 +47,11 @@ describe 'postfix class' do
     end
 
     it "send test mail" do
-      expect(shell("echo \"Test mail\" | mail test@test.es").exit_code)to be_zero
+      expect(shell("echo \"Test mail\" | mail test@test.es").exit_code).to be_zero
     end
 
     it "check mail reception" do
-      expect(shell("ls /var/spool/mail/root").exit_code)to be_zero
+      expect(shell("ls /var/spool/mail/root").exit_code).to be_zero
     end
 
   end
