@@ -145,6 +145,14 @@ class postfix (
     }
   }
 
+  if($default_mta!=undef)
+  {
+    package { $default_mta:
+      ensure => 'purged',
+      before => Package['postfix'],
+    }
+  }
+
   package { 'postfix':
     ensure => 'installed',
   }

@@ -34,6 +34,8 @@ class postfix::params {
           $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
           $check_postfix_mta='alternatives --display mta | grep postfix'
 
+          $default_mta='exim'
+
           $mailclient=[ 'mailx' ]
 
           $readme_directory_default = false
@@ -55,6 +57,8 @@ class postfix::params {
               #$dependencies=['dpkg', 'grep' ]
               $switch_to_postfix=undef
               $check_postfix_mta=undef
+
+              $default_mta=undef
 
               $mailclient=[ 'mailutils' ]
 
