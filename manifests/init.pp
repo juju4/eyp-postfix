@@ -167,7 +167,7 @@ class postfix (
     exec { 'switch_mta_to_postfix':
       command => $postfix::params::switch_to_postfix,
       unless  => $postfix::params::check_postfix_mta,
-      require => [Package[$postfix::params::dependencies], Package['postfix']],
+      require => Package['postfix'],
     }
   }
 
