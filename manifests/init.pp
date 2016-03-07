@@ -148,8 +148,8 @@ class postfix (
   if($postfix::params::purge_default_mta!=undef)
   {
     package { $postfix::params::purge_default_mta:
-      ensure => 'absent',
-      before => Package['postfix'],
+      ensure  => 'absent',
+      require => Package['postfix'],
     }
   }
 
