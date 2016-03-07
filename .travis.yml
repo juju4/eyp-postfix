@@ -18,3 +18,13 @@ matrix:
     dist: trusty
     bundler_args:
     script: sudo service docker restart ; sleep 10 && bundle exec rspec spec/acceptance/base*_spec.rb
+  - rvm: default
+    env: BEAKER_set="centos5-docker"
+    dist: trusty
+    bundler_args:
+    script: sudo service docker restart ; sleep 10 && bundle exec rspec spec/acceptance/*_spec.rb
+  - rvm: default
+    env: BEAKER_set="centos6-docker"
+    dist: trusty
+    bundler_args:
+    script: sudo service docker restart ; sleep 10 && bundle exec rspec spec/acceptance/*_spec.rb
