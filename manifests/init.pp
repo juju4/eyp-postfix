@@ -86,7 +86,7 @@ class postfix (
         exec { 'openssl cert':
           command => "/usr/bin/openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '${subjectselfsigned}' | /usr/bin/openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
           creates => '/etc/pki/tls/certs/postfix.pem',
-          notify  => Service['postfix'],
+          notify  => Class['postfix::service'],
           require => Exec['openssl pk'],
         }
       }
@@ -114,7 +114,7 @@ class postfix (
           group   => 'root',
           mode    => '0644',
           require => Package['openssl'],
-          notify  => Service['postfix'],
+          notify  => Class['postfix::service'],
           audit   => 'content',
           source  => $tlspk
         }
@@ -125,7 +125,7 @@ class postfix (
           group   => 'root',
           mode    => '0644',
           require => Package['openssl'],
-          notify  => Service['postfix'],
+          notify  => Class['postfix::service'],
           audit   => 'content',
           source  => $tlscert
         }
@@ -147,14 +147,14 @@ class postfix (
     group   => 'root',
     mode    => '0644',
     require => Package['postfix'],
-    notify  => Service['postfix'],
+    notify  => Class['postfix::service'],
     content => template("${module_name}/main.cf.erb")
   }
 
-  service { 'postfix':
-    ensure  => 'running',
-    enable  => true,
-    require => Package['postfix'],
+  class { 'postfix::service':
+    ensure         => 'running',
+    enable         => true,
+    manage_service => true,
   }
 
   if($postfix::params::switch_to_postfix)
@@ -181,7 +181,7 @@ class postfix (
       group   => 'root',
       mode    => '0644',
       require => Package['postfix'],
-      notify  => Service['postfix'],
+      notify  => Class['postfix::service'],
       content => template("${module_name}/virtual_alias/virtual_alias.erb"),
       }
   }
