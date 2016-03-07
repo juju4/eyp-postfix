@@ -43,7 +43,10 @@ class postfix (
     validate_bool($append_dot_mydomain)
   }
 
-  validate_string($readme_directory)
+  if($readme_directory)
+  {
+    validate_string($readme_directory)
+  }
 
   validate_string($myorigin)
 
