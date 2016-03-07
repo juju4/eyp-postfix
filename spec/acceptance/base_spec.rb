@@ -33,10 +33,6 @@ describe 'postfix class' do
       expect(shell("sleep 10").exit_code).to be_zero
     end
 
-    it "fuck the system" do
-      expect(shell("netstat -tpln").exit_code).to be_zero
-    end
-
     describe port(25) do
       it { should be_listening }
     end
