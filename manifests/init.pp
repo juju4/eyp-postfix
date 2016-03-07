@@ -19,6 +19,7 @@ class postfix (
     $tlscert = $postfix::params::tlscert_default,
     $tlspk = $postfix::params::tlspk_default,
     $virtual_alias = $postfix::params::virtual_alias_default,
+    $install_mailclient=true,
     ) inherits postfix::params {
 
   Exec {
@@ -34,15 +35,18 @@ class postfix (
 
   if($biff)
   {
-    validate_string($biff)
+    validate_bool($biff)
   }
 
   if($append_dot_mydomain)
   {
-    validate_string($append_dot_mydomain)
+    validate_bool($append_dot_mydomain)
   }
 
-  validate_string($readme_directory)
+  if($readme_directory)
+  {
+    validate_string($readme_directory)
+  }
 
   validate_string($myorigin)
 
@@ -86,7 +90,7 @@ class postfix (
         exec { 'openssl cert':
           command => "/usr/bin/openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '${subjectselfsigned}' | /usr/bin/openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
           creates => '/etc/pki/tls/certs/postfix.pem',
-          notify  => Service['postfix'],
+          notify  => Class['postfix::service'],
           require => Exec['openssl pk'],
         }
       }
@@ -114,7 +118,7 @@ class postfix (
           group   => 'root',
           mode    => '0644',
           require => Package['openssl'],
-          notify  => Service['postfix'],
+          notify  => Class['postfix::service'],
           audit   => 'content',
           source  => $tlspk
         }
@@ -125,7 +129,7 @@ class postfix (
           group   => 'root',
           mode    => '0644',
           require => Package['openssl'],
-          notify  => Service['postfix'],
+          notify  => Class['postfix::service'],
           audit   => 'content',
           source  => $tlscert
         }
@@ -133,8 +137,20 @@ class postfix (
     }
   }
 
-  package { $postfix::params::dependencies:
-    ensure => installed,
+  if($install_mailclient)
+  {
+    package { $postfix::params::mailclient:
+      ensure => 'installed',
+      before => Package['postfix'],
+    }
+  }
+
+  if($postfix::params::purge_default_mta!=undef)
+  {
+    package { $postfix::params::purge_default_mta:
+      ensure  => 'absent',
+      require => Package['postfix'],
+    }
   }
 
   package { 'postfix':
@@ -147,14 +163,14 @@ class postfix (
     group   => 'root',
     mode    => '0644',
     require => Package['postfix'],
-    notify  => Service['postfix'],
+    notify  => Class['postfix::service'],
     content => template("${module_name}/main.cf.erb")
   }
 
-  service { 'postfix':
-    ensure  => 'running',
-    enable  => true,
-    require => Package['postfix'],
+  class { 'postfix::service':
+    ensure         => 'running',
+    enable         => true,
+    manage_service => true,
   }
 
   if($postfix::params::switch_to_postfix)
@@ -162,7 +178,7 @@ class postfix (
     exec { 'switch_mta_to_postfix':
       command => $postfix::params::switch_to_postfix,
       unless  => $postfix::params::check_postfix_mta,
-      require => [Package[$postfix::params::dependencies], Package['postfix']],
+      require => Package['postfix'],
     }
   }
 
@@ -181,7 +197,7 @@ class postfix (
       group   => 'root',
       mode    => '0644',
       require => Package['postfix'],
-      notify  => Service['postfix'],
+      notify  => Class['postfix::service'],
       content => template("${module_name}/virtual_alias/virtual_alias.erb"),
       }
   }
