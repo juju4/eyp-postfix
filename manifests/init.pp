@@ -140,7 +140,7 @@ class postfix (
   if($install_mailclient)
   {
     package { $postfix::params::mailclient:
-      ensure => installed,
+      ensure => 'installed',
       before => Package['postfix'],
     }
   }
@@ -148,7 +148,7 @@ class postfix (
   if($postfix::params::purge_default_mta!=undef)
   {
     package { $postfix::params::purge_default_mta:
-      ensure => 'purged',
+      ensure => 'absent',
       before => Package['postfix'],
     }
   }
