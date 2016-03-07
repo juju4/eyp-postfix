@@ -706,7 +706,7 @@ sample_directory = /usr/share/doc/postfix-2.6.6/samples
 
 # readme_directory: The location of the Postfix README files.
 #
-readme_directory = <%= @readme_directory %>
+readme_directory = <%= scope.function_bool2yesno([@readme_directory]) %>
 
 <%- if(@opportunistictls) -%>
 #opportunistic TLS
@@ -739,12 +739,12 @@ smtpd_tls_key_file=/etc/pki/tls/private/postfix-key.key
 <%- end -%>
 
 <%- if defined?(@biff) -%>
-biff = <%= @biff %>
+biff = <%= scope.function_bool2yesno([@biff]) %>
 <%- end -%>
 
 <%- if defined?(@append_dot_mydomain) -%>
 # appending .domain is the MUA's job.
-append_dot_mydomain = <%= @append_dot_mydomain %>
+append_dot_mydomain = <%= scope.function_bool2yesno([@append_dot_mydomain]) %>
 <%- end -%>
 
 virtual_alias_maps = hash:/etc/postfix/virtual

@@ -11,9 +11,8 @@ class postfix::params {
   $myhostname_default = $::hostname
   $generatecert_default = false
   $subjectselfsigned_default = undef
-  $biff_default = undef
+  $biff_default = false
   $append_dot_mydomain_default = undef
-  $readme_directory_default = '/usr/share/doc/postfix-2.6.6/README_FILES'
   $myorigin_default = $::domain
   $mydomain_default = $::domain
   $recipient_delimiter_default = undef
@@ -36,6 +35,8 @@ class postfix::params {
           $check_postfix_mta='alternatives --display mta | grep postfix'
 
           $mailclient=[ 'mailx' ]
+
+          $readme_directory_default = false
         }
         default: { fail('Unsupported RHEL/CentOS version!')  }
       }
@@ -56,6 +57,8 @@ class postfix::params {
               $check_postfix_mta=undef
 
               $mailclient=[ 'mailutils' ]
+
+              $readme_directory_default='/usr/share/doc/postfix'
             }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }

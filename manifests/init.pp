@@ -35,12 +35,12 @@ class postfix (
 
   if($biff)
   {
-    validate_string($biff)
+    validate_bool($biff)
   }
 
   if($append_dot_mydomain)
   {
-    validate_string($append_dot_mydomain)
+    validate_bool($append_dot_mydomain)
   }
 
   validate_string($readme_directory)
