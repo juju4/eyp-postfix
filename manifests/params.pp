@@ -27,7 +27,7 @@ class postfix::params {
     {
       case $::operatingsystemrelease
       {
-        /^[6-7].*$/:
+        /^[5-7].*$/:
         {
           $daemondirectory='/usr/libexec/postfix'
           #$dependencies=['chkconfig', 'grep']
