@@ -19,6 +19,7 @@ class postfix (
     $tlscert = $postfix::params::tlscert_default,
     $tlspk = $postfix::params::tlspk_default,
     $virtual_alias = $postfix::params::virtual_alias_default,
+    $install_mailclient=true,
     ) inherits postfix::params {
 
   Exec {
@@ -133,8 +134,12 @@ class postfix (
     }
   }
 
-  package { $postfix::params::dependencies:
-    ensure => installed,
+  if($install_mailclient)
+  {
+    package { $postfix::params::mailclient:
+      ensure => installed,
+      before => Package['postfix'],
+    }
   }
 
   package { 'postfix':

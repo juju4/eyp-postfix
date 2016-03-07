@@ -31,9 +31,11 @@ class postfix::params {
         /^[6-7].*$/:
         {
           $daemondirectory='/usr/libexec/postfix'
-          $dependencies=['chkconfig', 'grep']
+          #$dependencies=['chkconfig', 'grep']
           $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
           $check_postfix_mta='alternatives --display mta | grep postfix'
+
+          $mailclient=[ 'mailx' ]
         }
         default: { fail('Unsupported RHEL/CentOS version!')  }
       }
@@ -49,9 +51,11 @@ class postfix::params {
             /^14.*$/:
             {
               $daemondirectory='/usr/lib/postfix'
-              $dependencies=['dpkg', 'grep', 'mailutils' ]
+              #$dependencies=['dpkg', 'grep' ]
               $switch_to_postfix=undef
               $check_postfix_mta=undef
+
+              $mailclient=[ 'mailutils' ]
             }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }
