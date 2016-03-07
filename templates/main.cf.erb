@@ -87,6 +87,11 @@ myhostname = <%= @myhostname %>
 # parameters.
 #
 #mydomain = domain.tld
+#mydomain = domain.tld
+<%- if defined?(@mydomain) -%>
+mydomain = <%= @mydomain %>
+<%- end -%>
+
 
 # SENDING MAIL
 #
@@ -103,6 +108,9 @@ myhostname = <%= @myhostname %>
 #
 #myorigin = $myhostname
 #myorigin = $mydomain
+<%- if defined?(@myorigin) -%>
+myorigin = <%= @myorigin %>
+<%- end -%>
 
 # RECEIVING MAIL
 
@@ -175,7 +183,7 @@ inet_protocols = ipv4
 #
 # See also below, section "REJECTING MAIL FOR UNKNOWN LOCAL USERS".
 #
-mydestination = $myhostname, localhost.$mydomain, localhost
+mydestination = <%= @mydestination.join(',') %>
 #mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
 #mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain,
 #	mail.$mydomain, www.$mydomain, ftp.$mydomain
@@ -428,6 +436,9 @@ alias_database = hash:/etc/aliases
 # trying user and .forward.
 #
 #recipient_delimiter = +
+<%- if defined?(@recipient_delimitier) -%>
+recipient_delimiter = <%= @recipient_delimitier %>
+<%- end -%>
 
 # DELIVERY TO MAILBOX
 #
@@ -443,7 +454,7 @@ alias_database = hash:/etc/aliases
 # UNIX-style mailboxes are kept. The default setting depends on the
 # system type.
 #
-#mail_spool_directory = /var/mail
+mail_spool_directory = <%= @mail_spool_directory %>
 #mail_spool_directory = /var/spool/mail
 
 # The mailbox_command parameter specifies the optional external
@@ -695,9 +706,9 @@ sample_directory = /usr/share/doc/postfix-2.6.6/samples
 
 # readme_directory: The location of the Postfix README files.
 #
-readme_directory = /usr/share/doc/postfix-2.6.6/README_FILES
+readme_directory = <%= @readme_directory %>
 
-<% if(@opportunistictls) %>
+<%- if(@opportunistictls) -%>
 #opportunistic TLS
 
 # enable opportunistic TLS support in the SMTP server and client
@@ -711,14 +722,30 @@ smtp_tls_loglevel = 1
 # authentication only after STARTTLS
 smtpd_tls_auth_only = yes
 tls_ssl_options = NO_COMPRESSION
-<% end %>
 
-<% if(@tlscert) or (@subjectselfsigned) %>
+# cache database
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+<%- end -%>
+
+<%- if(@tlscert) or (@subjectselfsigned) -%>
 #TLS cert
 smtpd_tls_cert_file=/etc/pki/tls/certs/postfix.pem
-<% end %>
+<%- end -%>
 
-<% if(@tlspk) or (@subjectselfsigned) %>
+<%- if(@tlspk) or (@subjectselfsigned) -%>
 # TLS pk
 smtpd_tls_key_file=/etc/pki/tls/private/postfix-key.key
-<% end %>
+<%- end -%>
+
+<%- if defined?(@biff) -%>
+biff = <%= @biff %>
+<%- end -%>
+
+<%- if defined?(@append_dot_mydomain) -%>
+# appending .domain is the MUA's job.
+append_dot_mydomain = <%= @append_dot_mydomain %>
+<%- end -%>
+
+virtual_alias_maps = hash:/etc/postfix/virtual
+virtual_alias_domains = hash:/etc/postfix/virtual
