@@ -145,9 +145,9 @@ class postfix (
     }
   }
 
-  if($default_mta!=undef)
+  if($postfix::params::purge_default_mta!=undef)
   {
-    package { $default_mta:
+    package { $postfix::params::purge_default_mta:
       ensure => 'purged',
       before => Package['postfix'],
     }
