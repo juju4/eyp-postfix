@@ -1,5 +1,7 @@
 # postfix
 
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
+
 #### Table of Contents
 
 1. [Overview](#overview)
@@ -48,7 +50,7 @@ etc.), mention it here.
 To setup opportunistic TLS with custom certificates:
 
 ```puppet
-	class { 'postfix': 
+	class { 'postfix':
 		opportunistictls => true,
 		tlscert => 'puppet:///openldap/masterauth/ldap-master-01.crt',
 		tlspk => 'puppet:///openldap/masterauth/ldap-master-01.key.pem',
@@ -58,7 +60,7 @@ To setup opportunistic TLS with custom certificates:
 To setup opportunistic TLS with selfsigned certificate:
 
 ```puppet
-	class { 'postfix': 
+	class { 'postfix':
 		opportunistictls => true,
 		subjectselfsigned => '/C=ES/ST=Barcelona/L=Barcelona/O=systemadmin.es/CN=systemadmin.es',
 		generatecert => true,
