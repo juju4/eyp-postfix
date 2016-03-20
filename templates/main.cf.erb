@@ -747,5 +747,7 @@ biff = <%= scope.function_bool2yesno([@biff]) %>
 append_dot_mydomain = <%= scope.function_bool2yesno([@append_dot_mydomain]) %>
 <%- end -%>
 
+<%- if defined?(@virtual_alias) -%>
 virtual_alias_maps = hash:/etc/postfix/virtual
 virtual_alias_domains = hash:/etc/postfix/virtual
+<%- end -%>
