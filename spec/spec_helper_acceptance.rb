@@ -1,7 +1,7 @@
 require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 
-run_puppet_install_helper
+#run_puppet_install_helper
 
 RSpec.configure do |c|
   # Project root
@@ -12,6 +12,8 @@ RSpec.configure do |c|
 
   # Configure all nodes in nodeset
   c.before :suite do
+    install_puppet_on host, :default_action => 'gem_install'
+
     # Install module and dependencies
     puppet_module_install(:source => proj_root, :module_name => 'postfix')
     hosts.each do |host|
