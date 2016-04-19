@@ -8,12 +8,6 @@ HOSTS:
     image: ubuntu:14.04
     docker_preserve_image: true
     docker_image_commands:
-      - 'wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb -O /tmp/puppet.deb'
-      - 'dpkg -i /tmp/puppet.deb'
-      - 'apt-get update'
-      - 'yes | apt-get install puppet'
-      - 'puppet agent --enable'
-      - 'sed \'/^templatedir/d\' -i /etc/puppet/puppet.conf'
       - 'apt-get install gcc make tar wget openjdk-7-jdk openjdk-7-jre -y'
 CONFIG:
   type: foss

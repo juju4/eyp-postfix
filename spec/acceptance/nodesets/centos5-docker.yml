@@ -9,9 +9,6 @@ HOSTS:
     docker_preserve_image: true
     docker_cmd: '["/sbin/init"]'
     docker_image_commands:
-      - 'rpm -Uvh http://yum.puppetlabs.com/puppetlabs-release-el-5.noarch.rpm'
-      - 'yum clean all'
-      - 'yum install puppet -y'
       - 'yum install -y strace gcc make crontabs tar wget java-1.7.0-openjdk java-1.7.0-openjdk-devel'
 CONFIG:
   type: foss
