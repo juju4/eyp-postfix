@@ -1,7 +1,7 @@
 require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 
-run_puppet_install_helper
+#run_puppet_install_helper
 
 RSpec.configure do |c|
   # Project root
@@ -15,6 +15,9 @@ RSpec.configure do |c|
     # Install module and dependencies
     puppet_module_install(:source => proj_root, :module_name => 'postfix')
     hosts.each do |host|
+
+      install_puppet( foss_opts );
+
       # dependencies
       on host, puppet('module', 'install', 'eyp-eyplib'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module', 'install', 'puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
