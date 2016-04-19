@@ -28,8 +28,8 @@ matrix:
     dist: trusty
     bundler_args:
     script: sudo service docker restart ; sleep 10 && bundle exec rspec spec/acceptance/*_spec.rb
-  - rvm: 2.1.5
-    env: PUPPET_GEM_VERSION="~> 3.0" BEAKER_set="centos5-docker"
+  - rvm: default
+    env: BEAKER_set="centos5-docker"
     dist: trusty
     bundler_args:
     script: sudo service docker restart ; sleep 10 && bundle exec rspec spec/acceptance/*_spec.rb
