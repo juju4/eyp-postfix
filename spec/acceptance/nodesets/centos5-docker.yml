@@ -9,11 +9,7 @@ HOSTS:
     docker_preserve_image: true
     docker_cmd: '["/sbin/init"]'
     docker_image_commands:
-      - 'rm -rf /var/run/network/*'
-      - 'echo 192.155.89.90 yum.puppetlabs.com >> /etc/hosts'
       - 'yum install -y gcc make crontabs tar wget java-1.7.0-openjdk java-1.7.0-openjdk-devel'
-      - 'wget https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs -O /tmp/RPM-GPG-KEY-puppetlabs'
-      - 'rpm --import /tmp/RPM-GPG-KEY-puppetlabs'
 CONFIG:
   type: foss
   log_level: debug
