@@ -10,6 +10,9 @@ HOSTS:
     docker_cmd: '["/usr/sbin/init"]'
     docker_image_commands:
       - 'rm -rf /var/run/network/*'
+      - 'rpm -Uvh http://yum.puppetlabs.com/puppetlabs-release-el-6.noarch.rpm'
+      - 'yum clean all'
+      - 'yum install puppet -y'
       - 'yum install -y gcc make crontabs tar wget iproute java-1.7.0-openjdk java-1.7.0-openjdk-devel'
 CONFIG:
   type: foss
