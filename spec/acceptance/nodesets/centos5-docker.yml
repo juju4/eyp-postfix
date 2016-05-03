@@ -5,14 +5,11 @@ HOSTS:
       strict_variables:
     platform: el-5-x86_64
     hypervisor : docker
-    image: centos:5
+    image: tianon/centos:5.10
     docker_preserve_image: true
     docker_cmd: '["/sbin/init"]'
     docker_image_commands:
-      - 'rm -rf /var/run/network/*'
-      - 'yum install -y gcc make crontabs tar wget java-1.7.0-openjdk java-1.7.0-openjdk-devel'
-      - 'wget https://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs -O /tmp/RPM-GPG-KEY-puppetlabs'
-      - 'rpm --import /tmp/RPM-GPG-KEY-puppetlabs'
+      - 'yum install -y strace gcc make crontabs tar wget java-1.7.0-openjdk java-1.7.0-openjdk-devel'
 CONFIG:
   type: foss
   log_level: debug
