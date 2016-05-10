@@ -20,6 +20,10 @@ class postfix::params {
   $virtual_alias_default = undef
   $baseconf = '/etc/postfix'
   $mail_spool_directory_default = '/var/mail'
+  $default_process_limit_default = '100',
+  $smtpd_client_connection_count_limit_default = '10',
+  $smtpd_client_connection_rate_limit_default = '30',
+  $install_mailclient_default=true,
 
   case $::osfamily
   {
