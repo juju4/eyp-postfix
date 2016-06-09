@@ -75,7 +75,27 @@ This module can be used to configure postfix to relay mails to another server bu
 
 ### postfix
 
-Most variables are standard postfix variables, please refer to postfix documentation.
+Most variables are standard postfix variables, please refer to postfix documentation:
+ * append_dot_mydomain
+ * biff
+ * inetinterfaces
+ * ipv6
+ * mail_spool_directory
+ * mydestination
+ * mydomain
+ * myhostname
+ * mynetworks
+ * myorigin
+ * readme_directory
+ * recipient_delimiter
+ * relayhost
+ * smtpdbanner
+ * virtual_alias
+ * install_mailclient
+ * default_process_limit
+ * smtpd_client_connection_count_limit
+ * smtpd_client_connection_rate_limit
+ * in_flow_delay
 
 * **install_mailclient**: controls if a mail client should be installed (default: true)
 
