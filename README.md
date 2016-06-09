@@ -31,13 +31,21 @@ postfix relay setup and configuration
 * /etc/postfix/main.cf
 * package management
 * service management
-* purges packages for other MTA
+* purges packages for other MTA on CentOS and switches to postfix on Ubunut 14.04
 
 ### Setup Requirements
 
 This module requires pluginsync enabled
 
 ### Beginning with postfix
+
+relay:
+
+```puppet
+class { 'postfix':
+  relayhost => '1.2.3.4',
+}
+```
 
 To setup **opportunistic TLS with custom certificates**:
 
@@ -61,8 +69,7 @@ To setup **opportunistic TLS with selfsigned certificate**:
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+This module can be used to configure postfix to relay mails to another server but cannot be configured to have mailboxes.
 
 ## Reference
 
@@ -92,6 +99,10 @@ Tested on:
 
 We are pushing to have acceptance testing in place, so any new feature should
 have some test to check both presence and absence of any feature
+
+### TODO
+
+* local mailboxes support
 
 ### Contributing
 
