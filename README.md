@@ -5,49 +5,41 @@
 #### Table of Contents
 
 1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with postfix](#setup)
+2. [Module Description](#module-description)
+3. [Setup](#setup)
     * [What postfix affects](#what-postfix-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with postfix](#beginning-with-postfix)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+4. [Usage](#usage)
+5. [Reference](#reference)
+5. [Limitations](#limitations)
+6. [Development](#development)
+    * [Contributing](#contributing)
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+postfix management as a relay
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+postfix relay setup and configuration
 
 ## Setup
 
 ### What postfix affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+* /etc/postfix/main.cf
+* package management
+* service management
+* purges packages for other MTA
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+This module requires pluginsync enabled
 
 ### Beginning with postfix
 
-To setup opportunistic TLS with custom certificates:
+To setup **opportunistic TLS with custom certificates**:
 
 ```puppet
 	class { 'postfix':
@@ -57,7 +49,7 @@ To setup opportunistic TLS with custom certificates:
 	}
 ```
 
-To setup opportunistic TLS with selfsigned certificate:
+To setup **opportunistic TLS with selfsigned certificate**:
 
 ```puppet
 	class { 'postfix':
@@ -74,22 +66,37 @@ the fancy stuff with your module here.
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+### postfix
+
+Most variables are standard postfix variables, please refer to postfix documentation.
+
+* **install_mailclient**: controls if a mail client should be installed (default: true)
+
+#### SSL certificates:
+* **opportunistictls**: controls Opportunistic TLS (default: false)
+* **generatecert**: controls if a selfsigned certificate is generated for this postfix instance (default: true)
+* **tlscert**: source cert file - **generatecert** must be false
+* **tlspk**: source private key - **generatecert** must be false
+* **subjectselfsigned** subject for a selfsigned certificate - **generatecert** must be true. example: '/C=RC/ST=Barcelona/L=Barcelona/O=systemadmin.es/CN=systemadmin.es',
+
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+Tested on:
+* CentOS 5
+* CentOS 6
+* CentOS 7
+* Ubuntu 14.04
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+We are pushing to have acceptance testing in place, so any new feature should
+have some test to check both presence and absence of any feature
 
-## Release Notes/Contributors/Etc **Optional**
+### Contributing
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Added some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create new Pull Request
