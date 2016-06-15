@@ -1,5 +1,4 @@
 class postfix::params {
-
   $mynetworks_default = [ '127.0.0.1' ]
   $inetinterfaces_default = '127.0.0.1'
   $smtpdbanner_default = "${::hostname} ESMTP"
@@ -30,6 +29,8 @@ class postfix::params {
   {
     'redhat':
     {
+      $setgid_group_default='postdrop'
+
       case $::operatingsystemrelease
       {
         /^[5-7].*$/:
@@ -54,6 +55,8 @@ class postfix::params {
       {
         'Ubuntu':
         {
+          $setgid_group_default='postdrop'
+
           case $::operatingsystemrelease
           {
             /^14.*$/:
@@ -74,6 +77,35 @@ class postfix::params {
         }
         'Debian': { fail('Unsupported')  }
         default: { fail('Unsupported Debian flavour!')  }
+      }
+    }
+    'Suse':
+    {
+      $setgid_group_default='maildrop'
+
+      case $::operatingsystem
+      {
+        'SLES':
+        {
+          case $::operatingsystemrelease
+          {
+            '11.3':
+            {
+              $daemondirectory='/usr/lib/postfix'
+              #$dependencies=['dpkg', 'grep' ]
+              $switch_to_postfix=undef
+              $check_postfix_mta=undef
+
+              $purge_default_mta=[ 'sendmail' ]
+
+              $mailclient=[ 'mailx' ]
+
+              $readme_directory_default=false
+            }
+            default: { fail("Unsupported operating system ${::operatingsystem} ${::operatingsystemrelease}") }
+          }
+        }
+        default: { fail("Unsupported operating system ${::operatingsystem}") }
       }
     }
     default: { fail('Unsupported OS!')  }

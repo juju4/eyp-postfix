@@ -24,6 +24,7 @@ class postfix (
     $smtpd_client_connection_count_limit = $postfix::params::smtpd_client_connection_count_limit_default,
     $smtpd_client_connection_rate_limit  = $postfix::params::smtpd_client_connection_rate_limit_default,
     $in_flow_delay                       = $postfix::params::in_flow_delay_default,
+    $setgid_group                        = $postfix::params::setgid_group_default,
     ) inherits postfix::params {
 
   Exec {
