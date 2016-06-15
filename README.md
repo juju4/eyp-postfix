@@ -96,6 +96,7 @@ Most variables are standard postfix variables, please refer to postfix documenta
  * smtpd_client_connection_count_limit
  * smtpd_client_connection_rate_limit
  * in_flow_delay
+ * setgid_group
 
 * **install_mailclient**: controls if a mail client should be installed (default: true)
 
@@ -114,6 +115,7 @@ Tested on:
 * CentOS 6
 * CentOS 7
 * Ubuntu 14.04
+* SLES 11 SP3
 
 ## Development
 
