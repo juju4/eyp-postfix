@@ -39,6 +39,17 @@ This module requires pluginsync enabled
 
 ### Beginning with postfix
 
+basic_postinstall:
+
+```puppet
+class { 'postfix':
+  inetinterfaces => 'localhost',
+  smtpd_client_connection_count_limit => '10',
+  smtpd_client_connection_rate_limit => '30',
+  default_process_limit => '100',
+}
+```
+
 relay:
 
 ```puppet
