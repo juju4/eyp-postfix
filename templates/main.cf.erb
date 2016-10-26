@@ -345,6 +345,10 @@ mynetworks = <%= @mynetworks.join(",") %>
 relayhost = <%= @relayhost %>
 <% end -%>
 
+<% if defined?(@smtp_fallback_relay) -%>
+smtp_fallback_relay = <%= @smtp_fallback_relay.join(',') %>
+<% end -%>
+
 # REJECTING UNKNOWN RELAY USERS
 #
 # The relay_recipient_maps parameter specifies optional lookup tables
