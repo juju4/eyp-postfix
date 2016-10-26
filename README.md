@@ -100,6 +100,7 @@ Most variables are standard postfix variables, please refer to postfix documenta
  * readme_directory
  * recipient_delimiter
  * relayhost
+ * smtp_fallback_relay
  * smtpdbanner
  * virtual_alias
  * install_mailclient

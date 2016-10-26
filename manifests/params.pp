@@ -4,6 +4,7 @@ class postfix::params {
   $smtpdbanner_default = "${::hostname} ESMTP"
   $ipv6_default = false
   $relayhost_default = undef
+  $smtp_fallback_relay_default = undef
   $opportunistictls_default = false
   $tlscert_default = undef
   $tlspk_default = undef

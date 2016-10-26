@@ -25,6 +25,7 @@ class postfix (
     $smtpd_client_connection_rate_limit  = $postfix::params::smtpd_client_connection_rate_limit_default,
     $in_flow_delay                       = $postfix::params::in_flow_delay_default,
     $setgid_group                        = $postfix::params::setgid_group_default,
+    $smtp_fallback_relay                 = $postfix::params::smtp_fallback_relay_default,
     ) inherits postfix::params {
 
   Exec {
@@ -63,6 +64,11 @@ class postfix (
   }
 
   validate_array($mydestination)
+
+  if($smtp_fallback_relay!=undef)
+  {
+    validate_array($smtp_fallback_relay)
+  }
 
   if($tlscert) or ($tlspk) or ($opportunistictls)
   {

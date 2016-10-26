@@ -1,6 +1,6 @@
 {
   "name": "eyp-postfix",
-  "version": "0.1.53",
+  "version": "0.1.54",
   "author": "eyp",
   "summary": "basic postfix module",
   "license": "Apache-2.0",
