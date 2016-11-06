@@ -342,7 +342,7 @@ mynetworks = <%= @mynetworks.join(",") %>
 #relayhost = uucphost
 #relayhost = [an.ip.add.ress]
 <% if defined?(@relayhost) -%>
-relayhost = <%= @relayhost %>
+relayhost = <% if ! @relayhost_mx_lookup %>[<% end %><%= @relayhost %><% if ! @relayhost_mx_lookup %>]<% end %>
 <% end -%>
 
 <% if defined?(@smtp_fallback_relay) -%>

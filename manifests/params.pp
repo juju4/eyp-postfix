@@ -1,9 +1,12 @@
+#
 class postfix::params {
+
   $mynetworks_default = [ '127.0.0.1' ]
   $inetinterfaces_default = '127.0.0.1'
   $smtpdbanner_default = "${::hostname} ESMTP"
   $ipv6_default = false
   $relayhost_default = undef
+  $relayhost_mx_lookup_default = false
   $smtp_fallback_relay_default = undef
   $opportunistictls_default = false
   $tlscert_default = undef
