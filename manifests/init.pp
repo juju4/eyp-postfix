@@ -14,6 +14,7 @@ class postfix (
     $readme_directory                    = $postfix::params::readme_directory_default,
     $recipient_delimiter                 = $postfix::params::recipient_delimiter_default,
     $relayhost                           = $postfix::params::relayhost_default,
+    $relayhost_mx_lookup                 = $postfix::params::relayhost_mx_lookup_default,
     $smtpdbanner                         = $postfix::params::smtpdbanner_default,
     $subjectselfsigned                   = $postfix::params::subjectselfsigned_default,
     $tlscert                             = $postfix::params::tlscert_default,

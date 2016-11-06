@@ -1,11 +1,9 @@
 # CHANGELOG
 
-## 0.1.55
+## 0.1.56
 
-* bugfix fqdn relayhost:
-```
- (Host or domain name not found. Name service error for name=smtp.systemadmin.es type=MX: Host not found, try again)
-```
+**INCOMPATIBLE CHANGE**:
+* option **relayhost_mx_lookup** to disable MX lookups for **relay_host** (disabled by default)
 
 ## 0.1.54
 
