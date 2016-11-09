@@ -1,11 +1,11 @@
 define postfix::masterservice(
                                 $service_type,
                                 $type,
-                                $private,
-                                $unpriv,
-                                $chroot,
-                                $wakeup,
-                                $maxproc,
+                                $private = true,
+                                $unpriv = true,
+                                $chroot = 'n',
+                                $wakeup = '-',
+                                $maxproc = '-',
                                 $command_args,
                                 $comment = undef,
   ) {
