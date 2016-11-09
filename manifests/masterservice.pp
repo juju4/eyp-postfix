@@ -1,5 +1,5 @@
 define postfix::masterservice(
-                                $service_type,
+                                $service,
                                 $type,
                                 $private = true,
                                 $unpriv = true,
