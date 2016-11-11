@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.57
+
+* added postfix::transport
+
 ## 0.1.56
 
 **INCOMPATIBLE CHANGE**:

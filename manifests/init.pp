@@ -214,4 +214,26 @@ class postfix (
       }
   }
 
+  #postmap /etc/postfix/transport
+  exec { 'reload postfix transport':
+    command     => 'postmap /etc/postfix/transport',
+    refreshonly => true,
+    notify      => Class['postfix::service'],
+  }
+
+  concat { '/etc/postfix/transport':
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package['postfix'],
+    notify  => Exec['reload postfix transport'],
+  }
+
+  concat::fragment{ '/etc/postfix/transport header':
+    target  => '/etc/postfix/transport',
+    order   => '00',
+    content => template("${module_name}/transport/header.erb"),
+  }
+
 }

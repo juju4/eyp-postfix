@@ -1,0 +1,5 @@
+
+<%= @domain %>      :[<%= @nexthop %>]
+<% if @includesubdomains -%>
+.<%= @domain %>     :[<%= @nexthop %>]
+<% end %>
