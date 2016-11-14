@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.1.58
+
+* main.cf to concat
+
 ## 0.1.57
 
 * added postfix::transport
