@@ -169,14 +169,19 @@ class postfix (
     ensure => 'installed',
   }
 
-  file { '/etc/postfix/main.cf':
+  concat { '/etc/postfix/main.cf':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
     require => Package['postfix'],
     notify  => Class['postfix::service'],
-    content => template("${module_name}/main.cf.erb")
+  }
+
+  concat::fragment{ '/etc/postfix/main.cf base':
+    target  => '/etc/postfix/main.cf',
+    order   => '00',
+    content => template("${module_name}/main.cf.erb"),
   }
 
   class { 'postfix::service':
