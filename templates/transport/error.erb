@@ -1,0 +1,5 @@
+
+<%= @domain %>      error:<%= @error %>
+<% if @includesubdomains -%>
+.<%= @domain %>     error:<%= @error %>
+<% end %>
