@@ -169,6 +169,7 @@ class postfix (
     ensure => 'installed',
   }
 
+  # TODO: to concat
   file { '/etc/postfix/main.cf':
     ensure  => present,
     owner   => 'root',
