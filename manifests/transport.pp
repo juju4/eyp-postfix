@@ -16,7 +16,7 @@ define postfix::transport(
     }
   }
 
-  concat::fragment{ '/etc/postfix/transport ${name} ${domain} ${nexthop}':
+  concat::fragment{ "/etc/postfix/transport ${name} ${domain} ${nexthop}":
     target  => '/etc/postfix/transport',
     order   => $order,
     content => template("${module_name}/transport/nexthop.erb"),
