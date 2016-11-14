@@ -5,7 +5,7 @@ define postfix::transport(
                             $order             = '55',
                           ) {
 
-  if(! defined?(Concat::Fragment['/etc/postfix/main.cf transport_maps']))
+  if(! defined(Concat::Fragment['/etc/postfix/main.cf transport_maps']))
   {
     # # transport
     # transport_maps = hash:/etc/postfix/transport
