@@ -3,6 +3,7 @@
 ## 0.1.58
 
 * main.cf to concat
+* added error support for **postfix::transport**
 
 ## 0.1.57
 
