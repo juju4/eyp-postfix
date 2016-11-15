@@ -1,3 +1,4 @@
+# TODO, dependencia class postfix::disclaimer()
 define postfix::masterservice(
                                 $service,
                                 $type,
