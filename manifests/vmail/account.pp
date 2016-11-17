@@ -11,8 +11,11 @@ define postfix::vmail::account(
 
   include ::postfix::vmail
 
-  dovecot::account { "${accountname}@${domain}":
-    password => $password,
+  if($postfix::vmail::setup_dovecot)
+  {
+    dovecot::account { "${accountname}@${domain}":
+      password => $password,
+    }  
   }
 
   exec { "eyp-postfix mailbox ${accountname}@${domain}":
