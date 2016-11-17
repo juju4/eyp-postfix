@@ -1,6 +1,7 @@
 define postfix::vmail::account(
                                 $accountname,
                                 $domain,
+                                $password,
                                 $order = '42',
                               ) {
 
@@ -9,6 +10,10 @@ define postfix::vmail::account(
   }
 
   include ::postfix::vmail
+
+  dovecot::account { "${accountname}@${domain}":
+    password => $password,
+  }
 
   exec { "eyp-postfix mailbox ${accountname}@${domain}":
     command => "mkdir -p ${postfix::vmail::mailbox_base}/${domain}/${accountname}",

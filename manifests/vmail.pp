@@ -1,11 +1,39 @@
 class postfix::vmail(
-                      $mailbox_base = '/var/vmail'
+                      $mailbox_base  = '/var/vmail',
+                      $setup_dovecot = true,
                     ) inherits postfix::params {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
   }
 
-  include ::dovecot
+  if($setup_dovecot)
+  {
+    class { 'dovecot':
+      default_login_user => $postfix::postfix_username,
+      first_valid_uid    => $postfix::postfix_username_uid,
+      first_valid_gid    => $postfix::postfix_username_gid,
+      mail_location      => "maildir:${mailbox_base}/%d/%n",
+    }
+
+  	class { 'dovecot::userdb':
+      $uid             = $postfix::postfix_username_uid,
+      $gid             = $postfix::postfix_username_gid,
+      $home            = "${mailbox_base}/%d/%n",
+    }
+
+  	class { 'dovecot::passdb': }
+
+  	class { 'dovecot::auth': }
+
+  	class { 'dovecot::auth::unixlistener':
+      $user  = $postfix::postfix_username,
+      $group = $postfix::postfix_username,
+    }
+
+  	class { 'dovecot::imaplogin':
+      $user = $postfix::postfix_username,
+    }  
+  }
 
   exec { 'eyp-postfix mailbox base':
     command => "mkdir -p ${mailbox_base}",
@@ -127,5 +155,8 @@ class postfix::vmail(
     notify      => Class['postfix::service'],
     require     => Package[$postfix::params::package_name],
   }
+
+  Class['::postfix'] ->
+  Class['::postfix::vmail']
 
 }
