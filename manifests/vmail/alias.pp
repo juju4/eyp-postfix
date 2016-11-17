@@ -6,6 +6,10 @@ define postfix::vmail::alias(
 
   validate_array($aliasto)
 
+  Exec {
+    path => '/bin:/sbin:/usr/bin:/usr/sbin',
+  }
+
   if(! defined(Concat::Fragment['/etc/postfix/main.cf virtual_alias_maps']))
   {
     concat::fragment{ '/etc/postfix/main.cf virtual_alias_maps':

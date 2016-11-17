@@ -4,7 +4,10 @@ define postfix::vmail::account(
                                 $order = '42',
                               ) {
 
-  #virtual_mailbox_maps=hash:/etc/postfix/vmail_mailbox
+  Exec {
+    path => '/bin:/sbin:/usr/bin:/usr/sbin',
+  }
+
   if(! defined(Concat::Fragment['/etc/postfix/main.cf virtual_mailbox_maps']))
   {
     concat::fragment{ '/etc/postfix/main.cf virtual_mailbox_maps':

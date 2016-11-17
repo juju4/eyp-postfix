@@ -7,6 +7,7 @@
   * **INCOMPATIBLE CHANGE**: removed virtual_alias variable
   * added **postfix::vmail::alias**
   * **INCOMPATIBLE CHANGE**: changed default mailbox to **maildir**
+  * virtual domains/accounts via **postfix::vmail::account**
 
 ## 0.1.58
 
