@@ -16,9 +16,9 @@ class postfix::vmail(
     }
 
   	class { 'dovecot::userdb':
-      $uid             = $postfix::postfix_username_uid,
-      $gid             = $postfix::postfix_username_gid,
-      $home            = "${mailbox_base}/%d/%n",
+      uid  => $postfix::postfix_username_uid,
+      gid  => $postfix::postfix_username_gid,
+      home => "${mailbox_base}/%d/%n",
     }
 
   	class { 'dovecot::passdb': }
@@ -26,13 +26,13 @@ class postfix::vmail(
   	class { 'dovecot::auth': }
 
   	class { 'dovecot::auth::unixlistener':
-      $user  = $postfix::postfix_username,
-      $group = $postfix::postfix_username,
+      user  => $postfix::postfix_username,
+      group => $postfix::postfix_username,
     }
 
   	class { 'dovecot::imaplogin':
-      $user = $postfix::postfix_username,
-    }  
+      user => $postfix::postfix_username,
+    }
   }
 
   exec { 'eyp-postfix mailbox base':
