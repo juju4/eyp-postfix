@@ -1,5 +1,13 @@
 # multidomain mailserver
 # https://www.rosehosting.com/blog/mailserver-with-virtual-users-and-domains-using-postfix-and-dovecot-on-a-centos-6-vps/
+#
+# concat main.cf
+#
+# 00 - base
+# 01 - transport
+# 50 - vmail
+# 51 - virtual aliases
+#
 class postfix (
     $append_dot_mydomain                 = $postfix::params::append_dot_mydomain_default,
     $biff                                = $postfix::params::biff_default,
@@ -253,7 +261,7 @@ class postfix (
   concat::fragment{ '/etc/postfix/vmail_aliases header':
     target  => '/etc/postfix/vmail_aliases',
     order   => '00',
-    content => template("${module_name}/aliases/header.erb"),
+    content => template("${module_name}/vmail/aliases/header.erb"),
   }
 
 }
