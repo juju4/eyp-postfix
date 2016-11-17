@@ -59,7 +59,7 @@ data_directory = /var/lib/postfix
 # particular, don't specify nobody or daemon. PLEASE USE A DEDICATED
 # USER.
 #
-mail_owner = postfix
+mail_owner = <%= @postfix_username %>
 
 # The default_privs parameter specifies the default rights used by
 # the local delivery agent for delivery to external file or command.
@@ -240,7 +240,7 @@ mydestination = <%= @mydestination.join(',') %>
 # with 450 (try again later) until you are certain that your
 # local_recipient_maps settings are OK.
 #
-unknown_local_recipient_reject_code = 550
+unknown_local_recipient_reject_code = <%= @unknown_local_recipient_reject_code %>
 
 # TRUST AND RELAY CONTROL
 
@@ -452,7 +452,7 @@ recipient_delimiter = <%= @recipient_delimitier %>
 # "Maildir/" for qmail-style delivery (the / is required).
 #
 #home_mailbox = Mailbox
-#home_mailbox = Maildir/
+home_mailbox = <%= @home_mailbox %>
 
 # The mail_spool_directory parameter specifies the directory where
 # UNIX-style mailboxes are kept. The default setting depends on the
@@ -749,11 +749,6 @@ biff = <%= scope.function_bool2yesno([@biff]) %>
 <%- if defined?(@append_dot_mydomain) -%>
 # appending .domain is the MUA's job.
 append_dot_mydomain = <%= scope.function_bool2yesno([@append_dot_mydomain]) %>
-<%- end -%>
-
-<%- if defined?(@virtual_alias) -%>
-virtual_alias_maps = hash:/etc/postfix/virtual
-virtual_alias_domains = hash:/etc/postfix/virtual
 <%- end -%>
 
 # postfix tunning

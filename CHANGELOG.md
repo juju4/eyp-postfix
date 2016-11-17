@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 0.2.1
+
+* Mailserver with virtual users and domains
+  * added **postfix::vmail** for virtual hosting
+  * **INCOMPATIBLE CHANGE**: removed virtual_alias variable
+  * added **postfix::vmail::alias**
+  * **INCOMPATIBLE CHANGE**: changed default mailbox to **maildir**
+  * virtual domains/accounts via **postfix::vmail::account**
+
 ## 0.1.58
 
 * main.cf to concat

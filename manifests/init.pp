@@ -1,3 +1,15 @@
+# multidomain mailserver
+# https://www.rosehosting.com/blog/mailserver-with-virtual-users-and-domains-using-postfix-and-dovecot-on-a-centos-6-vps/
+#
+# concat main.cf
+#
+# 00 - base
+# 01 - transport
+# 50 - vmail
+# 51 - virtual aliases
+# 52 - virtual_mailbox_maps
+# 53 - virtual domains
+#
 class postfix (
     $append_dot_mydomain                 = $postfix::params::append_dot_mydomain_default,
     $biff                                = $postfix::params::biff_default,
@@ -19,7 +31,6 @@ class postfix (
     $subjectselfsigned                   = $postfix::params::subjectselfsigned_default,
     $tlscert                             = $postfix::params::tlscert_default,
     $tlspk                               = $postfix::params::tlspk_default,
-    $virtual_alias                       = $postfix::params::virtual_alias_default,
     $install_mailclient                  = $postfix::params::install_mailclient_default,
     $default_process_limit               = $postfix::params::default_process_limit_default,
     $smtpd_client_connection_count_limit = $postfix::params::smtpd_client_connection_count_limit_default,
@@ -27,6 +38,11 @@ class postfix (
     $in_flow_delay                       = $postfix::params::in_flow_delay_default,
     $setgid_group                        = $postfix::params::setgid_group_default,
     $smtp_fallback_relay                 = $postfix::params::smtp_fallback_relay_default,
+    $unknown_local_recipient_reject_code = '550',
+    $postfix_username                    = 'postfix',
+    $postfix_username_uid                = $postfix_username_uid_default,
+    $postfix_username_gid                = $postfix_username_gid_default,
+    $home_mailbox                        = 'Maildir/',
     ) inherits postfix::params {
 
   Exec {
@@ -69,6 +85,15 @@ class postfix (
   if($smtp_fallback_relay!=undef)
   {
     validate_array($smtp_fallback_relay)
+  }
+
+  validate_re($home_mailbox, [ '^Maildir/$', '^Mailbox$' ], 'Not a supported home_mailbox - valid values: Mailbox and Maildir/')
+
+  user { $postfix_username:
+    ensure  => 'present',
+    uid     => $postfix_username_uid,
+    gid     => $postfix_username_gid,
+    require => Package[$postfix::params::package_name],
   }
 
   if($tlscert) or ($tlspk) or ($opportunistictls)
@@ -153,7 +178,7 @@ class postfix (
   {
     package { $postfix::params::mailclient:
       ensure => 'installed',
-      before => Package['postfix'],
+      before => Package[$postfix::params::package_name],
     }
   }
 
@@ -161,11 +186,11 @@ class postfix (
   {
     package { $postfix::params::purge_default_mta:
       ensure  => 'absent',
-      require => Package['postfix'],
+      require => Package[$postfix::params::package_name],
     }
   }
 
-  package { 'postfix':
+  package { $postfix::params::package_name:
     ensure => 'installed',
   }
 
@@ -174,7 +199,7 @@ class postfix (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package['postfix'],
+    require => Package[$postfix::params::package_name],
     notify  => Class['postfix::service'],
   }
 
@@ -195,35 +220,16 @@ class postfix (
     exec { 'switch_mta_to_postfix':
       command => $postfix::params::switch_to_postfix,
       unless  => $postfix::params::check_postfix_mta,
-      require => Package['postfix'],
+      require => Package[$postfix::params::package_name],
     }
-  }
-
-  if($virtual_alias)
-  {
-
-    exec { 'postmap virtual':
-      command => "postmap ${postfix::params::baseconf}/virtual",
-      creates => "${postfix::params::baseconf}/virtual.db",
-      require => [ File["${postfix::params::baseconf}/virtual"], Package['postfix'] ],
-    }
-
-    file { "${postfix::params::baseconf}/virtual":
-      ensure  => 'present',
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      require => Package['postfix'],
-      notify  => Class['postfix::service'],
-      content => template("${module_name}/virtual_alias/virtual_alias.erb"),
-      }
   }
 
   #postmap /etc/postfix/transport
   exec { 'reload postfix transport':
-    command     => 'postmap /etc/postfix/transport',
+    command     => "postmap ${postfix::params::baseconf}/transport",
     refreshonly => true,
     notify      => Class['postfix::service'],
+    require     => [ Package[$postfix::params::package_name],  ],
   }
 
   concat { '/etc/postfix/transport':
@@ -231,7 +237,7 @@ class postfix (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    require => Package['postfix'],
+    require => Package[$postfix::params::package_name],
     notify  => Exec['reload postfix transport'],
   }
 
