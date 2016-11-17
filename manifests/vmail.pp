@@ -55,7 +55,7 @@ class postfix::vmail(
   concat::fragment{ '/etc/postfix/main.cf virtual_mailbox_domains':
     target  => '/etc/postfix/main.cf',
     order   => '53',
-    content => "\n# virtual domains\virtual_mailbox_domains=hash:/etc/postfix/vmail_domains\n",
+    content => "\n# virtual domains\nvirtual_mailbox_domains=hash:/etc/postfix/vmail_domains\n",
   }
 
   concat { '/etc/postfix/vmail_domains':
