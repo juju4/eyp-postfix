@@ -239,6 +239,7 @@ class postfix (
     target  => '/etc/postfix/transport',
     order   => '00',
     content => template("${module_name}/transport/header.erb"),
+  }
 
   concat { '/etc/postfix/vmail_aliases':
     ensure  => 'present',

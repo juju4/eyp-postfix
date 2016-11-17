@@ -4,6 +4,8 @@ define postfix::vmail::alias(
                               $order     = '55',
                             ) {
 
+  validate_array($aliasto)
+
   if(! defined(Concat::Fragment['/etc/postfix/main.cf virtual_alias_maps']))
   {
     concat::fragment{ '/etc/postfix/main.cf virtual_alias_maps':
