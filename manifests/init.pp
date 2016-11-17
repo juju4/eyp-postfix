@@ -222,13 +222,6 @@ class postfix (
     }
   }
 
-  exec { 'reload postfix aliases':
-    command     => "postmap ${postfix::params::baseconf}/vmail_aliases",
-    refreshonly => true,
-    notify      => Class['postfix::service'],
-    require     => Package[$postfix::params::package_name],
-  }
-
   #postmap /etc/postfix/transport
   exec { 'reload postfix transport':
     command     => "postmap ${postfix::params::baseconf}/transport",

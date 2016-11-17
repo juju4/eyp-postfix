@@ -13,7 +13,7 @@ define postfix::vmail::alias(
       order   => '51',
       content => "\n# virtual aliases\nvirtual_alias_maps=hash:/etc/postfix/vmail_aliases\n",
     }
-    
+
     concat { '/etc/postfix/vmail_aliases':
       ensure  => 'present',
       owner   => 'root',
@@ -27,6 +27,13 @@ define postfix::vmail::alias(
       target  => '/etc/postfix/vmail_aliases',
       order   => '00',
       content => template("${module_name}/vmail/aliases/header.erb"),
+    }
+
+    exec { 'reload postfix aliases':
+      command     => "postmap ${postfix::params::baseconf}/vmail_aliases",
+      refreshonly => true,
+      notify      => Class['postfix::service'],
+      require     => Package[$postfix::params::package_name],
     }
   }
 
