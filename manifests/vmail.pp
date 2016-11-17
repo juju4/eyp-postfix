@@ -155,8 +155,4 @@ class postfix::vmail(
     notify      => Class['postfix::service'],
     require     => Package[$postfix::params::package_name],
   }
-
-  Class['::postfix'] ->
-  Class['::postfix::vmail']
-
 }
