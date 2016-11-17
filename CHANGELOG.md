@@ -3,7 +3,7 @@
 ## 0.2.1
 
 * Mailserver with virtual users and domains
-  * added **postfix::vmail** for virtual hosting
+  * added **postfix::vmail** for virtual hosting using **eyp-dovecot**
   * **INCOMPATIBLE CHANGE**: removed virtual_alias variable
   * added **postfix::vmail::alias**
   * **INCOMPATIBLE CHANGE**: changed default mailbox to **maildir**

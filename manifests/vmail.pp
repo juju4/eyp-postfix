@@ -5,6 +5,8 @@ class postfix::vmail(
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
   }
 
+  include ::dovecot
+
   exec { 'eyp-postfix mailbox base':
     command => "mkdir -p ${mailbox_base}",
     creates => $mailbox_base,
