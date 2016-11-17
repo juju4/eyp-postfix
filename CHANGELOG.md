@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.2.1
+
+* Mailserver with virtual users and domains
+  * **INCOMPATIBLE CHANGE**: removed virtual_alias variable
+
 ## 0.1.58
 
 * main.cf to concat

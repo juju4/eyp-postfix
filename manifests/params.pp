@@ -1,6 +1,8 @@
 #
 class postfix::params {
 
+  $package_name='postfix'
+
   $mynetworks_default = [ '127.0.0.1' ]
   $inetinterfaces_default = '127.0.0.1'
   $smtpdbanner_default = "${::hostname} ESMTP"
@@ -49,6 +51,9 @@ class postfix::params {
           $mailclient=[ 'mailx' ]
 
           $readme_directory_default = false
+
+          $postfix_username_uid_default='89'
+          $postfix_username_gid_default='89'
         }
         default: { fail('Unsupported RHEL/CentOS version!')  }
       }
@@ -75,6 +80,9 @@ class postfix::params {
               $mailclient=[ 'mailutils' ]
 
               $readme_directory_default='/usr/share/doc/postfix'
+
+              $postfix_username_uid_default='110'
+              $postfix_username_gid_default='115'
             }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }
@@ -105,6 +113,9 @@ class postfix::params {
               $mailclient=[ 'mailx' ]
 
               $readme_directory_default=false
+
+              $postfix_username_uid_default='51'
+              $postfix_username_gid_default='51'
             }
             default: { fail("Unsupported operating system ${::operatingsystem} ${::operatingsystemrelease}") }
           }
