@@ -37,5 +37,14 @@ define postfix::vmail::account(
       order   => $order,
       content => template("${module_name}/vmail/domains/domain.erb"),
     }
+
+    file { "${postfix::vmail::mailbox_base}/${domain}":
+      ensure  => 'directory',
+      owner   => $postfix::postfix_username,
+      group   => $postfix::postfix_username,
+      mode    => '0770',
+      require => Exec["eyp-postfix mailbox ${accountname}@${domain}"],
+      before  => Class['postfix::service'],
+    }
   }
 }
