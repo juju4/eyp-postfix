@@ -14,4 +14,10 @@ define postfix::vmail::account(
     content => template("${module_name}/vmail/mailbox/account.erb"),
   }
 
+  concat::fragment{ "/etc/postfix/vmail_domains ${domain}":
+    target  => '/etc/postfix/vmail_domains',
+    order   => $order,
+    content => template("${module_name}/vmail/domains/domain.erb"),
+  }
+
 }

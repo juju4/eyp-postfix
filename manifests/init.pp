@@ -6,7 +6,9 @@
 # 00 - base
 # 01 - transport
 # 50 - vmail
-# 51 - virtual aliases, virtual_mailbox_maps
+# 51 - virtual aliases
+# 52 - virtual_mailbox_maps
+# 53 - virtual domains
 #
 class postfix (
     $append_dot_mydomain                 = $postfix::params::append_dot_mydomain_default,

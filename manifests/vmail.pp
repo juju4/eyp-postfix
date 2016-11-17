@@ -48,6 +48,39 @@ class postfix::vmail(
   }
 
   #
+  # virtual domains
+  #
+  #virtual_mailbox_domains=hash:/etc/postfix/vmail_domains
+
+  concat::fragment{ '/etc/postfix/main.cf virtual_mailbox_domains':
+    target  => '/etc/postfix/main.cf',
+    order   => '53',
+    content => "\n# virtual domains\virtual_mailbox_domains=hash:/etc/postfix/vmail_domains\n",
+  }
+
+  concat { '/etc/postfix/vmail_domains':
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package[$postfix::params::package_name],
+    notify  => Exec['reload postfix domains'],
+  }
+
+  concat::fragment{ '/etc/postfix/vmail_domains header':
+    target  => '/etc/postfix/vmail_domains',
+    order   => '00',
+    content => template("${module_name}/vmail/domains/header.erb"),
+  }
+
+  exec { 'reload postfix domains':
+    command     => "postmap ${postfix::params::baseconf}/vmail_domains",
+    refreshonly => true,
+    notify      => Class['postfix::service'],
+    require     => Package[$postfix::params::package_name],
+  }
+
+  #
   # virtual aliases
   #
 
