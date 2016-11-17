@@ -1,12 +1,26 @@
 class postfix::vmail(
-                      $domains = undef,
+                      $mailbox_base = '/var/vmail'
                     ) inherits postfix::params {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
   }
 
+  exec { 'eyp-postfix mailbox base':
+    command => "mkdir -p ${mailbox_base}",
+    creates => $mailbox_base,
+  }
+
+  file { $mailbox_base:
+    ensure  => 'directory',
+    owner   => $postfix::postfix_username,
+    group   => $postfix::postfix_username,
+    mode    => '0770',
+    require => Exec['eyp-postfix mailbox base'],
+    before  => Class['postfix::service'],
+  }
+
   #
-  # vmail base
+  # vmail base config
   #
 
   concat::fragment{ '/etc/postfix/main.cf vmail base':
@@ -22,7 +36,7 @@ class postfix::vmail(
   concat::fragment{ '/etc/postfix/main.cf virtual_mailbox_maps':
     target  => '/etc/postfix/main.cf',
     order   => '52',
-    content => "\n# virtual mailboxes\nvirtual_mailbox_maps=hash:/etc/postfix/vmail_mailbox\n",
+    content => "\n# virtual mailboxes\nvirtual_mailbox_mapsza=hash:/etc/postfix/vmail_mailbox\n",
   }
 
   concat { '/etc/postfix/vmail_mailbox':

@@ -3,7 +3,7 @@
 # virtual mail
 #
 
-virtual_mailbox_base = /var/vmail
+virtual_mailbox_base = <%= @mailbox_base %>
 virtual_minimum_uid = <%= @postfix_username_uid_default %>
 virtual_transport = virtual
 virtual_uid_maps = static:<%= @postfix_username_uid_default %>
