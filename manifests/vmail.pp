@@ -1,4 +1,5 @@
 class postfix::vmail(
+                      $domains = undef,
                     ) inherits postfix::params {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',

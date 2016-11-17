@@ -40,6 +40,7 @@ class postfix (
     $postfix_username                    = 'postfix',
     $postfix_username_uid                = $postfix_username_uid_default,
     $postfix_username_gid                = $postfix_username_gid_default,
+    $home_mailbox                        = 'Maildir/',
     ) inherits postfix::params {
 
   Exec {
@@ -83,6 +84,8 @@ class postfix (
   {
     validate_array($smtp_fallback_relay)
   }
+
+  validate_re($home_mailbox, [ '^Maildir/$', '^Mailbox$' ], 'Not a supported home_mailbox - valid values: Mailbox and Maildir/')
 
   user { $postfix_username:
     ensure  => 'present',

@@ -3,7 +3,10 @@
 ## 0.2.1
 
 * Mailserver with virtual users and domains
+  * added **postfix::vmail** for virtual hosting
   * **INCOMPATIBLE CHANGE**: removed virtual_alias variable
+  * added **postfix::vmail::alias**
+  * 
 
 ## 0.1.58
 
