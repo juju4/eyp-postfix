@@ -22,7 +22,7 @@ class postfix::vmail(
   concat::fragment{ '/etc/postfix/main.cf virtual_mailbox_maps':
     target  => '/etc/postfix/main.cf',
     order   => '52',
-    content => "\n# virtual mailboxes\nvirtual_alias_maps=hash:virtual_mailbox_maps=hash:/etc/postfix/vmail_mailbox\n",
+    content => "\n# virtual mailboxes\nvirtual_alias_maps=hash:/etc/postfix/vmail_mailbox\n",
   }
 
   concat { '/etc/postfix/vmail_mailbox':
