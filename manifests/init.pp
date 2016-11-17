@@ -6,7 +6,7 @@
 # 00 - base
 # 01 - transport
 # 50 - vmail
-# 51 - virtual aliases
+# 51 - virtual aliases, virtual_mailbox_maps
 #
 class postfix (
     $append_dot_mydomain                 = $postfix::params::append_dot_mydomain_default,
@@ -250,21 +250,6 @@ class postfix (
     target  => '/etc/postfix/transport',
     order   => '00',
     content => template("${module_name}/transport/header.erb"),
-  }
-
-  concat { '/etc/postfix/vmail_aliases':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => Package[$postfix::params::package_name],
-    notify  => Exec['reload postfix aliases'],
-  }
-
-  concat::fragment{ '/etc/postfix/vmail_aliases header':
-    target  => '/etc/postfix/vmail_aliases',
-    order   => '00',
-    content => template("${module_name}/vmail/aliases/header.erb"),
   }
 
 }

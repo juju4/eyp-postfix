@@ -13,6 +13,21 @@ define postfix::vmail::alias(
       order   => '51',
       content => "\n# virtual aliases\nvirtual_alias_maps=hash:/etc/postfix/vmail_aliases\n",
     }
+    
+    concat { '/etc/postfix/vmail_aliases':
+      ensure  => 'present',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Package[$postfix::params::package_name],
+      notify  => Exec['reload postfix aliases'],
+    }
+
+    concat::fragment{ '/etc/postfix/vmail_aliases header':
+      target  => '/etc/postfix/vmail_aliases',
+      order   => '00',
+      content => template("${module_name}/vmail/aliases/header.erb"),
+    }
   }
 
   concat::fragment{ "/etc/postfix/vmail_aliases ${aliasfrom} ${aliasto}":
