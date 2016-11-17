@@ -24,7 +24,7 @@ define postfix::vmail::account(
     before  => Class['postfix::service'],
   }
 
-  concat::fragment{ "/etc/postfix/vmail_mailbox ${account} ${domain}":
+  concat::fragment{ "/etc/postfix/vmail_mailbox ${accountname} ${domain}":
     target  => '/etc/postfix/vmail_mailbox',
     order   => $order,
     content => template("${module_name}/vmail/mailbox/account.erb"),
@@ -36,6 +36,6 @@ define postfix::vmail::account(
       target  => '/etc/postfix/vmail_domains',
       order   => $order,
       content => template("${module_name}/vmail/domains/domain.erb"),
-    }  
+    }
   }
 }
