@@ -8,7 +8,7 @@
   * added **postfix::vmail::alias**
   * **INCOMPATIBLE CHANGE**: changed default mailbox to **maildir**
   * virtual domains/accounts via **postfix::vmail::account**
-  * **dovecot** based auth - unsing **eyp-dovecot**
+  * **dovecot** based auth - using **eyp-dovecot**
 
 ## 0.1.58
 
