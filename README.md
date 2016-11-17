@@ -76,6 +76,35 @@ To setup **opportunistic TLS with selfsigned certificate**:
 	}
 ```
 
+multidomain mail server
+```
+class { 'postfix': }
+
+class { 'postfix::vmail': }
+
+postfix::vmail::alias { 'example@systemadmin.es':
+  aliasto => [ 'exemple@systemadmin.es' ],
+}
+
+postfix::vmail::account { 'example@systemadmin.es':
+  accountname => 'example',
+  domain => 'systemadmin.es',
+  password => 'secretpassw0rd',
+}
+
+postfix::vmail::account { 'silvia@systemadmin.es':
+  accountname => 'silvia',
+  domain => 'systemadmin.es',
+  password => 'secretpassw0rd2',
+}
+
+postfix::vmail::account { 'marc@systemadmin.es':
+  accountname => 'marc',
+  domain => 'systemadmin.es',
+  password => 'secretpassw0rd3',
+}
+```
+
 ## Usage
 
 This module can be used to configure postfix to relay mails to another server but cannot be configured to have mailboxes.
