@@ -2,7 +2,7 @@
   "name": "eyp-postfix",
   "version": "0.2.3",
   "author": "eyp",
-  "summary": "basic postfix module",
+  "summary": "postfix management - relay or multidomain mailserver",
   "license": "Apache-2.0",
   "source": "",
   "project_page": null,

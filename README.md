@@ -16,11 +16,11 @@
 
 ## Overview
 
-postfix management as a relay
+postfix management
 
 ## Module Description
 
-postfix relay setup and configuration
+postfix setup and configuration, can be configured to act like a simple mail relay or a multidomain mailserver
 
 ## Setup
 
@@ -33,47 +33,24 @@ postfix relay setup and configuration
 
 ### Setup Requirements
 
-This module requires pluginsync enabled
+This module **requires pluginsync** enabled and **eyp-dovecot** (it is required to be able to setup IMAP for the mailserver: **postfix::vmail**)
 
 ### Beginning with postfix
 
-basic_postinstall:
+basic setup:
 
 ```puppet
 class { 'postfix':
   inetinterfaces => 'localhost',
-  smtpd_client_connection_count_limit => '10',
-  smtpd_client_connection_rate_limit => '30',
-  default_process_limit => '100',
 }
 ```
 
-relay:
+mail relay:
 
 ```puppet
 class { 'postfix':
   relayhost => '1.2.3.4',
 }
-```
-
-To setup **opportunistic TLS with custom certificates**:
-
-```puppet
-	class { 'postfix':
-		opportunistictls => true,
-		tlscert => 'puppet:///openldap/masterauth/ldap-master-01.crt',
-		tlspk => 'puppet:///openldap/masterauth/ldap-master-01.key.pem',
-	}
-```
-
-To setup **opportunistic TLS with selfsigned certificate**:
-
-```puppet
-	class { 'postfix':
-		opportunistictls => true,
-		subjectselfsigned => '/C=ES/ST=Barcelona/L=Barcelona/O=systemadmin.es/CN=systemadmin.es',
-		generatecert => true,
-	}
 ```
 
 multidomain mail server
@@ -106,9 +83,29 @@ postfix::vmail::account { 'marc@systemadmin.es':
 }
 ```
 
+To setup **opportunistic TLS with custom certificates**:
+
+```puppet
+	class { 'postfix':
+		opportunistictls => true,
+		tlscert => 'puppet:///openldap/masterauth/ldap-master-01.crt',
+		tlspk => 'puppet:///openldap/masterauth/ldap-master-01.key.pem',
+	}
+```
+
+To setup **opportunistic TLS with selfsigned certificate**:
+
+```puppet
+	class { 'postfix':
+		opportunistictls => true,
+		subjectselfsigned => '/C=ES/ST=Barcelona/L=Barcelona/O=systemadmin.es/CN=systemadmin.es',
+		generatecert => true,
+	}
+```
+
 ## Usage
 
-This module can be used to configure postfix to relay mails to another server but cannot be configured to have mailboxes.
+This module can be used to configure postfix to relay mails to another server or to have virtual mailboxes (multidomain/multiaccount).
 
 ## Reference
 
@@ -136,6 +133,7 @@ Most variables are standard postfix variables, please refer to postfix documenta
  * smtpd_client_connection_rate_limit
  * in_flow_delay
  * setgid_group
+ * (...)
 
 * **install_mailclient**: controls if a mail client should be installed (default: true)
 
@@ -146,6 +144,44 @@ Most variables are standard postfix variables, please refer to postfix documenta
 * **tlspk**: source private key - **generatecert** must be false
 * **subjectselfsigned** subject for a selfsigned certificate - **generatecert** must be true. example: '/C=RC/ST=Barcelona/L=Barcelona/O=systemadmin.es/CN=systemadmin.es',
 
+### postfix::transport
+
+```puppet
+postfix::transport { 'example.com':
+  error => 'email to this domain is not allowed',
+}
+```
+
+```puppet
+postfix::transport { 'example.com':
+  nexthop => '1.1.1.1',
+}
+```
+
+### postfix::vmail
+
+* **mailbox_base**: (default: /var/vmail)
+* **setup_dovecot**: (default: true)
+* **smtpd_recipient_restrictions** (default: permit_inet_interfaces,permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination)
+* **smtpd_relay_restrictions** (default: permit_inet_interfaces,permit_mynetworks,permit_sasl_authenticated,reject_unauth_destination)
+
+### postfix::vmail::acount
+
+```puppet
+postfix::vmail::account { 'silvia@systemadmin.es':
+  accountname => 'silvia',
+  domain => 'systemadmin.es',
+  password => 'secretpassw0rd2',
+}
+```
+
+### postfix::vmail::alias
+
+```puppet
+postfix::vmail::alias { 'example@systemadmin.es':
+  aliasto => [ 'exemple@systemadmin.es' ],
+}
+```
 
 ## Limitations
 
