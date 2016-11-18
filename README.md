@@ -77,6 +77,7 @@ To setup **opportunistic TLS with selfsigned certificate**:
 ```
 
 multidomain mail server
+
 ```
 class { 'postfix': }
 
@@ -129,7 +130,6 @@ Most variables are standard postfix variables, please refer to postfix documenta
  * relayhost
  * smtp_fallback_relay
  * smtpdbanner
- * virtual_alias
  * install_mailclient
  * default_process_limit
  * smtpd_client_connection_count_limit
@@ -163,7 +163,7 @@ have some test to check both presence and absence of any feature
 
 ### TODO
 
-* local mailboxes support
+* improve documentation (multidoamin mailserver is not yet covered)
 
 ### Contributing
 

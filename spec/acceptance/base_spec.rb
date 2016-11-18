@@ -19,7 +19,7 @@ describe 'postfix class' do
            myorigin => 'test.es',
            recipient_delimiter => '+',
            mail_spool_directory => '/tmp',
-           virtual_alias => { '@test.es' => 'root@localhost',},
+           home_mailbox => 'Mailbox',
         }
 
       EOF
@@ -47,7 +47,7 @@ describe 'postfix class' do
     end
 
     it "send test mail" do
-      expect(shell("echo \"Testing rspec puppet DUI\" | mail test@test.es").exit_code).to be_zero
+      expect(shell("echo \"Testing rspec puppet DUI\" | mail root").exit_code).to be_zero
     end
 
     it "sleep 10 to make sure mesage is delivered" do
