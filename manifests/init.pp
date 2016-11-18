@@ -51,11 +51,6 @@ class postfix (
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
   }
 
-  if($virtual_alias)
-  {
-    validate_hash($virtual_alias)
-  }
-
   validate_array($mynetworks)
 
   if($biff)
