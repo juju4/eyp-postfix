@@ -36,7 +36,9 @@ class postfix::vmail(
       user => $postfix::postfix_username,
     }
 
-    class { 'postfix::vmail:sasl': }
+    class { 'postfix::vmail:sasl':
+      smtpd_sasl_type => 'dovecot',
+    }
   }
 
   exec { 'eyp-postfix mailbox base':
