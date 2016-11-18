@@ -1,6 +1,8 @@
 class postfix::vmail(
-                      $mailbox_base  = '/var/vmail',
-                      $setup_dovecot = true,
+                      $mailbox_base                 = '/var/vmail',
+                      $setup_dovecot                = true,
+                      $smtpd_recipient_restrictions = [ 'permit_mynetworks', 'permit_sasl_authenticated', 'reject_unauth_destination' ],
+                      $smtpd_relay_restrictions     = [ 'permit_mynetworks', 'permit_sasl_authenticated', 'reject_unauth_destination' ],
                     ) inherits postfix::params {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
@@ -33,6 +35,8 @@ class postfix::vmail(
   	class { 'dovecot::imaplogin':
       user => $postfix::postfix_username,
     }
+
+    class { 'postfix::vmail:sasl': }
   }
 
   exec { 'eyp-postfix mailbox base':
@@ -154,5 +158,15 @@ class postfix::vmail(
     refreshonly => true,
     notify      => Class['postfix::service'],
     require     => Package[$postfix::params::package_name],
+  }
+
+  #
+  # smtpd restrictions
+  #
+
+  concat::fragment{ '/etc/postfix/main.cf smtpd_restrictions':
+    target  => '/etc/postfix/main.cf',
+    order   => '55',
+    content => template("${module_name}/smtpd_restrictions.erb"),
   }
 }
