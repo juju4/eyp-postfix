@@ -56,6 +56,8 @@ describe 'postfix class' do
       it { is_expected.to be_running }
     end
 
+    # entrega mail
+    #
     # it "send test mail" do
     #   expect(shell("echo \"Testing rspec puppet DUI\" | mail root").exit_code).to be_zero
     # end
@@ -67,6 +69,11 @@ describe 'postfix class' do
     # it "check mail reception" do
     #   expect(shell("grep \"Testing rspec puppet DUI\" /tmp/root").exit_code).to be_zero
     # end
+    #
+
+    # entrega via alias
+
+    # regla error transport
 
   end
 
