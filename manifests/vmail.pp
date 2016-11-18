@@ -25,22 +25,22 @@ class postfix::vmail(
       mail_location      => "maildir:${mailbox_base}/%d/%n",
     }
 
-  	class { 'dovecot::userdb':
+    class { 'dovecot::userdb':
       uid  => $postfix::postfix_username_uid,
       gid  => $postfix::postfix_username_gid,
       home => "${mailbox_base}/%d/%n",
     }
 
-  	class { 'dovecot::passdb': }
+    class { 'dovecot::passdb': }
 
-  	class { 'dovecot::auth': }
+    class { 'dovecot::auth': }
 
-  	class { 'dovecot::auth::unixlistener':
+    class { 'dovecot::auth::unixlistener':
       user  => $postfix::postfix_username,
       group => $postfix::postfix_username,
     }
 
-  	class { 'dovecot::imaplogin':
+    class { 'dovecot::imaplogin':
       user => $postfix::postfix_username,
     }
 
