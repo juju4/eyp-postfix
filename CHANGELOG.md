@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.2
+
+* added **permit_inet_interfaces** by default to **smtpd_recipient_restrictions** and **smtpd_relay_restrictions**
+
 ## 0.2.1
 
 * Mailserver with virtual users and domains

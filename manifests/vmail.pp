@@ -1,8 +1,16 @@
 class postfix::vmail(
                       $mailbox_base                 = '/var/vmail',
                       $setup_dovecot                = true,
-                      $smtpd_recipient_restrictions = [ 'permit_mynetworks', 'permit_sasl_authenticated', 'reject_unauth_destination' ],
-                      $smtpd_relay_restrictions     = [ 'permit_mynetworks', 'permit_sasl_authenticated', 'reject_unauth_destination' ],
+                      $smtpd_recipient_restrictions = [ 'permit_inet_interfaces',
+                                                        'permit_mynetworks',
+                                                        'permit_sasl_authenticated',
+                                                        'reject_unauth_destination'
+                                                        ],
+                      $smtpd_relay_restrictions     = [ 'permit_inet_interfaces',
+                                                        'permit_mynetworks',
+                                                        'permit_sasl_authenticated',
+                                                        'reject_unauth_destination'
+                                                        ],
                     ) inherits postfix::params {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
