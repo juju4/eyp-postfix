@@ -28,8 +28,8 @@ class postfix::params {
   $default_process_limit_default = '100'
   $smtpd_client_connection_count_limit_default = '10'
   $smtpd_client_connection_rate_limit_default = '30'
-  $install_mailclient_default=true
-  $in_flow_delay_default='1s'
+  $install_mailclient_default = true
+  $in_flow_delay_default = '1s'
 
   case $::osfamily
   {

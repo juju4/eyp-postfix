@@ -1,0 +1,12 @@
+
+#
+# SASL
+#
+
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_type = <%= @smtpd_sasl_type %>
+smtpd_sasl_path = <%= @smtpd_sasl_path %>
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_tls_security_options = $smtpd_sasl_security_options
+smtpd_sasl_local_domain = $mydomain
+broken_sasl_auth_clients = yes

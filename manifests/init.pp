@@ -9,6 +9,8 @@
 # 51 - virtual aliases
 # 52 - virtual_mailbox_maps
 # 53 - virtual domains
+# 54 - SASL
+# 55 - smtpd restrictions
 #
 class postfix (
     $append_dot_mydomain                 = $postfix::params::append_dot_mydomain_default,
@@ -47,11 +49,6 @@ class postfix (
 
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
-  }
-
-  if($virtual_alias)
-  {
-    validate_hash($virtual_alias)
   }
 
   validate_array($mynetworks)

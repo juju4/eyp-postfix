@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.2.3
+
+* lint + cleanup
+
+## 0.2.2
+
+* added **permit_inet_interfaces** by default to **smtpd_recipient_restrictions** and **smtpd_relay_restrictions**
+
 ## 0.2.1
 
 * Mailserver with virtual users and domains
@@ -8,7 +16,7 @@
   * added **postfix::vmail::alias**
   * **INCOMPATIBLE CHANGE**: changed default mailbox to **maildir**
   * virtual domains/accounts via **postfix::vmail::account**
-  * **dovecot** based auth - unsing **eyp-dovecot**
+  * **dovecot** based auth - using **eyp-dovecot**
 
 ## 0.1.58
 
