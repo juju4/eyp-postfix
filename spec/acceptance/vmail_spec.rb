@@ -12,8 +12,7 @@ describe 'postfix class' do
 
     	class { 'postfix::vmail': }
 
-    	postfix::transport { 'csc.com':
-    		#nexthop => '1.1.1.1',
+    	postfix::transport { 'example.com':
     		error => 'email to this domain is not allowed',
     	}
 
