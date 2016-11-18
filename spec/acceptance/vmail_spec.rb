@@ -3,7 +3,7 @@ require_relative './version.rb'
 
 describe 'postfix class' do
 
-  context 'basic setup' do
+  context 'vmail setup' do
     # Using puppet_apply as a helper
     it 'should work with no errors' do
       pp = <<-EOF
