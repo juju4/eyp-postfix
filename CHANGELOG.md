@@ -5,7 +5,7 @@
 * lint + cleanup
 * reject_authenticated_sender_login_mismatch **postfix::vmail** in **smtpd_recipient_restrictions** and **smtpd_relay_restrictions**
 * master.cf management using **concat**
-* added **postfix::masterservice**
+* added **postfix::instance** (each **master.cf** item is a instance)
 
 ## 0.2.2
 
