@@ -5,6 +5,9 @@
 #
 # LOCAL caching DNS server required
 #
+# filtering
+# http://www.postfix.org/FILTER_README.html
+#
 class postfix::vmail(
                       $mailbox_base                 = '/var/vmail',
                       $setup_dovecot                = true,
