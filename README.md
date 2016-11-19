@@ -66,20 +66,20 @@ postfix::vmail::alias { 'example@systemadmin.es':
 
 postfix::vmail::account { 'example@systemadmin.es':
   accountname => 'example',
-  domain => 'systemadmin.es',
-  password => 'secretpassw0rd',
+  domain      => 'systemadmin.es',
+  password    => 'secretpassw0rd',
 }
 
 postfix::vmail::account { 'silvia@systemadmin.es':
   accountname => 'silvia',
-  domain => 'systemadmin.es',
-  password => 'secretpassw0rd2',
+  domain      => 'systemadmin.es',
+  password    => 'secretpassw0rd2',
 }
 
 postfix::vmail::account { 'marc@systemadmin.es':
   accountname => 'marc',
-  domain => 'systemadmin.es',
-  password => 'secretpassw0rd3',
+  domain      => 'systemadmin.es',
+  password    => 'secretpassw0rd3',
 }
 ```
 
@@ -92,8 +92,8 @@ To setup **opportunistic TLS with custom certificates**:
 ```puppet
 	class { 'postfix':
 		opportunistictls => true,
-		tlscert => 'puppet:///openldap/masterauth/ldap-master-01.crt',
-		tlspk => 'puppet:///openldap/masterauth/ldap-master-01.key.pem',
+		tlscert          => 'puppet:///openldap/masterauth/ldap-master-01.crt',
+		tlspk            => 'puppet:///openldap/masterauth/ldap-master-01.key.pem',
 	}
 ```
 
@@ -101,9 +101,9 @@ To setup **opportunistic TLS with selfsigned certificate**:
 
 ```puppet
 	class { 'postfix':
-		opportunistictls => true,
+		opportunistictls  => true,
 		subjectselfsigned => '/C=ES/ST=Barcelona/L=Barcelona/O=systemadmin.es/CN=systemadmin.es',
-		generatecert => true,
+		generatecert      => true,
 	}
 ```
 
@@ -194,8 +194,8 @@ postfix::transport { 'example.com':
 ```puppet
 postfix::vmail::account { 'silvia@systemadmin.es':
   accountname => 'silvia',
-  domain => 'systemadmin.es',
-  password => 'secretpassw0rd2',
+  domain      => 'systemadmin.es',
+  password    => 'secretpassw0rd2',
 }
 ```
 
