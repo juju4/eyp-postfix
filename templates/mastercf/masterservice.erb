@@ -3,8 +3,8 @@
 # <%= @comment %>
 <% end -%>
 <%= @service %>      <%= @type %>  <%= @private %>       <%= @unpriv %>       <%= @chroot %>       <%= @wakeup %>       <%= @maxproc %>       <%= @command_args %>
-  <%- if defined?(@args) -%>
-    <%- @args.each do | key, value | -%>
+  <%- if defined?(@opts) -%>
+    <%- @opts.each do | key, value | -%>
   -o <%= key %>=<%= value %>
     <%- end -%>
   <%- end -%>

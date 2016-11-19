@@ -2,7 +2,7 @@ define postfix::masterservice(
                                 $service=$name,
                                 $type,
                                 $command,
-                                $args = undef,
+                                $opts = undef,
                                 $private = '-',
                                 $unpriv = '-',
                                 $chroot = '-',
@@ -14,9 +14,9 @@ define postfix::masterservice(
 
   #service type  private unpriv  chroot  wakeup  maxproc command + args
 
-  if($args!=null)
+  if($opts!=null)
   {
-    validate_hash($args)
+    validate_hash($opts)
   }
 
   concat::fragment{ "/etc/postfix/master.cf ${service} ${type} ${command}":
