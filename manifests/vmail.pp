@@ -1,3 +1,10 @@
+#
+# TODO RBL
+# reject_rbl_client rbl_domain=d.d.d.d
+# smtpd_recipient_restrictions = ... reject_unauth_destination reject_rbl_client zen.smaphaus.org
+#
+# LOCAL caching DNS server required
+#
 class postfix::vmail(
                       $mailbox_base                 = '/var/vmail',
                       $setup_dovecot                = true,
@@ -9,6 +16,7 @@ class postfix::vmail(
                                                         ],
                       $smtpd_relay_restrictions     = [ 'permit_inet_interfaces',
                                                         'permit_mynetworks',
+                                                        'reject_authenticated_sender_login_mismatch',
                                                         'permit_sasl_authenticated',
                                                         'reject_unauth_destination'
                                                         ],

@@ -3,6 +3,7 @@
 ## 0.2.3
 
 * lint + cleanup
+* reject_authenticated_sender_login_mismatch **postfix::vmail** in **smtpd_recipient_restrictions** and **smtpd_relay_restrictions**
 
 ## 0.2.2
 
