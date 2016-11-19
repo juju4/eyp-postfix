@@ -1,4 +1,4 @@
-define postfix::masterservice(
+define postfix::instance(
                                 $service=$name,
                                 $type,
                                 $command,

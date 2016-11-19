@@ -110,7 +110,7 @@ To setup **opportunistic TLS with selfsigned certificate**:
 multiple smtp outbound instances:
 
 ```
-postfix::masterservice { 'out_domain1':
+postfix::instance { 'out_domain1':
   type    => 'unix',
   chroot  => 'n',
   command => 'smtp',
@@ -120,7 +120,7 @@ postfix::masterservice { 'out_domain1':
              }
 }
 
-postfix::masterservice { 'out_domain2':
+postfix::instance { 'out_domain2':
   type    => 'unix',
   chroot  => 'n',
   command => 'smtp',
