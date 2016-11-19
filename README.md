@@ -37,7 +37,7 @@ This module **requires pluginsync** enabled and **eyp-dovecot** (it is required 
 
 ### Beginning with postfix
 
-basic setup:
+#### basic setup:
 
 ```puppet
 class { 'postfix':
@@ -45,7 +45,7 @@ class { 'postfix':
 }
 ```
 
-mail relay:
+#### mail relay:
 
 ```puppet
 class { 'postfix':
@@ -53,7 +53,7 @@ class { 'postfix':
 }
 ```
 
-multidomain mail server
+#### multidomain mail server
 
 ```
 class { 'postfix': }
@@ -83,6 +83,10 @@ postfix::vmail::account { 'marc@systemadmin.es':
 }
 ```
 
+## Usage
+
+This module can be used to configure postfix to relay mails to another server or to have virtual mailboxes (multidomain/multiaccount).
+
 To setup **opportunistic TLS with custom certificates**:
 
 ```puppet
@@ -102,10 +106,6 @@ To setup **opportunistic TLS with selfsigned certificate**:
 		generatecert => true,
 	}
 ```
-
-## Usage
-
-This module can be used to configure postfix to relay mails to another server or to have virtual mailboxes (multidomain/multiaccount).
 
 multiple smtp outbound instances:
 
