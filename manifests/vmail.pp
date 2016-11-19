@@ -3,6 +3,7 @@ class postfix::vmail(
                       $setup_dovecot                = true,
                       $smtpd_recipient_restrictions = [ 'permit_inet_interfaces',
                                                         'permit_mynetworks',
+                                                        'reject_authenticated_sender_login_mismatch',
                                                         'permit_sasl_authenticated',
                                                         'reject_unauth_destination'
                                                         ],
