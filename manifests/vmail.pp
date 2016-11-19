@@ -8,6 +8,9 @@
 # filtering
 # http://www.postfix.org/FILTER_README.html
 #
+# amavis-new
+# http://forums.sentora.org/showthread.php?tid=1132
+#
 class postfix::vmail(
                       $mailbox_base                 = '/var/vmail',
                       $setup_dovecot                = true,
