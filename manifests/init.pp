@@ -12,6 +12,13 @@
 # 54 - SASL
 # 55 - smtpd restrictions
 #
+###
+#
+# concat master.cf
+#
+# 00 - header
+# 01 - smtp default
+# 02 - other defaults
 class postfix (
     $append_dot_mydomain                 = $postfix::params::append_dot_mydomain_default,
     $biff                                = $postfix::params::biff_default,
@@ -243,5 +250,37 @@ class postfix (
     order   => '00',
     content => template("${module_name}/transport/header.erb"),
   }
+
+  #
+  # master.cf
+  #
+
+  concat { '/etc/postfix/master.cf':
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package[$postfix::params::package_name],
+    notify  => Class['::postfix::service'],
+  }
+
+  concat::fragment{ '/etc/postfix/master.cf header':
+    target  => '/etc/postfix/master.cf',
+    order   => '00',
+    content => template("${module_name}/mastercf/header.erb"),
+  }
+
+  concat::fragment{ '/etc/postfix/master.cf smtp':
+    target  => '/etc/postfix/master.cf',
+    order   => '01',
+    content => template("${module_name}/mastercf/smtp.erb"),
+  }
+
+  concat::fragment{ '/etc/postfix/master.cf other':
+    target  => '/etc/postfix/master.cf',
+    order   => '02',
+    content => template("${module_name}/mastercf/other.erb"),
+  }
+
 
 }

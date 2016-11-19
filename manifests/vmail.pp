@@ -14,6 +14,7 @@
 class postfix::vmail(
                       $mailbox_base                 = '/var/vmail',
                       $setup_dovecot                = true,
+                      #TODO: rewrite
                       $smtpd_recipient_restrictions = [ 'permit_inet_interfaces',
                                                         'permit_mynetworks',
                                                         'reject_authenticated_sender_login_mismatch',

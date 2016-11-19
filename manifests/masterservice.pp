@@ -9,6 +9,7 @@ define postfix::masterservice(
                                 $wakeup = '-',
                                 $maxproc = '-',
                                 $comment = undef,
+                                $order = '42',
   ) {
 
   #service type  private unpriv  chroot  wakeup  maxproc command + args
