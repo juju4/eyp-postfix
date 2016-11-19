@@ -1,11 +1,11 @@
-# TODO, dependencia class postfix::disclaimer()
 define postfix::masterservice(
-                                $service,
+                                $service=$name,
                                 $type,
-                                $command_args,
-                                $private = true,
-                                $unpriv = true,
-                                $chroot = 'n',
+                                $command,
+                                $args = undef,
+                                $private = '-',
+                                $unpriv = '-',
+                                $chroot = '-',
                                 $wakeup = '-',
                                 $maxproc = '-',
                                 $comment = undef,
@@ -14,4 +14,14 @@ define postfix::masterservice(
 
   #service type  private unpriv  chroot  wakeup  maxproc command + args
 
+  if($args!=null)
+  {
+    validate_hash($args)
+  }
+
+  concat::fragment{ "/etc/postfix/master.cf ${service} ${type} ${command}":
+    target  => '/etc/postfix/master.cf',
+    order   => $order,
+    content => template("${module_name}/mastercf/masterservice.erb"),
+  }
 }

@@ -1,5 +1,10 @@
-#service type  private unpriv  chroot  wakeup  maxproc command + args
+
 <% if defined(@comment) -%>
 # <%= @comment %>
 <% end -%>
 <%= @service %>      <%= @type %>  <%= @private %>       <%= @unpriv %>       <%= @chroot %>       <%= @wakeup %>       <%= @maxproc %>       <%= @command_args %>
+  <%- if defined?(@args) -%>
+    <%- @args.each do | key, value | -%>
+  -o <%= key %>=<%= value %>
+    <%- end -%>
+  <%- end -%>
