@@ -111,23 +111,23 @@ multiple smtp outbound instances:
 
 ```
 postfix::masterservice { 'out_domain1':
-  type => 'unix',
-  chroot => 'n',
+  type    => 'unix',
+  chroot  => 'n',
   command => 'smtp',
-  args => { 'smtp_bind_address' => '1.1.1.1',
-            'smtp_helo_name' => 'systemadmin.es',
-            'syslog_name' => 'postfix-systemadmin.es',
-          }
+  opts    => { 'smtp_bind_address' => '1.1.1.1',
+               'smtp_helo_name' => 'systemadmin.es',
+               'syslog_name' => 'postfix-systemadmin.es',
+             }
 }
 
 postfix::masterservice { 'out_domain2':
-  type => 'unix',
-  chroot => 'n',
+  type    => 'unix',
+  chroot  => 'n',
   command => 'smtp',
-  args => { 'smtp_bind_address' => '1.2.2.2',
-            'smtp_helo_name' => 'sysadmins.es',
-            'syslog_name' => 'postfix-sysadmins.es',
-          }
+  opts    => { 'smtp_bind_address' => '1.2.2.2',
+               'smtp_helo_name' => 'sysadmins.es',
+               'syslog_name' => 'postfix-sysadmins.es',
+             }
 }
 ```
 

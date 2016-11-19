@@ -3,6 +3,7 @@ define postfix::masterservice(
                                 $type,
                                 $command,
                                 $opts = undef,
+                                $args = undef,
                                 $private = '-',
                                 $unpriv = '-',
                                 $chroot = '-',
@@ -17,6 +18,11 @@ define postfix::masterservice(
   if($opts!=null)
   {
     validate_hash($opts)
+  }
+
+  if($args!=null)
+  {
+    validate_array($args)
   }
 
   concat::fragment{ "/etc/postfix/master.cf ${service} ${type} ${command}":

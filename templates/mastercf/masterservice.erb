@@ -8,3 +8,8 @@
   -o <%= key %>=<%= value %>
     <%- end -%>
   <%- end -%>
+  <%- if defined?(@args) -%>
+    <%- @args.each do | value | -%>
+  <%= value %>
+    <%- end -%>
+  <%- end -%>
