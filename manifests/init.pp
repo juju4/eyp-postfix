@@ -19,6 +19,7 @@
 # 00 - header
 # 01 - smtp default
 # 02 - other defaults
+#
 class postfix (
     $append_dot_mydomain                 = $postfix::params::append_dot_mydomain_default,
     $biff                                = $postfix::params::biff_default,
@@ -52,6 +53,7 @@ class postfix (
     $postfix_username_uid                = $postfix_username_uid_default,
     $postfix_username_gid                = $postfix_username_gid_default,
     $home_mailbox                        = 'Maildir/',
+    $add_default_smtpd_instance          = true,
     ) inherits postfix::params {
 
   Exec {
@@ -270,10 +272,17 @@ class postfix (
     content => template("${module_name}/mastercf/header.erb"),
   }
 
-  concat::fragment{ '/etc/postfix/master.cf smtp':
-    target  => '/etc/postfix/master.cf',
-    order   => '01',
-    content => template("${module_name}/mastercf/smtp.erb"),
+  if($add_default_smtpd_instance)
+  {
+    # service type  private unpriv  chroot  wakeup  maxproc command + args
+    # smtp      inet  n       -       n       -       -       smtpd
+    postfix::instance { 'smtp':
+      type    => 'inet',
+      private => 'n',
+      chroot  => 'n',
+      command => 'smtpd',
+      order   => '01',
+    }
   }
 
   concat::fragment{ '/etc/postfix/master.cf other':

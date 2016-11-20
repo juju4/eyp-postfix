@@ -2,7 +2,7 @@
 <% if defined?(@comment) -%>
 # <%= @comment %>
 <% end -%>
-<%= @service %>      <%= @type %>  <%= @private %>       <%= @unpriv %>       <%= @chroot %>       <%= @wakeup %>       <%= @maxproc %>       <%= @command_args %>
+<%= @service %>      <%= @type %>  <%= @private %>       <%= @unpriv %>       <%= @chroot %>       <%= @wakeup %>       <%= @maxproc %>       <%= @command %>
   <%- if defined?(@opts) -%>
     <%- @opts.each do | key, value | -%>
   -o <%= key %>=<%= value %>
