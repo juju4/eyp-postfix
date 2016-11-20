@@ -15,12 +15,12 @@ define postfix::instance(
 
   #service type  private unpriv  chroot  wakeup  maxproc command + args
 
-  if($opts!=null)
+  if($opts!=undef)
   {
     validate_hash($opts)
   }
 
-  if($args!=null)
+  if($args!=undef)
   {
     validate_array($args)
   }
