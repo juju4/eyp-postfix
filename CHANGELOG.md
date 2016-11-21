@@ -7,6 +7,7 @@
 * master.cf management using **concat**
 * added **postfix::instance** (each **master.cf** item is a instance)
 * added **postfix::contentfilter**
+* added service_ensure & service_enable
 
 ## 0.2.2
 

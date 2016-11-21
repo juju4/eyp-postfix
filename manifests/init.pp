@@ -55,6 +55,8 @@ class postfix (
     $postfix_username_gid                = $postfix_username_gid_default,
     $home_mailbox                        = 'Maildir/',
     $add_default_smtpd_instance          = true,
+    $service_ensure                      = 'running',
+    $service_enable                      = true,
     ) inherits postfix::params {
 
   Exec {
@@ -217,8 +219,8 @@ class postfix (
   }
 
   class { 'postfix::service':
-    ensure         => 'running',
-    enable         => true,
+    ensure         => $service_ensure,
+    enable         => $service_enable,
     manage_service => true,
   }
 
