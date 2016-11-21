@@ -290,7 +290,7 @@ class postfix (
 
   # smtp      unix  -       -       n       -       -       smtp
   # relay     unix  -       -       n       -       -       smtp
-	#  -o smtp_fallback_relay=
+  #  -o smtp_fallback_relay=
 
   # altres
   concat::fragment{ '/etc/postfix/master.cf other':

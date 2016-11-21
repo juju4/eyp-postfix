@@ -1,16 +1,16 @@
 define postfix::instance(
-                                $service=$name,
                                 $type,
                                 $command,
-                                $opts = undef,
-                                $args = undef,
+                                $service = $name,
+                                $opts    = undef,
+                                $args    = undef,
                                 $private = '-',
-                                $unpriv = '-',
-                                $chroot = '-',
-                                $wakeup = '-',
+                                $unpriv  = '-',
+                                $chroot  = '-',
+                                $wakeup  = '-',
                                 $maxproc = '-',
                                 $comment = undef,
-                                $order = '42',
+                                $order   = '42',
   ) {
 
   #service type  private unpriv  chroot  wakeup  maxproc command + args
