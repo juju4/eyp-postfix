@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.2.3
+## 0.2.4
 
 * lint + cleanup
 * reject_authenticated_sender_login_mismatch **postfix::vmail** in **smtpd_recipient_restrictions** and **smtpd_relay_restrictions**
