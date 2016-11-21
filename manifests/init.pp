@@ -11,6 +11,15 @@
 # 53 - virtual domains
 # 54 - SASL
 # 55 - smtpd restrictions
+# 60 - content filter
+#
+###
+#
+# concat master.cf
+#
+# 00 - header
+# 01 - smtp default
+# 02 - other defaults
 #
 class postfix (
     $append_dot_mydomain                 = $postfix::params::append_dot_mydomain_default,
@@ -45,6 +54,9 @@ class postfix (
     $postfix_username_uid                = $postfix_username_uid_default,
     $postfix_username_gid                = $postfix_username_gid_default,
     $home_mailbox                        = 'Maildir/',
+    $add_default_smtpd_instance          = true,
+    $service_ensure                      = 'running',
+    $service_enable                      = true,
     ) inherits postfix::params {
 
   Exec {
@@ -207,8 +219,8 @@ class postfix (
   }
 
   class { 'postfix::service':
-    ensure         => 'running',
-    enable         => true,
+    ensure         => $service_ensure,
+    enable         => $service_enable,
     manage_service => true,
   }
 
@@ -243,5 +255,49 @@ class postfix (
     order   => '00',
     content => template("${module_name}/transport/header.erb"),
   }
+
+  #
+  # master.cf
+  #
+
+  concat { '/etc/postfix/master.cf':
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package[$postfix::params::package_name],
+    notify  => Class['::postfix::service'],
+  }
+
+  concat::fragment{ '/etc/postfix/master.cf header':
+    target  => '/etc/postfix/master.cf',
+    order   => '00',
+    content => template("${module_name}/mastercf/header.erb"),
+  }
+
+  if($add_default_smtpd_instance)
+  {
+    # service type  private unpriv  chroot  wakeup  maxproc command + args
+    # smtp      inet  n       -       n       -       -       smtpd
+    postfix::instance { 'smtp':
+      type    => 'inet',
+      private => 'n',
+      chroot  => 'n',
+      command => 'smtpd',
+      order   => '01',
+    }
+  }
+
+  # smtp      unix  -       -       n       -       -       smtp
+  # relay     unix  -       -       n       -       -       smtp
+  #  -o smtp_fallback_relay=
+
+  # altres
+  concat::fragment{ '/etc/postfix/master.cf other':
+    target  => '/etc/postfix/master.cf',
+    order   => '02',
+    content => template("${module_name}/mastercf/other.erb"),
+  }
+
 
 }
