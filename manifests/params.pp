@@ -39,8 +39,27 @@ class postfix::params {
 
       case $::operatingsystemrelease
       {
-        /^[5-7].*$/:
+        /^5.*$/:
         {
+          $manage_mastercf_default=false
+          $daemondirectory='/usr/libexec/postfix'
+          #$dependencies=['chkconfig', 'grep']
+          $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
+          $check_postfix_mta='alternatives --display mta | grep postfix'
+
+          $purge_default_mta=[ 'exim', 'sendmail' ]
+
+          $mailclient=[ 'mailx' ]
+
+          $readme_directory_default = false
+
+          $postfix_username_uid_default='89'
+          $postfix_username_gid_default='89'
+        }
+
+        /^[6-7].*$/:
+        {
+          $manage_mastercf_default=true
           $daemondirectory='/usr/libexec/postfix'
           #$dependencies=['chkconfig', 'grep']
           $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
@@ -70,6 +89,7 @@ class postfix::params {
           {
             /^14.*$/:
             {
+              $manage_mastercf_default=false
               $daemondirectory='/usr/lib/postfix'
               #$dependencies=['dpkg', 'grep' ]
               $switch_to_postfix=undef
@@ -103,6 +123,7 @@ class postfix::params {
           {
             '11.3':
             {
+              $manage_mastercf_default=false
               $daemondirectory='/usr/lib/postfix'
               #$dependencies=['dpkg', 'grep' ]
               $switch_to_postfix=undef

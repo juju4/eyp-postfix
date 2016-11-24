@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.6
+
+* improved compatibility for master.cf
+
 ## 0.2.5
 
 * lint + cleanup
