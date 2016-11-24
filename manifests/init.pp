@@ -57,6 +57,7 @@ class postfix (
     $add_default_smtpd_instance          = true,
     $service_ensure                      = 'running',
     $service_enable                      = true,
+    $manage_mastercf                     = $postfix::params::manage_mastercf_default,
     ) inherits postfix::params {
 
   Exec {
@@ -256,48 +257,30 @@ class postfix (
     content => template("${module_name}/transport/header.erb"),
   }
 
-  #
-  # master.cf
-  #
 
-  concat { '/etc/postfix/master.cf':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => Package[$postfix::params::package_name],
-    notify  => Class['::postfix::service'],
-  }
-
-  concat::fragment{ '/etc/postfix/master.cf header':
-    target  => '/etc/postfix/master.cf',
-    order   => '00',
-    content => template("${module_name}/mastercf/header.erb"),
-  }
-
-  if($add_default_smtpd_instance)
+  if($manage_mastercf)
   {
-    # service type  private unpriv  chroot  wakeup  maxproc command + args
-    # smtp      inet  n       -       n       -       -       smtpd
-    postfix::instance { 'smtp':
-      type    => 'inet',
-      private => 'n',
-      chroot  => 'n',
-      command => 'smtpd',
-      order   => '01',
+    #
+    # master.cf
+    #
+
+    concat { '/etc/postfix/master.cf':
+      ensure  => 'present',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Package[$postfix::params::package_name],
+      notify  => Class['::postfix::service'],
+    }
+
+    concat::fragment{ '/etc/postfix/master.cf header':
+      target  => '/etc/postfix/master.cf',
+      order   => '00',
+      content => template("${module_name}/mastercf/header.erb"),
+    }
+
+    class { '::postfix::mastercf':
+      add_default_smtpd_instance => $add_default_smtpd_instance,
     }
   }
-
-  # smtp      unix  -       -       n       -       -       smtp
-  # relay     unix  -       -       n       -       -       smtp
-  #  -o smtp_fallback_relay=
-
-  # altres
-  concat::fragment{ '/etc/postfix/master.cf other':
-    target  => '/etc/postfix/master.cf',
-    order   => '02',
-    content => template("${module_name}/mastercf/other.erb"),
-  }
-
-
 }
