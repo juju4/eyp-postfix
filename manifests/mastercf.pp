@@ -77,7 +77,6 @@ class postfix::mastercf(
           # rewrite   unix  -       -       n       -       -       trivial-rewrite
           postfix::instance { 'rewrite':
             type    => 'unix',
-            private => 'n',
             chroot  => 'n',
             command => 'trivial-rewrite',
             order   => '06',
@@ -87,7 +86,7 @@ class postfix::mastercf(
           postfix::instance { 'bounce':
             type    => 'unix',
             chroot  => 'n',
-            maxproc => '1',
+            maxproc => '0',
             command => 'bounce',
             order   => '07',
           }
