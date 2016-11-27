@@ -92,6 +92,8 @@ myhostname = <%= @myhostname %>
 mydomain = <%= @mydomain %>
 <%- end -%>
 
+resolve_null_domain = <%= scope.function_bool2yesno([@resolve_null_domain]) %>
+
 
 # SENDING MAIL
 #

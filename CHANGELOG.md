@@ -1,6 +1,10 @@
 # CHANGELOG
 
-## 0.2.6
+## 0.2.8
+
+* **INCOMPATIBLE CHANGE** added **resolve_null_domain**, default: **yes**
+
+## 0.2.7
 
 * improved compatibility for master.cf
 

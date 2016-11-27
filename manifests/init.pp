@@ -58,6 +58,7 @@ class postfix (
     $service_ensure                      = 'running',
     $service_enable                      = true,
     $manage_mastercf                     = $postfix::params::manage_mastercf_default,
+    $resolve_null_domain                 = true,
     ) inherits postfix::params {
 
   Exec {
