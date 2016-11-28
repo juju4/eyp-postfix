@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## 0.2.11
+## 0.2.12
 
 * **INCOMPATIBLE CHANGE** renamed **scmmap_to**, **scmmap_t**o to **scm_to**, **scm_from**
 
