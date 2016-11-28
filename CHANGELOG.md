@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.2.10
+
+* added **postfix::sendercanonicalmap**
+
+## 0.2.9
+
+* removed **openssl** package management
+
 ## 0.2.8
 
 * **INCOMPATIBLE CHANGE** added **resolve_null_domain**, default: **yes**

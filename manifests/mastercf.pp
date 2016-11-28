@@ -36,7 +36,7 @@ class postfix::mastercf(
             type    => 'fifo',
             private => 'n',
             chroot  => 'n',
-            wakeup => '60',
+            wakeup  => '60',
             maxproc => '1',
             command => 'pickup',
             order   => '02',
@@ -58,7 +58,7 @@ class postfix::mastercf(
             type    => 'fifo',
             private => 'n',
             chroot  => 'n',
-            wakeup => '300',
+            wakeup  => '300',
             maxproc => '1',
             command => 'qmgr',
             order   => '04',
@@ -68,7 +68,7 @@ class postfix::mastercf(
           postfix::instance { 'tlsmgr':
             type    => 'unix',
             chroot  => 'n',
-            wakeup => '1000?',
+            wakeup  => '1000?',
             maxproc => '1',
             command => 'tlsmgr',
             order   => '05',
@@ -123,7 +123,7 @@ class postfix::mastercf(
             type    => 'unix',
             private => 'n',
             chroot  => 'n',
-            wakeup => '1000?',
+            wakeup  => '1000?',
             maxproc => '0',
             command => 'flush',
             order   => '11',
@@ -156,12 +156,12 @@ class postfix::mastercf(
           }
 
           # relay     unix  -       -       n       -       -       smtp
-          # 	-o smtp_fallback_relay=
+          #   -o smtp_fallback_relay=
           postfix::instance { 'relay':
             type    => 'unix',
             chroot  => 'n',
             command => 'smtp',
-            opts => { 'smtp_fallback_relay' => '' },
+            opts    => { 'smtp_fallback_relay' => '' },
             order   => '15',
           }
 
@@ -201,7 +201,7 @@ class postfix::mastercf(
           # local     unix  -       n       n       -       -       local
           postfix::instance { 'local':
             type    => 'unix',
-            unpriv => 'n',
+            unpriv  => 'n',
             chroot  => 'n',
             command => 'local',
             order   => '20',
@@ -210,7 +210,7 @@ class postfix::mastercf(
           # virtual   unix  -       n       n       -       -       virtual
           postfix::instance { 'virtual':
             type    => 'unix',
-            unpriv => 'n',
+            unpriv  => 'n',
             chroot  => 'n',
             command => 'virtual',
             order   => '21',
@@ -264,7 +264,7 @@ class postfix::mastercf(
             type    => 'unix',
             private => 'n',
             chroot  => 'n',
-            wakeup => '60',
+            wakeup  => '60',
             maxproc => '1',
             command => 'pickup',
             order   => '02',
@@ -286,7 +286,7 @@ class postfix::mastercf(
             type    => 'unix',
             private => 'n',
             chroot  => 'n',
-            wakeup => '300',
+            wakeup  => '300',
             maxproc => '1',
             command => 'qmgr',
             order   => '04',
@@ -296,7 +296,7 @@ class postfix::mastercf(
           postfix::instance { 'tlsmgr':
             type    => 'unix',
             chroot  => 'n',
-            wakeup => '1000?',
+            wakeup  => '1000?',
             maxproc => '1',
             command => 'tlsmgr',
             order   => '05',
@@ -351,7 +351,7 @@ class postfix::mastercf(
             type    => 'unix',
             private => 'n',
             chroot  => 'n',
-            wakeup => '1000?',
+            wakeup  => '1000?',
             maxproc => '0',
             command => 'flush',
             order   => '11',
@@ -427,7 +427,7 @@ class postfix::mastercf(
           # local     unix  -       n       n       -       -       local
           postfix::instance { 'local':
             type    => 'unix',
-            unpriv => 'n',
+            unpriv  => 'n',
             chroot  => 'n',
             command => 'local',
             order   => '20',
@@ -436,7 +436,7 @@ class postfix::mastercf(
           # virtual   unix  -       n       n       -       -       virtual
           postfix::instance { 'virtual':
             type    => 'unix',
-            unpriv => 'n',
+            unpriv  => 'n',
             chroot  => 'n',
             command => 'virtual',
             order   => '21',

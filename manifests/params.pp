@@ -55,9 +55,10 @@ class postfix::params {
 
           $postfix_username_uid_default='89'
           $postfix_username_gid_default='89'
-        }
 
-        /^[6-7].*$/:
+          $postfix_ver='2.3.3'
+        }
+        /^6.*$/:
         {
           $manage_mastercf_default=true
           $daemondirectory='/usr/libexec/postfix'
@@ -73,6 +74,27 @@ class postfix::params {
 
           $postfix_username_uid_default='89'
           $postfix_username_gid_default='89'
+
+          $postfix_ver='2.6.6'
+        }
+        /^7.*$/:
+        {
+          $manage_mastercf_default=true
+          $daemondirectory='/usr/libexec/postfix'
+          #$dependencies=['chkconfig', 'grep']
+          $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
+          $check_postfix_mta='alternatives --display mta | grep postfix'
+
+          $purge_default_mta=[ 'exim', 'sendmail' ]
+
+          $mailclient=[ 'mailx' ]
+
+          $readme_directory_default = false
+
+          $postfix_username_uid_default='89'
+          $postfix_username_gid_default='89'
+
+          $postfix_ver='2.10.1'
         }
         default: { fail('Unsupported RHEL/CentOS version!')  }
       }
@@ -103,6 +125,8 @@ class postfix::params {
 
               $postfix_username_uid_default='110'
               $postfix_username_gid_default='115'
+
+              $postfix_ver='2.11.0'
             }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }
@@ -137,6 +161,8 @@ class postfix::params {
 
               $postfix_username_uid_default='51'
               $postfix_username_gid_default='51'
+
+              $postfix_ver='2.9.4'
             }
             default: { fail("Unsupported operating system ${::operatingsystem} ${::operatingsystemrelease}") }
           }

@@ -15,5 +15,4 @@ define postfix::vmail::alias(
     order   => $order,
     content => template("${module_name}/vmail/aliases/alias.erb"),
   }
-
 }

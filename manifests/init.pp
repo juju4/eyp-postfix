@@ -12,6 +12,7 @@
 # 54 - SASL
 # 55 - smtpd restrictions
 # 60 - content filter
+# 61 - sender_canonical_maps
 #
 ###
 #
@@ -120,8 +121,9 @@ class postfix (
       creates => '/etc/pki/tls/certs',
     }
 
-    package { 'openssl':
-      ensure  => 'installed',
+    exec { 'eyp-postfix which openssl':
+      command => 'which openssl',
+      unless  => 'which openssl',
       require => Exec[ ['postfix mkdir /etc/pki/tls/certs', 'postfix mkdir /etc/pki/tls/certs' ] ]
     }
 
@@ -132,7 +134,7 @@ class postfix (
         exec { 'openssl pk':
           command => '/usr/bin/openssl genrsa -out /etc/pki/tls/private/postfix-key.key 2048',
           creates => '/etc/pki/tls/private/postfix-key.key',
-          require => Package['openssl'],
+          require => Exec['eyp-postfix which openssl'],
         }
 
         exec { 'openssl cert':
@@ -165,7 +167,7 @@ class postfix (
           owner   => 'root',
           group   => 'root',
           mode    => '0644',
-          require => Package['openssl'],
+          require => Exec['eyp-postfix which openssl'],
           notify  => Class['postfix::service'],
           audit   => 'content',
           source  => $tlspk
@@ -176,7 +178,7 @@ class postfix (
           owner   => 'root',
           group   => 'root',
           mode    => '0644',
-          require => Package['openssl'],
+          require => Exec['eyp-postfix which openssl'],
           notify  => Class['postfix::service'],
           audit   => 'content',
           source  => $tlscert
