@@ -12,6 +12,7 @@
 # 54 - SASL
 # 55 - smtpd restrictions
 # 60 - content filter
+# 61 - sender_canonical_maps
 #
 ###
 #

@@ -224,6 +224,7 @@ have some test to check both presence and absence of any feature
 ### TODO
 
 * improve documentation (multidoamin mailserver is not yet covered)
+* aliases management: be able to create a blackhole (blackhole:      /dev/null)
 
 ### Contributing
 
