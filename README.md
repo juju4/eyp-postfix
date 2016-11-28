@@ -224,7 +224,7 @@ have some test to check both presence and absence of any feature
 ### TODO
 
 * improve documentation (multidoamin mailserver is not yet covered)
-* aliases management: be able to create a blackhole (blackhole:      /dev/null)
+* aliases management: be able to create a blackhole (blackhole: /dev/null) - http://madphilosopher.ca/2006/09/how-to-send-an-entire-domain-to-dev-null-in-postfix/
 
 ### Contributing
 
