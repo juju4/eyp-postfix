@@ -1,7 +1,7 @@
 define postfix::sendercanonicalmap(
-                                    $scmmap_to,
-                                    $scmmap = $name,
-                                    $order  = '42',
+                                    $scm_to,
+                                    $scm_from = $name,
+                                    $order    = '42',
                                   ) {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',

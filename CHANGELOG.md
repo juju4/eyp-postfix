@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.11
+
+* **INCOMPATIBLE CHANGE** renamed **scmmap_to**, **scmmap_t**o to **scm_to**, **scm_from**
+
 ## 0.2.10
 
 * added **postfix::sendercanonicalmap**
