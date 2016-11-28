@@ -30,6 +30,12 @@ define postfix::sendercanonicalmap(
       notify      => Class['postfix::service'],
       require     => Package[$postfix::params::package_name],
     }
+
+    concat::fragment{ '/etc/postfix/main.cf sender_canonical_maps':
+      target  => '/etc/postfix/main.cf',
+      order   => '61',
+      content => "\n# sender_canonical_maps\sender_canonical_maps = hash:/etc/postfix/sender_canonical_maps\n",
+    }
   }
 
   concat::fragment{ "/etc/postfix/sender_canonical_maps ${scmmap} ${scmmap_to}":
