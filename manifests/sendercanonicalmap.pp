@@ -34,7 +34,7 @@ define postfix::sendercanonicalmap(
     concat::fragment{ '/etc/postfix/main.cf sender_canonical_maps':
       target  => '/etc/postfix/main.cf',
       order   => '61',
-      content => "\n# sender_canonical_maps\sender_canonical_maps = hash:/etc/postfix/sender_canonical_maps\n",
+      content => "\n# sender_canonical_maps\nsender_canonical_maps = hash:/etc/postfix/sender_canonical_maps\n",
     }
   }
 
