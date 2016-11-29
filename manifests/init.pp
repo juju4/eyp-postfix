@@ -261,7 +261,7 @@ class postfix (
     content => template("${module_name}/transport/header.erb"),
   }
 
-  exec { 'reload postfix aliases':
+  exec { 'reload postfix local aliases':
     command     => "newaliases -oA${alias_maps}",
     refreshonly => true,
     notify      => Class['postfix::service'],
@@ -274,7 +274,7 @@ class postfix (
     group   => 'root',
     mode    => '0644',
     require => Package[$postfix::params::package_name],
-    notify  => Exec['reload postfix aliases'],
+    notify  => Exec['reload postfix local aliases'],
   }
 
   concat::fragment{ "${postfix::alias_maps} header":
