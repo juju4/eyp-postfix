@@ -60,6 +60,7 @@ class postfix (
     $service_enable                      = true,
     $manage_mastercf                     = $postfix::params::manage_mastercf_default,
     $resolve_null_domain                 = true,
+    $alias_maps                          = '/etc/aliases',
     ) inherits postfix::params {
 
   Exec {
@@ -260,6 +261,33 @@ class postfix (
     content => template("${module_name}/transport/header.erb"),
   }
 
+  exec { 'reload postfix local aliases':
+    command     => "newaliases -oA${alias_maps}",
+    refreshonly => true,
+    notify      => Class['postfix::service'],
+    require     => [ Package[$postfix::params::package_name],  ],
+  }
+
+  concat { $alias_maps:
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package[$postfix::params::package_name],
+    notify  => Exec['reload postfix local aliases'],
+  }
+
+  concat::fragment{ "${postfix::alias_maps} header":
+    target  => $alias_maps,
+    order   => '00',
+    content => template("${module_name}/aliases/header.erb"),
+  }
+
+  concat::fragment{ "${postfix::alias_maps} base":
+    target  => $alias_maps,
+    order   => '01',
+    content => template("${module_name}/aliases/aliases_base.erb"),
+  }
 
   if($manage_mastercf)
   {

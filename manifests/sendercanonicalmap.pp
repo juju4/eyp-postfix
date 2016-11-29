@@ -1,7 +1,7 @@
 define postfix::sendercanonicalmap(
-                                    $scmmap_to,
-                                    $scmmap = $name,
-                                    $order  = '42',
+                                    $scm_to,
+                                    $scm_from = $name,
+                                    $order    = '42',
                                   ) {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
@@ -38,7 +38,7 @@ define postfix::sendercanonicalmap(
     }
   }
 
-  concat::fragment{ "/etc/postfix/sender_canonical_maps ${scmmap} ${scmmap_to}":
+  concat::fragment{ "/etc/postfix/sender_canonical_maps ${scm_from} ${scm_to}":
     target  => '/etc/postfix/sender_canonical_maps',
     order   => $order,
     content => template("${module_name}/sender_canonical_maps.erb"),

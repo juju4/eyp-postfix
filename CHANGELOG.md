@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 0.2.14
+
+* postfix >= 2.9 compatibility for **opportunistic TLS**
+* bugfix **postfix::sendercanonicalmap**
+* /etc/aliases management
+
+## 0.2.12
+
+* **INCOMPATIBLE CHANGE** renamed **scmmap_to**, **scmmap_t**o to **scm_to**, **scm_from**
+
 ## 0.2.10
 
 * added **postfix::sendercanonicalmap**

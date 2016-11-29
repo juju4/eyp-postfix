@@ -412,7 +412,7 @@ in_flow_delay = <%= @in_flow_delay %>
 # "postfix reload" to eliminate the delay.
 #
 #alias_maps = dbm:/etc/aliases
-alias_maps = hash:/etc/aliases
+alias_maps = hash:<%= @alias_maps %>
 #alias_maps = hash:/etc/aliases, nis:mail.aliases
 #alias_maps = netinfo:/aliases
 
@@ -716,8 +716,13 @@ smtpd_tls_security_level = may
 smtp_tls_security_level = may
 
 # use 0 for Postfix >= 2.9, and 1 for earlier versions
+<% if scope.function_versioncmp([@version, '2.9']) >= 0 -%>
+smtpd_tls_loglevel = 0
+smtp_tls_loglevel = 0
+<% else -%>
 smtpd_tls_loglevel = 1
 smtp_tls_loglevel = 1
+<% end -%>
 
 # authentication only after STARTTLS
 smtpd_tls_auth_only = yes

@@ -33,7 +33,8 @@ define postfix::transport(
       content => template("${module_name}/transport/error.erb"),
     }
   }
-  else {
+  else
+  {
     fail('no action configured for this transport rule')
   }
 
