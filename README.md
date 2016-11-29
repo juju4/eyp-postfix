@@ -131,16 +131,36 @@ postfix::instance { 'out_domain2':
 }
 ```
 
-blackhole:
+blackhole domain or account (to be able to blackhole a domain it requires **postfix::vmail**):
 
 ```puppet
 postfix::alias { 'blackhole':
   to => '/dev/null',
 }
+
+postfix::vmail::alias { '@blackhole.com':
+  aliasto => [ 'blackhole@' ],
+}
 ```
 
+log example:
+
 ```
-Nov 29 12:23:28 ldapm postfix/local[14498]: 7FA34A0FE8: to=<blackhole@ldapm>, orig_to=<blackhole@>, relay=local, delay=0.1, delays=0.08/0.02/0/0, dsn=2.0.0, status=sent (delivered to file: /dev/null)
+# echo a | mail -s caca blackhole@
+
+Nov 29 12:33:03 ldapm postfix/pickup[16927]: 51876A105B: uid=0 from=<root>
+Nov 29 12:33:03 ldapm postfix/cleanup[16995]: 51876A105B: message-id=<20161129113303.51876A105B@ldapm>
+Nov 29 12:33:03 ldapm postfix/qmgr[16928]: 51876A105B: from=<root@vm.vm>, size=384, nrcpt=1 (queue active)
+Nov 29 12:33:03 ldapm postfix/local[16997]: 51876A105B: to=<blackhole@ldapm>, orig_to=<blackhole@>, relay=local, delay=0.09, delays=0.07/0.03/0/0, dsn=2.0.0, status=sent (delivered to file: /dev/null)
+Nov 29 12:33:03 ldapm postfix/qmgr[16928]: 51876A105B: removed
+
+# echo a | mail -s caca dsadadas@blackhole.com
+
+Nov 29 12:33:10 ldapm postfix/pickup[16927]: 70BA8A105B: uid=0 from=<root>
+Nov 29 12:33:10 ldapm postfix/cleanup[16995]: 70BA8A105B: message-id=<20161129113310.70BA8A105B@ldapm>
+Nov 29 12:33:10 ldapm postfix/qmgr[16928]: 70BA8A105B: from=<root@vm.vm>, size=396, nrcpt=1 (queue active)
+Nov 29 12:33:10 ldapm postfix/local[16997]: 70BA8A105B: to=<blackhole@ldapm>, orig_to=<dsadadas@blackhole.com>, relay=local, delay=0.03, delays=0.02/0/0/0, dsn=2.0.0, status=sent (delivered to file: /dev/null)
+Nov 29 12:33:10 ldapm postfix/qmgr[16928]: 70BA8A105B: removed
 ```
 
 ## Reference
@@ -236,7 +256,6 @@ have some test to check both presence and absence of any feature
 ### TODO
 
 * improve documentation (multidoamin mailserver is not yet covered)
-* aliases management: be able to create a blackhole (blackhole: /dev/null) - http://madphilosopher.ca/2006/09/how-to-send-an-entire-domain-to-dev-null-in-postfix/
 
 ### Contributing
 
