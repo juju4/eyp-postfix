@@ -131,6 +131,18 @@ postfix::instance { 'out_domain2':
 }
 ```
 
+blackhole:
+
+```puppet
+postfix::alias { 'blackhole':
+  to => '/dev/null',
+}
+```
+
+```
+Nov 29 12:23:28 ldapm postfix/local[14498]: 7FA34A0FE8: to=<blackhole@ldapm>, orig_to=<blackhole@>, relay=local, delay=0.1, delays=0.08/0.02/0/0, dsn=2.0.0, status=sent (delivered to file: /dev/null)
+```
+
 ## Reference
 
 ### postfix

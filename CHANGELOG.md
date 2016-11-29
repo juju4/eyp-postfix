@@ -4,6 +4,7 @@
 
 * postfix >= 2.9 compatibility for **opportunistic TLS**
 * bugfix **postfix::sendercanonicalmap**
+* /etc/aliases management
 
 ## 0.2.12
 

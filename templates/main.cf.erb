@@ -412,7 +412,7 @@ in_flow_delay = <%= @in_flow_delay %>
 # "postfix reload" to eliminate the delay.
 #
 #alias_maps = dbm:/etc/aliases
-alias_maps = hash:/etc/aliases
+alias_maps = hash:<%= @alias_maps %>
 #alias_maps = hash:/etc/aliases, nis:mail.aliases
 #alias_maps = netinfo:/aliases
 
