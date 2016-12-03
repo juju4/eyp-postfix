@@ -1,3 +1,4 @@
+# referencia: https://www.server-world.info/en/note?os=CentOS_7&p=mail&f=6
 class postfix::contentfilter(
                               $setup_amavis   = true,
                               $setup_clamav   = true,
