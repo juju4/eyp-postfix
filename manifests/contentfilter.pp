@@ -1,14 +1,14 @@
 class postfix::contentfilter(
-                              $install_amavis = true,
-                              $install_clamav = true,
+                              $setup_amavis   = true,
+                              $setup_clamav   = true,
                               $content_filter = 'smtp-amavis:[127.0.0.1]:10024',
                               $add_instances  = true,
                             ) inherits postfix::params {
 
-  if($install_amavis)
+  if($setup_amavis)
   {
     class { 'amavis':
-      install_clamav => $install_clamav,
+      setup_clamav => $setup_clamav,
     }
   }
 
