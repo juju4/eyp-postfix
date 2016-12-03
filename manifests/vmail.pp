@@ -14,8 +14,6 @@
 class postfix::vmail(
                       $mailbox_base                 = '/var/vmail',
                       $setup_dovecot                = true,
-                      $setup_amavis                 = false,
-                      $setup_clamav                 = false,
                       #TODO: rewrite
                       $smtpd_recipient_restrictions = [ 'permit_inet_interfaces',
                                                         'permit_mynetworks',
@@ -32,13 +30,6 @@ class postfix::vmail(
                     ) inherits postfix::params {
   Exec {
     path => '/bin:/sbin:/usr/bin:/usr/sbin',
-  }
-
-  if($setup_amavis)
-  {
-    class { 'amavis':
-      setup_clamav => $setup_clamav,
-    }
   }
 
   if($setup_dovecot)
