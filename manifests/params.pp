@@ -9,7 +9,6 @@ class postfix::params {
   $ipv6_default = false
   $relayhost_default = undef
   $relayhost_mx_lookup_default = false
-  $smtp_fallback_relay_default = undef
   $opportunistictls_default = false
   $tlscert_default = undef
   $tlspk_default = undef
