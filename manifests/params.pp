@@ -21,7 +21,6 @@ class postfix::params {
   $mydomain_default = $::domain
   $recipient_delimiter_default = undef
   $mydestination_default = [ $::fqdn, 'localhost' ]
-  $virtual_alias_default = undef
   $baseconf = '/etc/postfix'
   $mail_spool_directory_default = '/var/mail'
   $default_process_limit_default = '100'
