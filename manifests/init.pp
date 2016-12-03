@@ -49,7 +49,7 @@ class postfix (
     $smtpd_client_connection_rate_limit  = $postfix::params::smtpd_client_connection_rate_limit_default,
     $in_flow_delay                       = $postfix::params::in_flow_delay_default,
     $setgid_group                        = $postfix::params::setgid_group_default,
-    $smtp_fallback_relay                 = $postfix::params::smtp_fallback_relay_default,
+    $smtp_fallback_relay                 = undef,
     $unknown_local_recipient_reject_code = '550',
     $postfix_username                    = 'postfix',
     $postfix_username_uid                = $postfix_username_uid_default,
