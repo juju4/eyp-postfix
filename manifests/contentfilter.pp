@@ -1,6 +1,7 @@
 #
 # referencia amavis: https://www.server-world.info/en/note?os=CentOS_7&p=mail&f=6
 # referencia DSPAM: https://www.kirya.net/articles/setting-up-dspam-as-a-filter-for-postfix-on-debian/
+#            DSPAM - ClamAV: https://www.howtoforge.com/etch_postfix_dspam_clamav
 #
 class postfix::contentfilter(
                               $setup_amavis        = true,
