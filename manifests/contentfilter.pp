@@ -1,16 +1,23 @@
 # referencia: https://www.server-world.info/en/note?os=CentOS_7&p=mail&f=6
 class postfix::contentfilter(
-                              $setup_amavis   = true,
-                              $setup_clamav   = true,
-                              $content_filter = 'smtp-amavis:[127.0.0.1]:10024',
-                              $add_instances  = true,
+                              $setup_amavis        = true,
+                              $setup_clamav        = true,
+                              $content_filter      = 'smtp-amavis:[127.0.0.1]:10024',
+                              $add_instances       = true,
+                              #amavis
+                              $bypass_spam_checks  = true,
+                              $bypass_decode_parts = false,
+                              $bypass_virus_checks = false,
                             ) inherits postfix::params {
 
   if($setup_amavis)
   {
     class { 'amavis':
-      setup_clamav => $setup_clamav,
-      mydomain     => $postfix::mydomain,
+      setup_clamav        => $setup_clamav,
+      mydomain            => $postfix::mydomain,
+      bypass_spam_checks  => $bypass_spam_checks,
+      bypass_decode_parts => $bypass_decode_parts,
+      bypass_virus_checks => $bypass_virus_checks,
     }
   }
 
