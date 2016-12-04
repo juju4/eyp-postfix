@@ -107,6 +107,24 @@ To setup **opportunistic TLS with selfsigned certificate**:
 	}
 ```
 
+Mailserver with contentfilter (amavis)
+
+```puppet
+# Mailserver
+class { 'postfix': }
+
+class { 'postfix::vmail': }
+
+postfix::vmail::account { 'merda@merda.com':
+  accountname => 'merda',
+  domain => 'merda.com',
+  password => 'putamerda',
+}
+
+class { 'postfix::contentfilter':
+}
+```
+
 multiple smtp outbound instances:
 
 ```
@@ -256,6 +274,7 @@ have some test to check both presence and absence of any feature
 ### TODO
 
 * improve documentation (multidoamin mailserver is not yet covered)
+* SQLite support (was added with Postfix version 2.8)
 
 ### Contributing
 

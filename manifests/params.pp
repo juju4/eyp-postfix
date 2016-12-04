@@ -9,7 +9,6 @@ class postfix::params {
   $ipv6_default = false
   $relayhost_default = undef
   $relayhost_mx_lookup_default = false
-  $smtp_fallback_relay_default = undef
   $opportunistictls_default = false
   $tlscert_default = undef
   $tlspk_default = undef
@@ -18,11 +17,8 @@ class postfix::params {
   $subjectselfsigned_default = undef
   $biff_default = false
   $append_dot_mydomain_default = undef
-  $myorigin_default = $::domain
-  $mydomain_default = $::domain
   $recipient_delimiter_default = undef
   $mydestination_default = [ $::fqdn, 'localhost' ]
-  $virtual_alias_default = undef
   $baseconf = '/etc/postfix'
   $mail_spool_directory_default = '/var/mail'
   $default_process_limit_default = '100'

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.15
+
+* amavis support
+
 ## 0.2.14
 
 * postfix >= 2.9 compatibility for **opportunistic TLS**
