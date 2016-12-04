@@ -87,6 +87,7 @@ class postfix::contentfilter(
         'smtpd_restriction_classes'    => '',
         'disable_vrfy_command'         => 'no',
         'strict_rfc821_envelopes'      => 'yes',
+        'smtpd_sasl_auth_enable'       => 'no',
       },
       order => '99',
     }
