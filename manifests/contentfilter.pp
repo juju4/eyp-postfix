@@ -10,6 +10,8 @@ class postfix::contentfilter(
   {
     class { 'amavis':
       setup_clamav => $setup_clamav,
+      mydomain     => $postfix::mydomain,
+      log_level    => '5',
     }
   }
 

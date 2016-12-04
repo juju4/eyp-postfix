@@ -17,8 +17,6 @@ class postfix::params {
   $subjectselfsigned_default = undef
   $biff_default = false
   $append_dot_mydomain_default = undef
-  $myorigin_default = $::domain
-  $mydomain_default = $::domain
   $recipient_delimiter_default = undef
   $mydestination_default = [ $::fqdn, 'localhost' ]
   $baseconf = '/etc/postfix'
