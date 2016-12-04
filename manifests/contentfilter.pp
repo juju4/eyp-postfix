@@ -82,7 +82,7 @@ class postfix::contentfilter(
         'smtpd_hard_error_limit'       => '1000',
         'receive_override_options'     => 'no_header_body_checks',
         'smtpd_helo_required'          => 'no',
-        'smtpd_client_restrictions'    => '0',
+        'smtpd_client_restrictions'    => '',
         'smtpd_restriction_classes'    => '',
         'disable_vrfy_command'         => 'no',
         'strict_rfc821_envelopes'      => 'yes',
