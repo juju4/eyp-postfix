@@ -47,16 +47,16 @@ class postfix::contentfilter(
     #  -o smtp_send_xforward_command=yes
 
     postfix::instance { 'smtp-amavis':
-      type => 'unix',
-      chroot => 'y',
+      type    => 'unix',
+      chroot  => 'y',
       maxproc => '2',
       command => 'smtp',
-      opts => {
-        'smtp_data_done_timeout'     => '1200',
-        'disable_dns_lookups'        => 'yes',
-        'smtp_send_xforward_command' => 'yes',
-      },
-      order => '98',
+      opts    => {
+                    'smtp_data_done_timeout'     => '1200',
+                    'disable_dns_lookups'        => 'yes',
+                    'smtp_send_xforward_command' => 'yes',
+                  },
+      order   => '98',
     }
 
     #  service        type  private unpriv  chroot  wakeup  maxproc command + args
@@ -77,28 +77,28 @@ class postfix::contentfilter(
     # -o strict_rfc821_envelopes=yes
 
     postfix::instance { '127.0.0.1:10025':
-      type => 'inet',
+      type    => 'inet',
       private => 'n',
-      chroot => 'y',
+      chroot  => 'y',
       command => 'smtpd',
-      opts => {
-        'content_filter'               => '',
-        'smtpd_helo_restrictions'      => '',
-        'smtpd_sender_restrictions'    => '',
-        'smtpd_recipient_restrictions' => 'permit_mynetworks,reject',
-        'mynetworks'                   => '127.0.0.0/8',
-        'smtpd_error_sleep_time'       => '0',
-        'smtpd_soft_error_limit'       => '1001',
-        'smtpd_hard_error_limit'       => '1000',
-        'receive_override_options'     => 'no_header_body_checks',
-        'smtpd_helo_required'          => 'no',
-        'smtpd_client_restrictions'    => '',
-        'smtpd_restriction_classes'    => '',
-        'disable_vrfy_command'         => 'no',
-        'strict_rfc821_envelopes'      => 'yes',
-        'smtpd_sasl_auth_enable'       => 'no',
-      },
-      order => '99',
+      opts    => {
+                  'content_filter'               => '',
+                  'smtpd_helo_restrictions'      => '',
+                  'smtpd_sender_restrictions'    => '',
+                  'smtpd_recipient_restrictions' => 'permit_mynetworks,reject',
+                  'mynetworks'                   => '127.0.0.0/8',
+                  'smtpd_error_sleep_time'       => '0',
+                  'smtpd_soft_error_limit'       => '1001',
+                  'smtpd_hard_error_limit'       => '1000',
+                  'receive_override_options'     => 'no_header_body_checks',
+                  'smtpd_helo_required'          => 'no',
+                  'smtpd_client_restrictions'    => '',
+                  'smtpd_restriction_classes'    => '',
+                  'disable_vrfy_command'         => 'no',
+                  'strict_rfc821_envelopes'      => 'yes',
+                  'smtpd_sasl_auth_enable'       => 'no',
+                },
+      order   => '99',
     }
 
   }
