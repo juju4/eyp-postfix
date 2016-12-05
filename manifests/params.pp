@@ -119,8 +119,8 @@ class postfix::params {
 
               $readme_directory_default='/usr/share/doc/postfix'
 
-              $postfix_username_uid_default='110'
-              $postfix_username_gid_default='115'
+              $postfix_username_uid_default='89'
+              $postfix_username_gid_default='89'
 
               $postfix_ver='2.11.0'
             }
