@@ -100,7 +100,7 @@ class postfix (
     validate_array($smtp_fallback_relay)
   }
 
-  validate_re($home_mailbox, [ '^Maildir/$', '^Mailbox$' ], 'Not a supported home_mailbox - valid values: Mailbox and Maildir/')
+  validate_re($home_mailbox, [ '^Maildir/$', '^Mailbox$', '^$' ], 'Not a supported home_mailbox - valid values: Mailbox, Maildir/ or empty string')
 
   user { $postfix_username:
     ensure  => 'present',

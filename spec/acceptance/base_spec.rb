@@ -19,7 +19,7 @@ describe 'postfix class' do
            myorigin => 'test.es',
            recipient_delimiter => '+',
            mail_spool_directory => '/tmp',
-           home_mailbox => 'Mailbox',
+           home_mailbox => '',
         }
 
       EOF
@@ -47,19 +47,11 @@ describe 'postfix class' do
     end
 
     it "send test mail" do
-      expect(shell("echo \"Testing rspec puppet DUI\" | mail root").exit_code).to be_zero
+      expect(shell("echo \"Testing rspec puppet DUI\" | mail root@localhost").exit_code).to be_zero
     end
 
     it "sleep 10 to make sure mesage is delivered" do
       expect(shell("sleep 10").exit_code).to be_zero
-    end
-
-    it "debug tmp" do
-      expect(shell("ls -l /tmp").exit_code).to be_zero
-    end
-
-    it "debug maillog" do
-      expect(shell("cat /var/log/maillog").exit_code).to be_zero
     end
 
     it "check mail reception" do

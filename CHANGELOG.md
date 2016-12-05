@@ -3,6 +3,8 @@
 ## 0.2.15
 
 * amavis support
+* bugfix home_mailbox
+* fixed acceptance testing
 
 ## 0.2.14
 
