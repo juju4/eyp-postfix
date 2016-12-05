@@ -119,8 +119,17 @@ class postfix::params {
 
               $readme_directory_default='/usr/share/doc/postfix'
 
-              $postfix_username_uid_default='89'
-              $postfix_username_gid_default='89'
+              # $postfix_username_uid_default=hiera('::eyp_postfix_uid', '89'),
+              $postfix_username_uid_default = $::eyp_postfix_uid ? {
+                undef   => '89',
+                default => $::eyp_postfix_uid,
+              }
+
+              # $postfix_username_gid_default=hiera('::eyp_postfix_gid', '89'),
+              $postfix_username_gid_default = $::eyp_postfix_gid ? {
+                undef   => '89',
+                default => $::eyp_postfix_gid,
+              }
 
               $postfix_ver='2.11.0'
             }

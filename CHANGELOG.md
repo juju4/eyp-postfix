@@ -5,6 +5,7 @@
 * amavis support
 * bugfix home_mailbox
 * fixed acceptance testing
+* added facts (eyp_postfix_uid/eyp_postfix_gid) to get postfix uid/gid
 
 ## 0.2.14
 
