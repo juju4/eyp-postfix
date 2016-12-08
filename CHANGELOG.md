@@ -3,6 +3,7 @@
 ## 0.2.16
 
 * stderr to /dev/null for facts eyp_postfix_uid & eyp_postfix_gid
+* added postfix group to puppet management
 
 ## 0.2.15
 

@@ -106,6 +106,12 @@ class postfix (
     ensure  => 'present',
     uid     => $postfix_username_uid,
     gid     => $postfix_username_gid,
+    require => Group[$postfix_username],
+  }
+
+  group { $postfix_username:
+    ensure  => 'present',
+    gid     => $postfix_username_gid,
     require => Package[$postfix::params::package_name],
   }
 
