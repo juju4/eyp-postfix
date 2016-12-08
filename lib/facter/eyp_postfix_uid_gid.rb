@@ -1,5 +1,5 @@
-postfix_uid = Facter::Util::Resolution.exec('id -u postfix').to_s
-postfix_gid = Facter::Util::Resolution.exec('id -g postfix').to_s
+postfix_uid = Facter::Util::Resolution.exec('id -u postfix 2>/dev/null').to_s
+postfix_gid = Facter::Util::Resolution.exec('id -g postfix 2>/dev/null').to_s
 
 unless postfix_uid.nil? or postfix_uid.empty?
   Facter.add('eyp_postfix_uid') do
