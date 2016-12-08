@@ -124,7 +124,7 @@ class postfix::params {
                 if has_key($::facts, 'eyp_postfix_uid')
                 {
                   # $postfix_username_uid_default=hiera('::eyp_postfix_uid', '89'),
-                  $postfix_username_uid_default = $facts['eyp_postfix_uid'] ? {
+                  $postfix_username_uid_default = $::facts['eyp_postfix_uid'] ? {
                     undef   => '89',
                     default => $::facts['eyp_postfix_uid'],
                   }
@@ -151,11 +151,11 @@ class postfix::params {
               {
                 $postfix_username_uid_default = $::eyp_postfix_uid ? {
                   undef   => '89',
-                  default => $facts['eyp_postfix_uid'],
+                  default => $::eyp_postfix_uid,
                 }
                 $postfix_username_gid_default = $::eyp_postfix_gid ? {
                   undef   => '89',
-                  default => $facts['eyp_postfix_gid'],
+                  default => $::eyp_postfix_gid,
                 }
               }
 
