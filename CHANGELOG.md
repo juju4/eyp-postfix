@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.17
+
+* dspam content filter
+
 ## 0.2.16
 
 * stderr to /dev/null for facts eyp_postfix_uid & eyp_postfix_gid

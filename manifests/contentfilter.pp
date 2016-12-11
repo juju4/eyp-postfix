@@ -5,8 +5,8 @@
 #
 class postfix::contentfilter(
                               $setup_amavis        = true,
+                              $setup_dspam         = true,
                               $setup_clamav        = true,
-                              $content_filter      = 'smtp-amavis:[127.0.0.1]:10024',
                               $add_instances       = true,
                               $type                = 'amavis',
                               #amavis
@@ -15,12 +15,14 @@ class postfix::contentfilter(
                               $bypass_virus_checks = false,
                             ) inherits postfix::params {
 
-  validate_re($type, [ '^amavis$' ], "${type} - unsuppoted content filter")
+  validate_re($type, [ '^amavis$', '^dspam$' ], "${type} - unsuppoted content filter")
 
   case $type
   {
     'amavis':
     {
+      $content_filter = 'smtp-amavis:[127.0.0.1]:10024',
+
       if($setup_amavis)
       {
         class { 'amavis':
@@ -110,6 +112,11 @@ class postfix::contentfilter(
         }
 
       }
+    }
+    'dspam':
+    {
+      $content_filter = 'smtp-amavis:[127.0.0.1]:10024',
+      fail('TODO')
     }
     default:
     {
