@@ -117,6 +117,9 @@ class postfix::contentfilter(
     {
       $content_filter = 'smtp-amavis:[127.0.0.1]:10024',
       fail('TODO')
+
+      # dspam                 unix    -       n       n       -       -    pipe
+      # flags=Ru user=dspam argv=/usr/bin/dspam --client --deliver=innocent --user ${recipient} --mail-from=${sender}
     }
     default:
     {
