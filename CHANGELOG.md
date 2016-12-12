@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.18
+
+* bugfix version detection
+
 ## 0.2.17
 
 * dspam content filter
