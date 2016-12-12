@@ -21,7 +21,7 @@ class postfix::contentfilter(
   {
     'amavis':
     {
-      $content_filter = 'smtp-amavis:[127.0.0.1]:10024',
+      $content_filter = 'smtp-amavis:[127.0.0.1]:10024'
 
       if($setup_amavis)
       {
