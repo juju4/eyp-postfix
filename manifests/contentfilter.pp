@@ -115,7 +115,7 @@ class postfix::contentfilter(
     }
     'dspam':
     {
-      $content_filter = 'smtp-amavis:[127.0.0.1]:10024',
+      $content_filter = 'smtp-amavis:[127.0.0.1]:10024'
       fail('TODO')
 
       # dspam                 unix    -       n       n       -       -    pipe
