@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.19
+
+* bugfix: postmap & newaliases dependencies
+
 ## 0.2.18
 
 * bugfix version detection
