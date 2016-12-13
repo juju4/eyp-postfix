@@ -61,6 +61,8 @@ class postfix (
     $manage_mastercf                     = $postfix::params::manage_mastercf_default,
     $resolve_null_domain                 = true,
     $alias_maps                          = '/etc/aliases',
+    $debug_peer_level                    = '2',
+    $debug_peer_list                     = undef,
     ) inherits postfix::params {
 
   Exec {

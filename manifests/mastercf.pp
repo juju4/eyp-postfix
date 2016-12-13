@@ -26,7 +26,7 @@ class postfix::mastercf(
               type    => 'inet',
               private => 'n',
               chroot  => 'n',
-              command => 'smtpd',
+              command => 'smtpd -v',
               order   => '01',
             }
           }
