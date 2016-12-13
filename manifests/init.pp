@@ -249,10 +249,10 @@ class postfix (
     command     => "postmap ${postfix::params::baseconf}/transport",
     refreshonly => true,
     notify      => Class['postfix::service'],
-    require     => [ Package[$postfix::params::package_name],  ],
+    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/transport"] ],
   }
 
-  concat { '/etc/postfix/transport':
+  concat { "${postfix::params::baseconf}/transport":
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -262,7 +262,7 @@ class postfix (
   }
 
   concat::fragment{ '/etc/postfix/transport header':
-    target  => '/etc/postfix/transport',
+    target  => "${postfix::params::baseconf}/transport",
     order   => '00',
     content => template("${module_name}/transport/header.erb"),
   }
@@ -271,7 +271,7 @@ class postfix (
     command     => "newaliases -oA${alias_maps}",
     refreshonly => true,
     notify      => Class['postfix::service'],
-    require     => [ Package[$postfix::params::package_name],  ],
+    require     => [ Package[$postfix::params::package_name], Concat[$alias_maps] ],
   }
 
   concat { $alias_maps:
