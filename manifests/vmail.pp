@@ -19,13 +19,15 @@ class postfix::vmail(
                                                         'permit_mynetworks',
                                                         'reject_authenticated_sender_login_mismatch',
                                                         'permit_sasl_authenticated',
-                                                        'reject_unauth_destination'
+                                                        'reject_unauth_destination',
+                                                        'reject'
                                                         ],
                       $smtpd_relay_restrictions     = [ 'permit_inet_interfaces',
                                                         'permit_mynetworks',
                                                         'reject_authenticated_sender_login_mismatch',
                                                         'permit_sasl_authenticated',
-                                                        'reject_unauth_destination'
+                                                        'reject_unauth_destination',
+                                                        'reject'
                                                         ],
                     ) inherits postfix::params {
   Exec {
