@@ -275,6 +275,7 @@ have some test to check both presence and absence of any feature
 
 * improve documentation (multidoamin mailserver is not yet covered)
 * SQLite support (was added with Postfix version 2.8)
+* add requires for postmap operations and rewrite it to use ${postfix::params::baseconf}
 
 ### Contributing
 

@@ -61,6 +61,9 @@ class postfix (
     $manage_mastercf                     = $postfix::params::manage_mastercf_default,
     $resolve_null_domain                 = true,
     $alias_maps                          = '/etc/aliases',
+    $debug_peer_level                    = '2',
+    $debug_peer_list                     = undef,
+    $smtpd_verbose                       = false,
     ) inherits postfix::params {
 
   Exec {
@@ -100,11 +103,17 @@ class postfix (
     validate_array($smtp_fallback_relay)
   }
 
-  validate_re($home_mailbox, [ '^Maildir/$', '^Mailbox$' ], 'Not a supported home_mailbox - valid values: Mailbox and Maildir/')
+  validate_re($home_mailbox, [ '^Maildir/$', '^Mailbox$', '^$' ], 'Not a supported home_mailbox - valid values: Mailbox, Maildir/ or empty string')
 
   user { $postfix_username:
     ensure  => 'present',
     uid     => $postfix_username_uid,
+    gid     => $postfix_username_gid,
+    require => Group[$postfix_username],
+  }
+
+  group { $postfix_username:
+    ensure  => 'present',
     gid     => $postfix_username_gid,
     require => Package[$postfix::params::package_name],
   }
@@ -243,10 +252,10 @@ class postfix (
     command     => "postmap ${postfix::params::baseconf}/transport",
     refreshonly => true,
     notify      => Class['postfix::service'],
-    require     => [ Package[$postfix::params::package_name],  ],
+    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/transport"] ],
   }
 
-  concat { '/etc/postfix/transport':
+  concat { "${postfix::params::baseconf}/transport":
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -256,7 +265,7 @@ class postfix (
   }
 
   concat::fragment{ '/etc/postfix/transport header':
-    target  => '/etc/postfix/transport',
+    target  => "${postfix::params::baseconf}/transport",
     order   => '00',
     content => template("${module_name}/transport/header.erb"),
   }
@@ -265,7 +274,7 @@ class postfix (
     command     => "newaliases -oA${alias_maps}",
     refreshonly => true,
     notify      => Class['postfix::service'],
-    require     => [ Package[$postfix::params::package_name],  ],
+    require     => [ Package[$postfix::params::package_name], Concat[$alias_maps] ],
   }
 
   concat { $alias_maps:
@@ -310,8 +319,18 @@ class postfix (
       content => template("${module_name}/mastercf/header.erb"),
     }
 
+    if($smtpd_verbose)
+    {
+      $smtpd_instance_args='-v'
+    }
+    else
+    {
+      $smtpd_instance_args=undef
+    }
+
     class { '::postfix::mastercf':
       add_default_smtpd_instance => $add_default_smtpd_instance,
+      default_smtpd_args         => $smtpd_instance_args,
     }
   }
 }

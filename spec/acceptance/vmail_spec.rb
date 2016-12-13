@@ -16,20 +16,20 @@ describe 'postfix class' do
     		error => 'email to this domain is not allowed',
     	}
 
-    	postfix::vmail::alias { 'caca@caca.com':
-    		aliasto => [ 'caca@merda.com' ],
+    	postfix::vmail::alias { 'd9abea179bca9c44bdafd19c43c8ad55@d9abea179bca9c44bdafd19c43c8ad55.com':
+    		aliasto => [ 'd9abea179bca9c44bdafd19c43c8ad55@6cf31108ba1c3fb808e9a276623e87ed.com' ],
     	}
 
-    	postfix::vmail::account { 'caca@merda.com':
-    		accountname => 'caca',
-    		domain => 'merda.com',
-    		password => 'putamerda',
+    	postfix::vmail::account { 'd9abea179bca9c44bdafd19c43c8ad55@6cf31108ba1c3fb808e9a276623e87ed.com':
+    		accountname => 'd9abea179bca9c44bdafd19c43c8ad55',
+    		domain => '6cf31108ba1c3fb808e9a276623e87ed.com',
+    		password => 'd59f50bcb24e81f8eb4d6a0ac438729e',
     	}
 
-    	postfix::vmail::account { 'merda@merda.com':
-    		accountname => 'merda',
-    		domain => 'merda.com',
-    		password => 'putamerda',
+    	postfix::vmail::account { '6cf31108ba1c3fb808e9a276623e87ed@6cf31108ba1c3fb808e9a276623e87ed.com':
+    		accountname => '6cf31108ba1c3fb808e9a276623e87ed',
+    		domain => '6cf31108ba1c3fb808e9a276623e87ed.com',
+    		password => 'd59f50bcb24e81f8eb4d6a0ac438729e',
     	}
 
       EOF
@@ -58,22 +58,25 @@ describe 'postfix class' do
 
     # entrega mail
     #
-    # it "send test mail" do
-    #   expect(shell("echo \"Testing rspec puppet DUI\" | mail root").exit_code).to be_zero
-    # end
-    #
-    # it "sleep 10 to make sure mesage is delivered" do
-    #   expect(shell("sleep 10").exit_code).to be_zero
-    # end
-    #
-    # it "check mail reception" do
-    #   expect(shell("grep \"Testing rspec puppet DUI\" /tmp/root").exit_code).to be_zero
-    # end
-    #
+    it "send test mail" do
+      expect(shell("echo \"Testing rspec puppet DUI\" | mail d9abea179bca9c44bdafd19c43c8ad55@d9abea179bca9c44bdafd19c43c8ad55.com").exit_code).to be_zero
+    end
 
-    # entrega via alias
+    it "send test mail" do
+      expect(shell("echo \"Testing rspec puppet IN INDE INDEPENDENCIA\" | mail d9abea179bca9c44bdafd19c43c8ad55@6cf31108ba1c3fb808e9a276623e87ed.com").exit_code).to be_zero
+    end
 
-    # regla error transport
+    it "sleep 10 to make sure mesage is delivered" do
+      expect(shell("sleep 10").exit_code).to be_zero
+    end
+
+    it "check account" do
+      expect(shell("grep \"Testing rspec puppet DUI\" /var/vmail/ -R").exit_code).to be_zero
+    end
+
+    it "check alias" do
+      expect(shell("grep \"Testing rspec puppet IN INDE INDEPENDENCIA\" /var/vmail/ -R").exit_code).to be_zero
+    end
 
   end
 

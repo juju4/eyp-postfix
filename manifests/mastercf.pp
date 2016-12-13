@@ -1,5 +1,6 @@
 class postfix::mastercf(
                           $add_default_smtpd_instance = true,
+                          $default_smtpd_args         = undef,
                         )  inherits postfix::params {
 
   case $::osfamily
@@ -27,6 +28,7 @@ class postfix::mastercf(
               private => 'n',
               chroot  => 'n',
               command => 'smtpd',
+              args    => $default_smtpd_args,
               order   => '01',
             }
           }
@@ -255,6 +257,7 @@ class postfix::mastercf(
               private => 'n',
               chroot  => 'n',
               command => 'smtpd',
+              args    => $default_smtpd_args,
               order   => '01',
             }
           }

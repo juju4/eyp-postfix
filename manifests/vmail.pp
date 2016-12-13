@@ -19,13 +19,15 @@ class postfix::vmail(
                                                         'permit_mynetworks',
                                                         'reject_authenticated_sender_login_mismatch',
                                                         'permit_sasl_authenticated',
-                                                        'reject_unauth_destination'
+                                                        'reject_unauth_destination',
+                                                        'reject'
                                                         ],
                       $smtpd_relay_restrictions     = [ 'permit_inet_interfaces',
                                                         'permit_mynetworks',
                                                         'reject_authenticated_sender_login_mismatch',
                                                         'permit_sasl_authenticated',
-                                                        'reject_unauth_destination'
+                                                        'reject_unauth_destination',
+                                                        'reject'
                                                         ],
                     ) inherits postfix::params {
   Exec {
@@ -99,7 +101,7 @@ class postfix::vmail(
     content => "\n# virtual mailboxes\nvirtual_mailbox_maps=hash:/etc/postfix/vmail_mailbox\n",
   }
 
-  concat { '/etc/postfix/vmail_mailbox':
+  concat { "${postfix::params::baseconf}/vmail_mailbox":
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -109,7 +111,7 @@ class postfix::vmail(
   }
 
   concat::fragment{ '/etc/postfix/vmail_mailbox header':
-    target  => '/etc/postfix/vmail_mailbox',
+    target  => "${postfix::params::baseconf}/vmail_mailbox",
     order   => '00',
     content => template("${module_name}/vmail/mailbox/header.erb"),
   }
@@ -118,7 +120,7 @@ class postfix::vmail(
     command     => "postmap ${postfix::params::baseconf}/vmail_mailbox",
     refreshonly => true,
     notify      => Class['postfix::service'],
-    require     => Package[$postfix::params::package_name],
+    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/vmail_mailbox"] ],
   }
 
   #
@@ -132,7 +134,7 @@ class postfix::vmail(
     content => "\n# virtual domains\nvirtual_mailbox_domains=hash:/etc/postfix/vmail_domains\n",
   }
 
-  concat { '/etc/postfix/vmail_domains':
+  concat { "${postfix::params::baseconf}/vmail_domains":
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -142,7 +144,7 @@ class postfix::vmail(
   }
 
   concat::fragment{ '/etc/postfix/vmail_domains header':
-    target  => '/etc/postfix/vmail_domains',
+    target  => "${postfix::params::baseconf}/vmail_domains",
     order   => '00',
     content => template("${module_name}/vmail/domains/header.erb"),
   }
@@ -151,7 +153,7 @@ class postfix::vmail(
     command     => "postmap ${postfix::params::baseconf}/vmail_domains",
     refreshonly => true,
     notify      => Class['postfix::service'],
-    require     => Package[$postfix::params::package_name],
+    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/vmail_domains"] ],
   }
 
   #
@@ -164,7 +166,7 @@ class postfix::vmail(
     content => "\n# virtual aliases\nvirtual_alias_maps=hash:/etc/postfix/vmail_aliases\n",
   }
 
-  concat { '/etc/postfix/vmail_aliases':
+  concat { "${postfix::params::baseconf}/vmail_aliases":
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -174,7 +176,7 @@ class postfix::vmail(
   }
 
   concat::fragment{ '/etc/postfix/vmail_aliases header':
-    target  => '/etc/postfix/vmail_aliases',
+    target  => "${postfix::params::baseconf}/vmail_aliases",
     order   => '00',
     content => template("${module_name}/vmail/aliases/header.erb"),
   }
@@ -183,7 +185,7 @@ class postfix::vmail(
     command     => "postmap ${postfix::params::baseconf}/vmail_aliases",
     refreshonly => true,
     notify      => Class['postfix::service'],
-    require     => Package[$postfix::params::package_name],
+    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/vmail_aliases"] ],
   }
 
   #

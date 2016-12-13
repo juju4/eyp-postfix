@@ -1,8 +1,29 @@
 # CHANGELOG
 
+## 0.2.19
+
+* bugfix: postmap & newaliases dependencies
+* debug peer, debug level and smtpd debug
+
+## 0.2.18
+
+* bugfix version detection
+
+## 0.2.17
+
+* dspam content filter
+
+## 0.2.16
+
+* stderr to /dev/null for facts eyp_postfix_uid & eyp_postfix_gid
+* added postfix group to puppet management
+
 ## 0.2.15
 
 * amavis support
+* bugfix home_mailbox
+* fixed acceptance testing
+* added facts (eyp_postfix_uid/eyp_postfix_gid) to get postfix uid/gid
 
 ## 0.2.14
 
@@ -12,7 +33,7 @@
 
 ## 0.2.12
 
-* **INCOMPATIBLE CHANGE** renamed **scmmap_to**, **scmmap_t**o to **scm_to**, **scm_from**
+* **INCOMPATIBLE CHANGE** renamed **scmmap_to** and **scmmap_to** to **scm_to** and **scm_from**
 
 ## 0.2.10
 

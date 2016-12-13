@@ -708,6 +708,14 @@ sample_directory = /usr/share/doc/postfix-2.6.6/samples
 #
 readme_directory = <%= scope.function_bool2yesno([@readme_directory]) %>
 
+<% if defined?(@debug_peer_list) -%>
+# debug
+
+debug_peer_level = <%= @debug_peer_level %>
+debug_peer_list = <%= @debug_peer_list.join(',') %>
+
+<% end -%>
+
 <%- if(@opportunistictls) -%>
 #opportunistic TLS
 
@@ -716,7 +724,7 @@ smtpd_tls_security_level = may
 smtp_tls_security_level = may
 
 # use 0 for Postfix >= 2.9, and 1 for earlier versions
-<% if scope.function_versioncmp([@version, '2.9']) >= 0 -%>
+<% if scope.function_versioncmp([scope.lookupvar('postfix::params::postfix_ver'), '2.9']) >= 0 -%>
 smtpd_tls_loglevel = 0
 smtp_tls_loglevel = 0
 <% else -%>

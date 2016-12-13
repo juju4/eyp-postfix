@@ -1,6 +1,6 @@
 {
   "name": "eyp-postfix",
-  "version": "0.2.15",
+  "version": "0.2.19",
   "author": "eyp",
   "summary": "postfix management - relay or multidomain mailserver",
   "license": "Apache-2.0",
@@ -10,7 +10,7 @@
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":">= 1.0.0"},
     {"name":"eyp/eyplib","version_requirement":">= 0.1.0 < 0.2.0"},
-    {"name":"eyp/dovecot","version_requirement":">= 0.1.0 < 0.2.0"},
+    {"name":"eyp/dovecot","version_requirement":">= 0.1.3 < 0.2.0"},
     {"name":"puppetlabs/concat","version_requirement":">= 1.2.3"}
   ],
   "operatingsystem_support": [
@@ -41,6 +41,16 @@
     {
       "operatingsystem": "SLES",
       "operatingsystemrelease": [ "11.3" ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": ">= 3.8.0"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">= 3.8.0"
     }
   ]
 }
