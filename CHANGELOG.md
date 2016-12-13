@@ -33,7 +33,7 @@
 
 ## 0.2.12
 
-* **INCOMPATIBLE CHANGE** renamed **scmmap_to**, **scmmap_t**o to **scm_to**, **scm_from**
+* **INCOMPATIBLE CHANGE** renamed **scmmap_to** and **scmmap_to** to **scm_to** and **scm_from**
 
 ## 0.2.10
 
