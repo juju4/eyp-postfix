@@ -3,7 +3,7 @@
 ## 0.2.19
 
 * bugfix: postmap & newaliases dependencies
-* debug peer and debug level
+* debug peer, debug level and smtpd debug
 
 ## 0.2.18
 

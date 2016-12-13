@@ -63,6 +63,7 @@ class postfix (
     $alias_maps                          = '/etc/aliases',
     $debug_peer_level                    = '2',
     $debug_peer_list                     = undef,
+    $smtpd_verbose                       = false,
     ) inherits postfix::params {
 
   Exec {
@@ -318,8 +319,18 @@ class postfix (
       content => template("${module_name}/mastercf/header.erb"),
     }
 
+    if($smtpd_verbose)
+    {
+      $smtpd_instance_args='-v'
+    }
+    else
+    {
+      $smtpd_instance_args=undef
+    }
+
     class { '::postfix::mastercf':
       add_default_smtpd_instance => $add_default_smtpd_instance,
+      default_smtpd_args         => $smtpd_instance_args,
     }
   }
 }
