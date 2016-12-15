@@ -181,6 +181,52 @@ Nov 29 12:33:10 ldapm postfix/local[16997]: 70BA8A105B: to=<blackhole@ldapm>, or
 Nov 29 12:33:10 ldapm postfix/qmgr[16928]: 70BA8A105B: removed
 ```
 
+multiple inbound email instances:
+
+```puppet
+class { 'postfix':
+  inetinterfaces => 'all',
+  mynetworks  => [ '127.0.0.1/32' ],
+  myhostname => 'smtp3.systemadmin.es',
+  smtpdbanner => 'smtp3.systemadmin.es ESMTP',
+  opportunistictls => true,
+  subjectselfsigned => '/C=UK/ST=Shropshire/L=Telford/O=systemadmin/CN=smtp3.systemadmin.es',
+  generatecert => true,
+  syslog_name => 'private',
+}
+
+class { 'postfix::vmail': }
+
+postfix::vmail::account { 'systemadmin@systemadmin.es':
+  accountname => 'systemadmin',
+  domain      => 'systemadmin.com',
+  password    => 'systemadmin_secret_passw0rd',
+}
+
+postfix::instance { '0.0.0.0:2525':
+  type    => 'inet',
+  private => 'n',
+  chroot  => 'n',
+  command => 'smtpd',
+  opts    => {
+              'content_filter'               => '',
+              'smtpd_helo_restrictions'      => '',
+              'smtpd_sender_restrictions'    => '',
+              'smtpd_recipient_restrictions' => 'permit_mynetworks,reject',
+              'mynetworks'                   => '127.0.0.0/8,10.0.2.15/32',
+              'receive_override_options'     => 'no_header_body_checks',
+              'smtpd_helo_required'          => 'no',
+              'smtpd_client_restrictions'    => '',
+              'smtpd_restriction_classes'    => '',
+              'disable_vrfy_command'         => 'no',
+              #'strict_rfc821_envelopes'      => 'yes',
+              'smtpd_sasl_auth_enable'       => 'no',
+              'syslog_name'									 => 'public',
+            },
+  order   => '99',
+}
+```
+
 ## Reference
 
 ### postfix
