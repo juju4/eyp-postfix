@@ -625,16 +625,24 @@ smtpd_banner = <%= scope.lookupvar('postfix::smtpdbanner') %>
 # logging level when an SMTP client or server host name or address
 # matches a pattern in the debug_peer_list parameter.
 #
-debug_peer_level = 2
+debug_peer_level = <%= @debug_peer_level %>
 
+<% if defined?(@debug_peer_list) -%>
 # The debug_peer_list parameter specifies an optional list of domain
 # or network patterns, /file/name patterns or type:name tables. When
 # an SMTP client or server host name or address matches a pattern,
 # increase the verbose logging level by the amount specified in the
 # debug_peer_level parameter.
 #
-#debug_peer_list = 127.0.0.1
-#debug_peer_list = some.domain
+
+debug_peer_list = <%= @debug_peer_list.join(',') %>
+<% end -%>
+
+<% if defined?(@syslog_name) -%>
+# syslog name
+
+syslog_name = <%= @syslog_name %>
+<% end -%>
 
 # The debugger_command specifies the external command that is executed
 # when a Postfix daemon program is run with the -D option.
@@ -708,13 +716,7 @@ sample_directory = /usr/share/doc/postfix-2.6.6/samples
 #
 readme_directory = <%= scope.function_bool2yesno([@readme_directory]) %>
 
-<% if defined?(@debug_peer_list) -%>
-# debug
 
-debug_peer_level = <%= @debug_peer_level %>
-debug_peer_list = <%= @debug_peer_list.join(',') %>
-
-<% end -%>
 
 <%- if(@opportunistictls) -%>
 #opportunistic TLS

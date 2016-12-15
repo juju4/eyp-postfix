@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 0.2.21
+
+* improved main.cf for clarity (debug peer, debug level)
+* added syslog_name
+
 ## 0.2.20
 
 * modified openssl cert generation to be able to change it's CN
