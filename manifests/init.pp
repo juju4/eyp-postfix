@@ -142,14 +142,14 @@ class postfix (
       if($subjectselfsigned)
       {
         exec { 'openssl pk':
-          command => '/usr/bin/openssl genrsa -out /etc/pki/tls/private/postfix-key.key 2048',
+          command => 'openssl genrsa -out /etc/pki/tls/private/postfix-key.key 2048',
           creates => '/etc/pki/tls/private/postfix-key.key',
           require => Exec['eyp-postfix which openssl'],
         }
 
         exec { 'openssl cert':
-          command => "/usr/bin/openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '${subjectselfsigned}' | /usr/bin/openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
-          creates => '/etc/pki/tls/certs/postfix.pem',
+          command => "openssl req -new -key /etc/pki/tls/private/postfix-key.key -subj '${subjectselfsigned}' | openssl x509 -req -days 10000 -signkey /etc/pki/tls/private/postfix-key.key -out /etc/pki/tls/certs/postfix.pem",
+          unless  => "openssl x509 -in /etc/pki/tls/certs/postfix.pem -noout -subject | grep '${subjectselfsigned}'",
           notify  => Class['postfix::service'],
           require => Exec['openssl pk'],
         }

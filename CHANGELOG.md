@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.20
+
+* modified openssl cert generation to be able to change it's CN
+
 ## 0.2.19
 
 * bugfix: postmap & newaliases dependencies
