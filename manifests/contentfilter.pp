@@ -7,10 +7,11 @@ class postfix::contentfilter(
                               $setup_amavis        = true,
                               $setup_dspam         = true,
                               $setup_clamav        = true,
+                              $setup_spamassassin  = true,
                               $add_instances       = true,
                               $type                = 'amavis',
                               #amavis
-                              $bypass_spam_checks  = true,
+                              $bypass_spam_checks  = false,
                               $bypass_decode_parts = false,
                               $bypass_virus_checks = false,
                             ) inherits postfix::params {
@@ -27,6 +28,7 @@ class postfix::contentfilter(
       {
         class { 'amavis':
           setup_clamav        => $setup_clamav,
+          setup_spamassassin  => $setup_spamassassin,
           mydomain            => $postfix::mydomain,
           bypass_spam_checks  => $bypass_spam_checks,
           bypass_decode_parts => $bypass_decode_parts,
