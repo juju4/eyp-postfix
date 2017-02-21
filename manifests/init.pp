@@ -65,6 +65,7 @@ class postfix (
     $debug_peer_list                     = undef,
     $smtpd_verbose                       = false,
     $syslog_name                         = undef,
+    $daemon_directory                    = $postfix::params::daemon_directory_default,
     ) inherits postfix::params {
 
   Exec {
