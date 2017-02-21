@@ -37,6 +37,10 @@ describe 'postfix class' do
       it { should be_listening }
     end
 
+    it "mail log" do
+      expect(shell("cat "+$maillog).exit_code).to be_zero
+    end
+
     describe package($packagename) do
       it { is_expected.to be_installed }
     end
