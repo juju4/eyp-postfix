@@ -1,6 +1,6 @@
 {
   "name": "eyp-postfix",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "author": "eyp",
   "summary": "postfix management - relay or multidomain mailserver",
   "license": "Apache-2.0",
@@ -36,7 +36,7 @@
     },
     {
       "operatingsystem": "Ubuntu",
-      "operatingsystemrelease": [ "14.04" ]
+      "operatingsystemrelease": [ "14.04", "16.04" ]
     },
     {
       "operatingsystem": "SLES",
