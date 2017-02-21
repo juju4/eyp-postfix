@@ -105,7 +105,7 @@ class postfix::params {
 
           case $::operatingsystemrelease
           {
-            /^14.*$/:
+            /^1[46].*$/:
             {
               $manage_mastercf_default=false
               $daemondirectory='/usr/lib/postfix'
