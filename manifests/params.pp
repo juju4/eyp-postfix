@@ -215,7 +215,7 @@ class postfix::params {
                 }
               }
 
-              $postfix_ver='2.11.0'
+              $postfix_ver='3.1.0'
             }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }
