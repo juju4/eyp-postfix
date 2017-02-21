@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.23
+
+* added **data_directory** as a variable
+
 ## 0.2.22
 
 * added Ubuntu 16.04 support

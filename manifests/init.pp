@@ -66,6 +66,7 @@ class postfix (
     $smtpd_verbose                       = false,
     $syslog_name                         = undef,
     $daemon_directory                    = $postfix::params::daemon_directory_default,
+    $data_directory                      = '/var/lib/postfix',
     ) inherits postfix::params {
 
   Exec {
@@ -217,6 +218,15 @@ class postfix (
 
   package { $postfix::params::package_name:
     ensure => 'installed',
+  }
+
+  #data_directory
+  file { $data_directory:
+    ensure  => 'directory',
+    owner   => $postfix_username,
+    group   => $postfix_username,
+    mode    => '0755',
+    require => Package[$postfix::params::package_name],
   }
 
   concat { '/etc/postfix/main.cf':
