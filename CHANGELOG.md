@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.2.23
+
+* added **data_directory** as a variable
+
+## 0.2.22
+
+* added Ubuntu 16.04 support
+
 ## 0.2.21
 
 * improved main.cf for clarity (debug peer, debug level)

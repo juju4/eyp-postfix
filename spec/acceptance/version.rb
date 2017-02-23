@@ -7,9 +7,11 @@ case _osfamily
 when 'RedHat'
   $packagename = 'postfix'
   $servicename = 'postfix'
+  $maillog = '/var/log/maillog'
 when 'Debian'
   $packagename = 'postfix'
   $servicename = 'postfix'
+  $maillog = '/var/log/mail.log'
 else
   $packagename = '-_-'
   $servicename = '-_-'

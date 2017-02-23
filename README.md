@@ -266,11 +266,15 @@ Most variables are standard postfix variables, please refer to postfix documenta
 
 ### postfix::transport
 
+bounce a specific domain:
+
 ```puppet
 postfix::transport { 'example.com':
   error => 'email to this domain is not allowed',
 }
 ```
+
+SMTP route:
 
 ```puppet
 postfix::transport { 'example.com':

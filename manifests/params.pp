@@ -38,7 +38,7 @@ class postfix::params {
         /^5.*$/:
         {
           $manage_mastercf_default=false
-          $daemondirectory='/usr/libexec/postfix'
+          $daemon_directory_default='/usr/libexec/postfix'
           #$dependencies=['chkconfig', 'grep']
           $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
           $check_postfix_mta='alternatives --display mta | grep postfix'
@@ -57,7 +57,7 @@ class postfix::params {
         /^6.*$/:
         {
           $manage_mastercf_default=true
-          $daemondirectory='/usr/libexec/postfix'
+          $daemon_directory_default='/usr/libexec/postfix'
           #$dependencies=['chkconfig', 'grep']
           $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
           $check_postfix_mta='alternatives --display mta | grep postfix'
@@ -76,7 +76,7 @@ class postfix::params {
         /^7.*$/:
         {
           $manage_mastercf_default=true
-          $daemondirectory='/usr/libexec/postfix'
+          $daemon_directory_default='/usr/libexec/postfix'
           #$dependencies=['chkconfig', 'grep']
           $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
           $check_postfix_mta='alternatives --display mta | grep postfix'
@@ -108,7 +108,7 @@ class postfix::params {
             /^14.*$/:
             {
               $manage_mastercf_default=false
-              $daemondirectory='/usr/lib/postfix'
+              $daemon_directory_default='/usr/lib/postfix'
               #$dependencies=['dpkg', 'grep' ]
               $switch_to_postfix=undef
               $check_postfix_mta=undef
@@ -161,6 +161,62 @@ class postfix::params {
 
               $postfix_ver='2.11.0'
             }
+            /^16.*$/:
+            {
+              $manage_mastercf_default=false
+              $daemon_directory_default='/usr/lib/postfix/sbin'
+              #$dependencies=['dpkg', 'grep' ]
+              $switch_to_postfix=undef
+              $check_postfix_mta=undef
+
+              $purge_default_mta=undef
+
+              $mailclient=[ 'mailutils' ]
+
+              $readme_directory_default='/usr/share/doc/postfix'
+
+              if($::facts!=undef)
+              {
+                if has_key($::facts, 'eyp_postfix_uid')
+                {
+                  # $postfix_username_uid_default=hiera('::eyp_postfix_uid', '89'),
+                  $postfix_username_uid_default = $::facts['eyp_postfix_uid'] ? {
+                    undef   => '89',
+                    default => $::facts['eyp_postfix_uid'],
+                  }
+                }
+                else
+                {
+                  $postfix_username_uid_default = '89'
+                }
+
+                if has_key($::facts, 'eyp_postfix_gid')
+                {
+                  # $postfix_username_gid_default=hiera('::eyp_postfix_gid', '89'),
+                  $postfix_username_gid_default = $::facts['eyp_postfix_gid'] ? {
+                    undef   => '89',
+                    default => $::facts['eyp_postfix_gid'],
+                  }
+                }
+                else
+                {
+                  $postfix_username_gid_default = '89'
+                }
+              }
+              else
+              {
+                $postfix_username_uid_default = $::eyp_postfix_uid ? {
+                  undef   => '89',
+                  default => $::eyp_postfix_uid,
+                }
+                $postfix_username_gid_default = $::eyp_postfix_gid ? {
+                  undef   => '89',
+                  default => $::eyp_postfix_gid,
+                }
+              }
+
+              $postfix_ver='3.1.0'
+            }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }
         }
@@ -181,7 +237,7 @@ class postfix::params {
             '11.3':
             {
               $manage_mastercf_default=false
-              $daemondirectory='/usr/lib/postfix'
+              $daemon_directory_default='/usr/lib/postfix'
               #$dependencies=['dpkg', 'grep' ]
               $switch_to_postfix=undef
               $check_postfix_mta=undef

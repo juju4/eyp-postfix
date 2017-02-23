@@ -36,13 +36,13 @@ command_directory = /usr/sbin
 # daemon programs (i.e. programs listed in the master.cf file). This
 # directory must be owned by root.
 #
-daemon_directory = <%= @daemondirectory %>
+daemon_directory = <%= @daemon_directory %>
 
 # The data_directory parameter specifies the location of Postfix-writable
 # data files (caches, random numbers). This directory must be owned
 # by the mail_owner account (see below).
 #
-data_directory = /var/lib/postfix
+data_directory = <%= @data_directory %>
 
 # QUEUE AND PROCESS OWNERSHIP
 #
