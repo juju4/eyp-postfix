@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.24
+
+* lint
+
 ## 0.2.23
 
 * added **data_directory** as a variable

@@ -2,30 +2,8 @@
 class postfix::params {
 
   $package_name='postfix'
-
-  $mynetworks_default = [ '127.0.0.1' ]
-  $inetinterfaces_default = '127.0.0.1'
-  $smtpdbanner_default = "${::hostname} ESMTP"
-  $ipv6_default = false
-  $relayhost_default = undef
-  $relayhost_mx_lookup_default = false
-  $opportunistictls_default = false
-  $tlscert_default = undef
-  $tlspk_default = undef
-  $myhostname_default = $::hostname
-  $generatecert_default = false
-  $subjectselfsigned_default = undef
-  $biff_default = false
-  $append_dot_mydomain_default = undef
-  $recipient_delimiter_default = undef
-  $mydestination_default = [ $::fqdn, 'localhost' ]
   $baseconf = '/etc/postfix'
-  $mail_spool_directory_default = '/var/mail'
-  $default_process_limit_default = '100'
-  $smtpd_client_connection_count_limit_default = '10'
-  $smtpd_client_connection_rate_limit_default = '30'
-  $install_mailclient_default = true
-  $in_flow_delay_default = '1s'
+
 
   case $::osfamily
   {
