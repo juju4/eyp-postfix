@@ -382,6 +382,12 @@ in_flow_delay = <%= @in_flow_delay %>
 # address masquerading or other forms of address rewriting including
 # username->Firstname.Lastname mapping.
 
+# smtp_generic_maps - Some hosts have no valid Internet domain name, and
+# instead use a name such as localdomain.local. This can be a problem when you
+# want to send mail over the Internet, because many mail servers reject mail
+# addresses with invalid domain names.
+smtp_generic_maps = hash:<%= @smtp_generic_maps %>
+
 # ADDRESS REDIRECTION (VIRTUAL DOMAIN)
 #
 # The VIRTUAL_README document gives information about the many forms

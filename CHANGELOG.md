@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.25
+
+* generic map
+
 ## 0.2.24
 
 * lint

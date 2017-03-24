@@ -67,6 +67,7 @@ class postfix (
                 $data_directory                      = '/var/lib/postfix',
                 $service_ensure                      = 'running',
                 $service_enable                      = true,
+                $smtp_generic_maps                   = "${postfix::params::baseconf}/generic_maps",
               ) inherits postfix::params {
 
   Exec {
@@ -281,6 +282,36 @@ class postfix (
     order   => '00',
     content => template("${module_name}/transport/header.erb"),
   }
+
+  #
+  # smtp_generic_maps
+  #
+
+  exec { 'reload postfix smtp_generic_maps':
+    command     => "postmap ${smtp_generic_maps}",
+    refreshonly => true,
+    notify      => Class['postfix::service'],
+    require     => [ Package[$postfix::params::package_name], Concat[$smtp_generic_maps] ],
+  }
+
+  concat { $smtp_generic_maps:
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package[$postfix::params::package_name],
+    notify  => Exec['reload postfix smtp_generic_maps'],
+  }
+
+  concat::fragment{ "${smtp_generic_maps} header":
+    target  => $smtp_generic_maps,
+    order   => '00',
+    content => template("${module_name}/header.erb"),
+  }
+
+  #
+  # alias maps
+  #
 
   exec { 'reload postfix local aliases':
     command     => "newaliases -oA${alias_maps}",
