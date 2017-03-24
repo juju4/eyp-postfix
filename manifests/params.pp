@@ -4,7 +4,6 @@ class postfix::params {
   $package_name='postfix'
   $baseconf = '/etc/postfix'
 
-
   case $::osfamily
   {
     'redhat':
