@@ -2,7 +2,7 @@
 
 ## 0.2.25
 
-* generic map
+* added **smtp_generic_maps** management (default: */etc/postfix/generic_maps*) using **postfix::genericmap**
 
 ## 0.2.24
 

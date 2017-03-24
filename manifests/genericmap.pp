@@ -1,7 +1,7 @@
 define postfix::genericmap(
-                            $to,
-                            $from = $name,
-                            $order             = '55',
+                            $map_to,
+                            $map_from = $name,
+                            $order    = '55',
                           ) {
 
   concat::fragment{ "${postfix::smtp_generic_maps} ${from} ${to}":
