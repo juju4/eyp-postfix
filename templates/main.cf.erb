@@ -69,8 +69,6 @@ mail_owner = <%= @postfix_username %>
 # from gethostname(). $myhostname is used as a default value for many
 # other configuration parameters.
 #
-#myhostname = host.domain.tld
-#myhostname = virtual.domain.tld
 <% if(@myhostname) -%>
 myhostname = <%= @myhostname %>
 <% end %>
@@ -80,8 +78,6 @@ myhostname = <%= @myhostname %>
 # $mydomain is used as a default value for many other configuration
 # parameters.
 #
-#mydomain = domain.tld
-#mydomain = domain.tld
 <%- if defined?(@mydomain) -%>
 mydomain = <%= @mydomain %>
 <%- end -%>
@@ -102,8 +98,6 @@ resolve_null_domain = <%= scope.function_bool2yesno([@resolve_null_domain]) %>
 # myorigin also specifies the default domain name that is appended
 # to recipient addresses that have no @domain part.
 #
-#myorigin = $myhostname
-#myorigin = $mydomain
 <%- if defined?(@myorigin) -%>
 myorigin = <%= @myorigin %>
 <%- end -%>
@@ -120,9 +114,6 @@ myorigin = <%= @myorigin %>
 #
 # Note: you need to stop/start Postfix when this parameter changes.
 #
-#inet_interfaces = $myhostname
-#inet_interfaces = $myhostname, localhost
-#inet_interfaces = localhost
 <% if defined?(@inetinterfaces) %>
 inet_interfaces = <%= @inetinterfaces %>
 <% end %>
@@ -279,10 +270,6 @@ unknown_local_recipient_reject_code = <%= @unknown_local_recipient_reject_code %
 # of listing the patterns here. Specify type:table for table-based lookups
 # (the value on the table right-hand side is not used).
 #
-#mynetworks = 168.100.189.0/28, 127.0.0.0/8
-#mynetworks = $config_directory/mynetworks
-#mynetworks = hash:/etc/postfix/network_table
-
 <% if defined?(@mynetworks) %>
 mynetworks = <%= @mynetworks.join(",") %>
 <% end %>
