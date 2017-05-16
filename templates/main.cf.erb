@@ -597,9 +597,25 @@ smtpd_banner = <%= scope.lookupvar('postfix::smtpdbanner') %>
 
 
 <% if defined?(@smtpd_reject_footer) -%>
+# smtpd_reject_footer
 #
 # Optional information that is appended after each 4XX
 # or 5XX response.
+#
+# This feature supports a limited number of $name attributes in the
+# footer text. These are replaced by their current value for the
+# SMTP session:
+#
+# client_address
+# 	 The Client IP address that is logged in the maillog file.
+# client_port
+# 	 The client TCP port that is logged in the maillog file.
+# localtime
+# 	 The server local time (Mmm dd hh:mm:ss) that is logged in the maillog file.
+# server_name
+# 	 The server's myhostname value. This attribute is made available for
+# sites with multiple MTAs (perhaps behind a load-balancer), where the server
+# name can help the server support team to quickly find the right log files.
 #
 smtpd_reject_footer = <%= @smtpd_reject_footer %>
 <% end -%>
