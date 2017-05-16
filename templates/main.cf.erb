@@ -595,6 +595,15 @@ mail_spool_directory = <%= @mail_spool_directory %>
 #smtpd_banner = $myhostname ESMTP $mail_name ($mail_version)
 smtpd_banner = <%= scope.lookupvar('postfix::smtpdbanner') %>
 
+
+<% if defined?(@smtpd_reject_footer) -%>
+#
+# Optional information that is appended after each 4XX
+# or 5XX response.
+#
+smtpd_reject_footer = <%= @smtpd_reject_footer %>
+<% end -%>
+
 # PARALLEL DELIVERY TO THE SAME DESTINATION
 #
 # How many parallel deliveries to the same user or domain? With local

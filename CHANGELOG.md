@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.26
+
+* added **smtpd_reject_footer**
+
 ## 0.2.25
 
 * added **smtp_generic_maps** management (default: */etc/postfix/generic_maps*) using **postfix::genericmap**
