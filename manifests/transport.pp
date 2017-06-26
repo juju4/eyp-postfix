@@ -3,6 +3,7 @@ define postfix::transport(
                             $includesubdomains = true,
                             $nexthop           = undef,
                             $error             = undef,
+                            $noop              = false,
                             $order             = '55',
                             $target            = '/etc/postfix/transport',
                           ) {
@@ -21,7 +22,15 @@ define postfix::transport(
     }
   }
 
-  if($nexthop!=undef)
+  if($noop)
+  {
+    concat::fragment{ "/etc/postfix/transport noop ${name} ${domain}":
+      target  => $target,
+      order   => $order,
+      content => template("${module_name}/transport/noop.erb"),
+    }
+  }
+  elsif($nexthop!=undef)
   {
     concat::fragment{ "/etc/postfix/transport ${name} ${domain} ${nexthop}":
       target  => $target,
