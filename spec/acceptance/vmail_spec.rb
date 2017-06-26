@@ -78,6 +78,12 @@ describe 'postfix class' do
       expect(shell("grep \"Testing rspec puppet IN INDE INDEPENDENCIA\" /var/vmail/ -R").exit_code).to be_zero
     end
 
+    #
+    describe file("/etc/postfix/transport") do
+      it { should be_file }
+      its(:content) { should match 'email to this domain is not allowed' }
+    end
+
   end
 
 end

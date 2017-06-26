@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.27
+
+* modified **postfix::transport** to be able to have multiple puppet managed transport files
+
 ## 0.2.26
 
 * added **smtpd_reject_footer**
