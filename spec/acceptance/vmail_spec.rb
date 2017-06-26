@@ -12,6 +12,12 @@ describe 'postfix class' do
 
     	class { 'postfix::vmail': }
 
+      postfix::transport { 'systemadmin.es':
+        transport_noop => true,
+        includesubdomains => false,
+        order => '00',
+      }
+
     	postfix::transport { 'example.com':
     		error => 'email to this domain is not allowed',
     	}
@@ -76,6 +82,12 @@ describe 'postfix class' do
 
     it "check alias" do
       expect(shell("grep \"Testing rspec puppet IN INDE INDEPENDENCIA\" /var/vmail/ -R").exit_code).to be_zero
+    end
+
+    #
+    describe file("/etc/postfix/transport") do
+      it { should be_file }
+      its(:content) { should match 'email to this domain is not allowed' }
     end
 
   end

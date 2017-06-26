@@ -68,6 +68,7 @@ class postfix (
                 $service_ensure                      = 'running',
                 $service_enable                      = true,
                 $smtp_generic_maps                   = "${postfix::params::baseconf}/generic_maps",
+                $smtpd_reject_footer                 = undef,
               ) inherits postfix::params {
 
   Exec {
