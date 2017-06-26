@@ -17,7 +17,7 @@ define postfix::transport(
         target  => '/etc/postfix/main.cf',
         order   => '01',
         content => "\n# transport\ntransport_maps = hash:/etc/postfix/transport\n",
-      }  
+      }
     }
   }
 
