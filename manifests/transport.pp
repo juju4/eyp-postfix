@@ -9,7 +9,7 @@ define postfix::transport(
                             $target            = '/etc/postfix/transport',
                           ) {
 
-  if(! defined(Concat::Fragment['/etc/postfix/main.cf transport_maps']))
+  if(! defined(Concat::Fragment["/etc/postfix/main.cf transport_maps ${target}"]))
   {
     # # transport
     # transport_maps = hash:/etc/postfix/transport
