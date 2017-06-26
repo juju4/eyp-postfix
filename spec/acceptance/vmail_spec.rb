@@ -16,6 +16,10 @@ describe 'postfix class' do
     		error => 'email to this domain is not allowed',
     	}
 
+      postfix::transport { 'systemadmin.es':
+        transport_noop => true,
+      }
+
     	postfix::vmail::alias { 'd9abea179bca9c44bdafd19c43c8ad55@d9abea179bca9c44bdafd19c43c8ad55.com':
     		aliasto => [ 'd9abea179bca9c44bdafd19c43c8ad55@6cf31108ba1c3fb808e9a276623e87ed.com' ],
     	}
