@@ -5,19 +5,20 @@ define postfix::transport(
                             $error             = undef,
                             $transport_noop    = false,
                             $order             = '55',
+                            $include_to_maincf = true,
                             $target            = '/etc/postfix/transport',
                           ) {
 
-  if(! defined(Concat::Fragment['/etc/postfix/main.cf transport_maps']))
+  if(! defined(Concat::Fragment["/etc/postfix/main.cf transport_maps ${target}"]))
   {
     # # transport
     # transport_maps = hash:/etc/postfix/transport
-    if($target == '/etc/postfix/transport')
+    if($include_to_maincf)
     {
-      concat::fragment{ '/etc/postfix/main.cf transport_maps':
+      concat::fragment{ "/etc/postfix/main.cf transport_maps ${target}":
         target  => '/etc/postfix/main.cf',
         order   => '01',
-        content => "\n# transport\ntransport_maps = hash:/etc/postfix/transport\n",
+        content => "\n# transport\ntransport_maps = hash:${target}\n",
       }
     }
   }
