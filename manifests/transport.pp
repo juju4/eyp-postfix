@@ -15,7 +15,7 @@ define postfix::transport(
     # transport_maps = hash:/etc/postfix/transport
     if($include_to_maincf)
     {
-      concat::fragment{ "/etc/postfix/main.cf transport_maps ${target}":
+      concat::fragment{ "${target} transport_maps ${target}":
         target  => '/etc/postfix/main.cf',
         order   => '01',
         content => "\n# transport\ntransport_maps = hash:${target}\n",
@@ -25,7 +25,7 @@ define postfix::transport(
 
   if($transport_noop)
   {
-    concat::fragment{ "/etc/postfix/transport noop ${name} ${domain}":
+    concat::fragment{ "${target} noop ${name} ${domain}":
       target  => $target,
       order   => $order,
       content => template("${module_name}/transport/noop.erb"),
@@ -33,7 +33,7 @@ define postfix::transport(
   }
   elsif($nexthop!=undef)
   {
-    concat::fragment{ "/etc/postfix/transport ${name} ${domain} ${nexthop}":
+    concat::fragment{ "${target} ${name} ${domain} ${nexthop}":
       target  => $target,
       order   => $order,
       content => template("${module_name}/transport/nexthop.erb"),
@@ -41,7 +41,7 @@ define postfix::transport(
   }
   elsif($error!=undef)
   {
-    concat::fragment{ "/etc/postfix/transport error ${name} ${domain}":
+    concat::fragment{ "${target} error ${name} ${domain}":
       target  => $target,
       order   => $order,
       content => template("${module_name}/transport/error.erb"),
