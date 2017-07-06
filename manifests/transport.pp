@@ -23,6 +23,25 @@ define postfix::transport(
     }
   }
 
+  if(! defined(Concat::Fragment[$target]))
+  {
+    concat { $target:
+      ensure  => 'present',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Package[$postfix::params::package_name],
+      notify  => Exec["reload postfix transport ${target}"],
+    }
+
+    exec { "reload postfix transport ${target}":
+      command     => "postmap ${target}",
+      refreshonly => true,
+      notify      => Class['postfix::service'],
+      require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/transport"] ],
+    }
+  }
+
   if($transport_noop)
   {
     concat::fragment{ "${target} noop ${name} ${domain}":
