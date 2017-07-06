@@ -33,7 +33,7 @@ define postfix::transport(
   }
   elsif($nexthop!=undef)
   {
-    concat::fragment{ "${target} ${name} ${domain} ${nexthop}":
+    concat::fragment{ "${target} nexthop ${name} ${domain} ${nexthop}":
       target  => $target,
       order   => $order,
       content => template("${module_name}/transport/nexthop.erb"),
