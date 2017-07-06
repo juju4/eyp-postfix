@@ -15,7 +15,7 @@ define postfix::transport(
     # transport_maps = hash:/etc/postfix/transport
     if($include_to_maincf)
     {
-      concat::fragment{ "${target} transport_maps ${target}":
+      concat::fragment{ "/etc/postfix/main.cf transport_maps ${target}":
         target  => '/etc/postfix/main.cf',
         order   => '01',
         content => "\n# transport\ntransport_maps = hash:${target}\n",
