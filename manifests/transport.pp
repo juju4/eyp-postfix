@@ -8,6 +8,9 @@ define postfix::transport(
                             $include_to_maincf = true,
                             $target            = '/etc/postfix/transport',
                           ) {
+  Exec {
+    path => '/bin:/sbin:/usr/bin:/usr/sbin',
+  }
 
   if(! defined(Concat::Fragment["/etc/postfix/main.cf transport_maps ${target}"]))
   {
@@ -23,9 +26,28 @@ define postfix::transport(
     }
   }
 
+  if(! defined(Concat[$target]))
+  {
+    concat { $target:
+      ensure  => 'present',
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      require => Package[$postfix::params::package_name],
+      notify  => Exec["reload postfix transport ${target}"],
+    }
+
+    exec { "reload postfix transport ${target}":
+      command     => "postmap ${target}",
+      refreshonly => true,
+      notify      => Class['postfix::service'],
+      require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/transport"] ],
+    }
+  }
+
   if($transport_noop)
   {
-    concat::fragment{ "/etc/postfix/transport noop ${name} ${domain}":
+    concat::fragment{ "${target} noop ${name} ${domain}":
       target  => $target,
       order   => $order,
       content => template("${module_name}/transport/noop.erb"),
@@ -33,7 +55,7 @@ define postfix::transport(
   }
   elsif($nexthop!=undef)
   {
-    concat::fragment{ "/etc/postfix/transport ${name} ${domain} ${nexthop}":
+    concat::fragment{ "${target} nexthop ${name} ${domain} ${nexthop}":
       target  => $target,
       order   => $order,
       content => template("${module_name}/transport/nexthop.erb"),
@@ -41,7 +63,7 @@ define postfix::transport(
   }
   elsif($error!=undef)
   {
-    concat::fragment{ "/etc/postfix/transport error ${name} ${domain}":
+    concat::fragment{ "${target} error ${name} ${domain}":
       target  => $target,
       order   => $order,
       content => template("${module_name}/transport/error.erb"),
