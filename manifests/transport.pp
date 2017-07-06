@@ -23,7 +23,7 @@ define postfix::transport(
     }
   }
 
-  if(! defined(Concat::Fragment[$target]))
+  if(! defined(Concat[$target]))
   {
     concat { $target:
       ensure  => 'present',
