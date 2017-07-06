@@ -8,6 +8,9 @@ define postfix::transport(
                             $include_to_maincf = true,
                             $target            = '/etc/postfix/transport',
                           ) {
+  Exec {
+    path => '/bin:/sbin:/usr/bin:/usr/sbin',
+  }
 
   if(! defined(Concat::Fragment["/etc/postfix/main.cf transport_maps ${target}"]))
   {
