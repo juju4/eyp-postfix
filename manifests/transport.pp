@@ -43,6 +43,12 @@ define postfix::transport(
       notify      => Class['postfix::service'],
       require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/transport"] ],
     }
+
+    concat::fragment{ "${target} header":
+      target  => $target,
+      order   => '00',
+      content => template("${module_name}/transport/header.erb"),
+    }
   }
 
   if($transport_noop)
