@@ -40,7 +40,7 @@ define postfix::canonicalmap(
       command     => "postmap ${target}",
       refreshonly => true,
       notify      => Class['postfix::service'],
-      require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/transport"] ],
+      require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/canonical"] ],
     }
 
     concat::fragment{ "${target} header":
