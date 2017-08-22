@@ -261,29 +261,6 @@ class postfix (
     }
   }
 
-  #postmap /etc/postfix/transport
-  exec { "reload postfix transport ${postfix::params::baseconf}/transport":
-    command     => "postmap ${postfix::params::baseconf}/transport",
-    refreshonly => true,
-    notify      => Class['postfix::service'],
-    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/transport"] ],
-  }
-
-  concat { "${postfix::params::baseconf}/transport":
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => Package[$postfix::params::package_name],
-    notify  => Exec["reload postfix transport ${postfix::params::baseconf}/transport"],
-  }
-
-  concat::fragment{ '/etc/postfix/transport header':
-    target  => "${postfix::params::baseconf}/transport",
-    order   => '00',
-    content => template("${module_name}/transport/header.erb"),
-  }
-
   #
   # smtp_generic_maps
   #
