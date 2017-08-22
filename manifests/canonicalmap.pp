@@ -74,7 +74,7 @@ define postfix::canonicalmap(
     concat::fragment{ "${target} ${from_domain} map ${from_user}":
       target  => $target,
       order   => $order,
-      content => "${from_domain}  ${from_user}\n",
+      content => "@${from_domain}  ${from_user}\n",
     }
   }
 
@@ -85,10 +85,10 @@ define postfix::canonicalmap(
       fail('from_user, from_domain and from_address are mutually exclusive')
     }
 
-    concat::fragment{ "${target} ${from_domain} map ${from_user}":
+    concat::fragment{ "${target} ${from_address} map ${from_user}":
       target  => $target,
       order   => $order,
-      content => "${from_domain}  ${from_user}\n",
+      content => "${from_address}  ${from_user}\n",
     }
   }
 }
