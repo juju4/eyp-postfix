@@ -1,0 +1,39 @@
+#
+# puppet managed file
+#
+# TABLE SEARCH ORDER
+#        With lookups from indexed files such as DB or DBM, or from
+#        networked  tables  such  as NIS, LDAP or SQL, patterns are
+#        tried in the order as listed below:
+#
+#        user@domain address
+#               Replace user@domain by address. This form  has  the
+#               highest precedence.
+#
+#               This  is  useful  to clean up addresses produced by
+#               legacy mail systems.  It can also be used  to  pro-
+#               duce  Firstname.Lastname  style  addresses, but see
+#               below for a simpler solution.
+#
+#        user address
+#               Replace user@site by address when site is equal  to
+#               $myorigin,  when  site is listed in $mydestination,
+#               or  when  it  is  listed  in  $inet_interfaces   or
+#               $proxy_interfaces.
+#
+#               This  form  is  useful for replacing login names by
+#               Firstname.Lastname.
+#
+#        @domain address
+#               Replace other addresses in domain by address.  This
+#               form has the lowest precedence.
+#
+#               Note:  @domain  is  a  wild-card. When this form is
+#               applied to recipient addresses,  the  Postfix  SMTP
+#               server  accepts  mail  for any recipient in domain,
+#               regardless of whether that recipient exists.   This
+#               may  turn  your  mail  system  into  a  backscatter
+#               source: Postfix first accepts mail for non-existent
+#               recipients  and  then  tries to return that mail as
+#               "undeliverable" to the often forged sender address.
+#

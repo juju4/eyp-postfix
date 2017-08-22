@@ -1,12 +1,12 @@
 {
   "name": "eyp-postfix",
-  "version": "0.2.27",
+  "version": "0.2.28",
   "author": "eyp",
   "summary": "postfix management - relay or multidomain mailserver",
   "license": "Apache-2.0",
-  "source": "https://github.com/NTTCom-MS/eyp-squid",
-  "project_page": "https://github.com/NTTCom-MS/eyp-squid",
-  "issues_url": "https://github.com/NTTCom-MS/eyp-squid/issues",
+  "source": "https://github.com/NTTCom-MS/eyp-postfix",
+  "project_page": "https://github.com/NTTCom-MS/eyp-postfix",
+  "issues_url": "https://github.com/NTTCom-MS/eyp-postfix/issues",
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":">= 1.0.0 < 9.9.9"},
     {"name":"puppetlabs/concat","version_requirement":">= 1.2.3 < 9.9.9"},

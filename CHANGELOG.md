@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.28
+
+* added **postfix::canonicalmap** to be able to manage **canonical_maps**
+
 ## 0.2.27
 
 * modified **postfix::transport** to be able to have multiple puppet managed transport files
