@@ -1,3 +1,5 @@
+# puppet2sitepp @canonicalmaps
+
 define postfix::canonicalmap(
                               $to_addr           = $name,
                               $from_user         = undef,
