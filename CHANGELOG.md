@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.29
+
+* added variable **message_size_limit** as per [Issue#44](https://github.com/NTTCom-MS/eyp-postfix/issues/44)
+
 ## 0.2.28
 
 * added **postfix::canonicalmap** to be able to manage **canonical_maps**
