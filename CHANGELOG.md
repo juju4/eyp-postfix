@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.30
+
+* added regex support to **postfix::vmail::alias**
+
 ## 0.2.29
 
 * added variable **message_size_limit** as per [Issue#44](https://github.com/NTTCom-MS/eyp-postfix/issues/44)

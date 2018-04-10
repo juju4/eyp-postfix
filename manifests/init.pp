@@ -69,7 +69,7 @@ class postfix (
                 $service_enable                      = true,
                 $smtp_generic_maps                   = "${postfix::params::baseconf}/generic_maps",
                 $smtpd_reject_footer                 = undef,
-                $message_size_limit                  = undef,
+                $message_size_limit                  = undef, # @param message_size_limit The maximal size in bytes of a message, including envelope information. (default: undef)
               ) inherits postfix::params {
 
   Exec {

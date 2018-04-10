@@ -4,6 +4,8 @@ class postfix::params {
   $package_name='postfix'
   $baseconf = '/etc/postfix'
 
+  # $package_postfix_utils = 'postfix-perl-scripts'
+
   case $::osfamily
   {
     'redhat':
