@@ -15,8 +15,6 @@ define postfix::canonicalmap(
 
   if(! defined(Concat::Fragment["/etc/postfix/main.cf canonicalmap ${target}"]))
   {
-    # # transport
-    # transport_maps = hash:/etc/postfix/transport
     if($include_to_maincf)
     {
       concat::fragment{ "/etc/postfix/main.cf canonicalmap ${target}":
