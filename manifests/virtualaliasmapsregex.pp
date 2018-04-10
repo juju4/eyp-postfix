@@ -1,6 +1,6 @@
 define postfix::virtualaliasmapsregex (
-                                        $to,
-                                        $from    = $name,
+                                        $from,
+                                        $to      = $name,
                                         $order   = '42',
                                         $target = $postfix::virtual_alias_maps_regex,
                                       ) {
