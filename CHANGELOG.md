@@ -2,7 +2,7 @@
 
 ## 0.2.30
 
-* added **virtual_alias_maps** with **postfix::virtualaliasmapsregex**
+* improved **virtual_alias_maps** support
 
 ## 0.2.29
 

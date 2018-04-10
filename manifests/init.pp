@@ -68,7 +68,6 @@ class postfix (
                 $service_ensure                      = 'running',
                 $service_enable                      = true,
                 $smtp_generic_maps                   = "${postfix::params::baseconf}/generic_maps",
-                $virtual_alias_maps_regex            = "${postfix::params::baseconf}/virtual_alias_maps_regex",
                 $smtpd_reject_footer                 = undef,
                 $message_size_limit                  = undef, # @param message_size_limit The maximal size in bytes of a message, including envelope information. (default: undef)
               ) inherits postfix::params {
@@ -261,32 +260,6 @@ class postfix (
       unless  => $postfix::params::check_postfix_mta,
       require => Package[$postfix::params::package_name],
     }
-  }
-
-  #
-  # virtual_alias_maps - regex
-  #
-
-  exec { 'reload postfix virtual_alias_maps regex':
-    command     => "postmap ${virtual_alias_maps_regex}",
-    refreshonly => true,
-    notify      => Class['postfix::service'],
-    require     => [ Package[$postfix::params::package_name], Concat[$smtp_generic_maps] ],
-  }
-
-  concat { $virtual_alias_maps_regex:
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    require => Package[$postfix::params::package_name],
-    notify  => Exec['reload postfix virtual_alias_maps regex'],
-  }
-
-  concat::fragment { "${virtual_alias_maps_regex} header":
-    target  => $virtual_alias_maps_regex,
-    order   => '00',
-    content => template("${module_name}/header.erb"),
   }
 
   #
