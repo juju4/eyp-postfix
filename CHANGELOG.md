@@ -2,7 +2,7 @@
 
 ## 0.2.30
 
-* added regex support **postfix::vmail::alias**
+* added regex support to **postfix::vmail::alias**
 
 ## 0.2.29
 
