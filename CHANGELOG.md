@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.30
+
+* added **virtual_alias_maps** with **postfix::virtualaliasmapsregex**
+
 ## 0.2.29
 
 * added variable **message_size_limit** as per [Issue#44](https://github.com/NTTCom-MS/eyp-postfix/issues/44)
