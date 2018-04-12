@@ -13,9 +13,9 @@ describe 'postfix class' do
     	class { 'postfix::vmail': }
 
       postfix::transport { 'systemadmin.es':
-        transport_noop => true,
+        transport_noop    => true,
         includesubdomains => false,
-        order => '00',
+        order             => '00',
       }
 
     	postfix::transport { 'example.com':
@@ -28,14 +28,14 @@ describe 'postfix class' do
 
     	postfix::vmail::account { 'd9abea179bca9c44bdafd19c43c8ad55@6cf31108ba1c3fb808e9a276623e87ed.com':
     		accountname => 'd9abea179bca9c44bdafd19c43c8ad55',
-    		domain => '6cf31108ba1c3fb808e9a276623e87ed.com',
-    		password => 'd59f50bcb24e81f8eb4d6a0ac438729e',
+    		domain      => '6cf31108ba1c3fb808e9a276623e87ed.com',
+    		password    => 'd59f50bcb24e81f8eb4d6a0ac438729e',
     	}
 
     	postfix::vmail::account { '6cf31108ba1c3fb808e9a276623e87ed@6cf31108ba1c3fb808e9a276623e87ed.com':
     		accountname => '6cf31108ba1c3fb808e9a276623e87ed',
-    		domain => '6cf31108ba1c3fb808e9a276623e87ed.com',
-    		password => 'd59f50bcb24e81f8eb4d6a0ac438729e',
+    		domain      => '6cf31108ba1c3fb808e9a276623e87ed.com',
+    		password    => 'd59f50bcb24e81f8eb4d6a0ac438729e',
     	}
 
       EOF

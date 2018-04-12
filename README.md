@@ -16,7 +16,7 @@
 
 ## Overview
 
-postfix management
+postfix configuration management
 
 ## Module Description
 
@@ -117,8 +117,8 @@ class { 'postfix::vmail': }
 
 postfix::vmail::account { 'merda@merda.com':
   accountname => 'merda',
-  domain => 'merda.com',
-  password => 'putamerda',
+  domain      => 'merda.com',
+  password    => 'putamerda',
 }
 
 class { 'postfix::contentfilter':
@@ -185,14 +185,14 @@ multiple inbound email instances:
 
 ```puppet
 class { 'postfix':
-  inetinterfaces => 'all',
-  mynetworks  => [ '127.0.0.1/32' ],
-  myhostname => 'smtp3.systemadmin.es',
-  smtpdbanner => 'smtp3.systemadmin.es ESMTP',
-  opportunistictls => true,
+  inetinterfaces    => 'all',
+  mynetworks        => [ '127.0.0.1/32' ],
+  myhostname        => 'smtp3.systemadmin.es',
+  smtpdbanner       => 'smtp3.systemadmin.es ESMTP',
+  opportunistictls  => true,
   subjectselfsigned => '/C=UK/ST=Shropshire/L=Telford/O=systemadmin/CN=smtp3.systemadmin.es',
-  generatecert => true,
-  syslog_name => 'private',
+  generatecert      => true,
+  syslog_name       => 'private',
 }
 
 class { 'postfix::vmail': }
@@ -314,6 +314,7 @@ Tested on:
 * CentOS 6
 * CentOS 7
 * Ubuntu 14.04
+* Ubuntu 16.04
 * SLES 11 SP3
 
 ## Development
@@ -329,7 +330,7 @@ have some test to check both presence and absence of any feature
 
 ### Contributing
 
-1. Fork it
+1. Fork it using the development fork: [jordiprats/eyp-systemd](https://github.com/jordiprats/eyp-systemd)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Added some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
