@@ -117,8 +117,8 @@ class { 'postfix::vmail': }
 
 postfix::vmail::account { 'merda@merda.com':
   accountname => 'merda',
-  domain => 'merda.com',
-  password => 'putamerda',
+  domain      => 'merda.com',
+  password    => 'putamerda',
 }
 
 class { 'postfix::contentfilter':
@@ -185,14 +185,14 @@ multiple inbound email instances:
 
 ```puppet
 class { 'postfix':
-  inetinterfaces => 'all',
-  mynetworks  => [ '127.0.0.1/32' ],
-  myhostname => 'smtp3.systemadmin.es',
-  smtpdbanner => 'smtp3.systemadmin.es ESMTP',
-  opportunistictls => true,
+  inetinterfaces    => 'all',
+  mynetworks        => [ '127.0.0.1/32' ],
+  myhostname        => 'smtp3.systemadmin.es',
+  smtpdbanner       => 'smtp3.systemadmin.es ESMTP',
+  opportunistictls  => true,
   subjectselfsigned => '/C=UK/ST=Shropshire/L=Telford/O=systemadmin/CN=smtp3.systemadmin.es',
-  generatecert => true,
-  syslog_name => 'private',
+  generatecert      => true,
+  syslog_name       => 'private',
 }
 
 class { 'postfix::vmail': }
