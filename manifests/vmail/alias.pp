@@ -62,7 +62,7 @@ define postfix::vmail::alias(
       notify  => Exec['reload postfix virtual_alias_maps regex'],
     }
 
-    concat::fragment { "${virtual_alias_maps_regex} header":
+    concat::fragment { "${postfix::params::baseconf}/vmail_aliases_regex header":
       target  => "${postfix::params::baseconf}/vmail_aliases_regex",
       order   => '00',
       content => template("${module_name}/header.erb"),
