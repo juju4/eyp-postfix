@@ -16,7 +16,7 @@
 
 ## Overview
 
-postfix management
+postfix configuration management
 
 ## Module Description
 
