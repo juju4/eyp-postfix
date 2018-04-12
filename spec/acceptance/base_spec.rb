@@ -54,6 +54,10 @@ describe 'postfix class' do
       expect(shell("sleep 10").exit_code).to be_zero
     end
 
+    it "check maillog" do
+      expect(shell("cat /var/log/maillog").exit_code).to be_zero
+    end
+
     it "check mail reception" do
       expect(shell("grep \"Testing rspec puppet DUI\" /tmp/root").exit_code).to be_zero
     end
