@@ -3,6 +3,7 @@
 ## 0.2.31
 
 * added Ubuntu 18.04 support
+* added **compatibility_level** variable
 
 ## 0.2.30
 

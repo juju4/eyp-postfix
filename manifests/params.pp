@@ -11,64 +11,37 @@ class postfix::params {
     'redhat':
     {
       $setgid_group_default='postdrop'
+      $compatibility_level_default=undef
+
+      $daemon_directory_default='/usr/libexec/postfix'
+      #$dependencies=['chkconfig', 'grep']
+      $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
+      $check_postfix_mta='alternatives --display mta | grep postfix'
+
+      $purge_default_mta=[ 'exim', 'sendmail' ]
+
+      $mailclient=[ 'mailx' ]
+
+      $readme_directory_default = false
+
+      $postfix_username_uid_default='89'
+      $postfix_username_gid_default='89'
 
       case $::operatingsystemrelease
       {
         /^5.*$/:
         {
           $manage_mastercf_default=false
-          $daemon_directory_default='/usr/libexec/postfix'
-          #$dependencies=['chkconfig', 'grep']
-          $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
-          $check_postfix_mta='alternatives --display mta | grep postfix'
-
-          $purge_default_mta=[ 'exim', 'sendmail' ]
-
-          $mailclient=[ 'mailx' ]
-
-          $readme_directory_default = false
-
-          $postfix_username_uid_default='89'
-          $postfix_username_gid_default='89'
-
           $postfix_ver='2.3.3'
         }
         /^6.*$/:
         {
           $manage_mastercf_default=true
-          $daemon_directory_default='/usr/libexec/postfix'
-          #$dependencies=['chkconfig', 'grep']
-          $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
-          $check_postfix_mta='alternatives --display mta | grep postfix'
-
-          $purge_default_mta=[ 'exim', 'sendmail' ]
-
-          $mailclient=[ 'mailx' ]
-
-          $readme_directory_default = false
-
-          $postfix_username_uid_default='89'
-          $postfix_username_gid_default='89'
-
           $postfix_ver='2.6.6'
         }
         /^7.*$/:
         {
           $manage_mastercf_default=true
-          $daemon_directory_default='/usr/libexec/postfix'
-          #$dependencies=['chkconfig', 'grep']
-          $switch_to_postfix='alternatives --set mta /usr/sbin/sendmail.postfix'
-          $check_postfix_mta='alternatives --display mta | grep postfix'
-
-          $purge_default_mta=[ 'exim', 'sendmail' ]
-
-          $mailclient=[ 'mailx' ]
-
-          $readme_directory_default = false
-
-          $postfix_username_uid_default='89'
-          $postfix_username_gid_default='89'
-
           $postfix_ver='2.10.1'
         }
         default: { fail('Unsupported RHEL/CentOS version!')  }
@@ -138,16 +111,19 @@ class postfix::params {
             {
               $daemon_directory_default='/usr/lib/postfix'
               $postfix_ver='2.11.0'
+              $compatibility_level_default=undef
             }
             /^16.*$/:
             {
               $daemon_directory_default='/usr/lib/postfix/sbin'
               $postfix_ver='3.1.0'
+              $compatibility_level_default=undef
             }
             /^18.*$/:
             {
               $daemon_directory_default='/usr/lib/postfix/sbin'
               $postfix_ver='3.3.0'
+              $compatibility_level_default=2
             }
             default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
           }
@@ -159,6 +135,22 @@ class postfix::params {
     'Suse':
     {
       $setgid_group_default='maildrop'
+      $compatibility_level_default=undef
+
+      $manage_mastercf_default=false
+      $daemon_directory_default='/usr/lib/postfix'
+      #$dependencies=['dpkg', 'grep' ]
+      $switch_to_postfix=undef
+      $check_postfix_mta=undef
+
+      $purge_default_mta=[ 'sendmail' ]
+
+      $mailclient=[ 'mailx' ]
+
+      $readme_directory_default=false
+
+      $postfix_username_uid_default='51'
+      $postfix_username_gid_default='51'
 
       case $::operatingsystem
       {
@@ -168,21 +160,6 @@ class postfix::params {
           {
             '11.3':
             {
-              $manage_mastercf_default=false
-              $daemon_directory_default='/usr/lib/postfix'
-              #$dependencies=['dpkg', 'grep' ]
-              $switch_to_postfix=undef
-              $check_postfix_mta=undef
-
-              $purge_default_mta=[ 'sendmail' ]
-
-              $mailclient=[ 'mailx' ]
-
-              $readme_directory_default=false
-
-              $postfix_username_uid_default='51'
-              $postfix_username_gid_default='51'
-
               $postfix_ver='2.9.4'
             }
             default: { fail("Unsupported operating system ${::operatingsystem} ${::operatingsystemrelease}") }
