@@ -4,6 +4,7 @@
 
 * added Ubuntu 18.04 support
 * added **compatibility_level** variable
+* variable **mynetworks_style** set to **subnet** by default across postfix versions
 
 ## 0.2.30
 

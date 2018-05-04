@@ -71,6 +71,7 @@ class postfix (
                 $smtpd_reject_footer                 = undef,
                 $message_size_limit                  = undef, # @param message_size_limit The maximal size in bytes of a message, including envelope information. (default: undef)
                 $compatibility_level                 = $postfix::params::compatibility_level_default,
+                $mynetworks_style                    = 'subnet',
               ) inherits postfix::params {
 
   Exec {
