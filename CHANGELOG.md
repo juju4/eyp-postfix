@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.2.31
+
+* added Ubuntu 18.04 support
+* added **compatibility_level** variable
+* variable **mynetworks_style** set to **subnet** by default across postfix versions
+
 ## 0.2.30
 
 * added regex support to **postfix::vmail::alias**

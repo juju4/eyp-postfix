@@ -2,6 +2,12 @@
 # puppet managed file - do NOT edit
 #
 
+<% if defined?(@compatibility_level) -%>
+	<%- if scope.function_versioncmp([scope.lookupvar('postfix::params::postfix_ver'), '3.0']) >= 0 -%>
+compatibility_level = <%= @compatibility_level %>
+	<%- end -%>
+<% end -%>
+
 # Global Postfix configuration file. This file lists only a subset
 # of all parameters. For the syntax, and for a complete parameter
 # list, see the postconf(5) manual page (command: "man 5 postconf").
@@ -256,7 +262,7 @@ unknown_local_recipient_reject_code = <%= @unknown_local_recipient_reject_code %
 # only the local machine.
 #
 #mynetworks_style = class
-#mynetworks_style = subnet
+mynetworks_style = <%= @mynetworks_style %>
 #mynetworks_style = host
 
 # Alternatively, you can specify the mynetworks list by hand, in
