@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.31
+
+* added Ubuntu 18.04 support
+
 ## 0.2.30
 
 * added regex support to **postfix::vmail::alias**
