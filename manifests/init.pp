@@ -11,6 +11,7 @@
 # 53 - virtual domains
 # 54 - SASL
 # 55 - smtpd restrictions
+# 56 - smtpd_sender_login_maps
 # 60 - content filter
 # 61 - sender_canonical_maps
 #

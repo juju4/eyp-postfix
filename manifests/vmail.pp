@@ -101,7 +101,22 @@ class postfix::vmail(
     content => "\n# virtual mailboxes\nvirtual_mailbox_maps=hash:/etc/postfix/vmail_mailbox\n",
   }
 
+  concat::fragment{ '/etc/postfix/main.cf smtpd_sender_login_maps':
+    target  => '/etc/postfix/main.cf',
+    order   => '56',
+    content => "\n# virtual mailboxes\nsmtpd_sender_login_maps=hash:/etc/postfix/smtpd_sender_login_maps\n",
+  }
+
   concat { "${postfix::params::baseconf}/vmail_mailbox":
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package[$postfix::params::package_name],
+    notify  => Exec['reload postfix mailbox'],
+  }
+
+  concat { "${postfix::params::baseconf}/smtpd_sender_login_maps":
     ensure  => 'present',
     owner   => 'root',
     group   => 'root',
@@ -112,6 +127,12 @@ class postfix::vmail(
 
   concat::fragment{ '/etc/postfix/vmail_mailbox header':
     target  => "${postfix::params::baseconf}/vmail_mailbox",
+    order   => '00',
+    content => template("${module_name}/vmail/mailbox/header.erb"),
+  }
+
+  concat::fragment{ '/etc/postfix/smtpd_sender_login_maps header':
+    target  => "${postfix::params::baseconf}/smtpd_sender_login_maps",
     order   => '00',
     content => template("${module_name}/vmail/mailbox/header.erb"),
   }
