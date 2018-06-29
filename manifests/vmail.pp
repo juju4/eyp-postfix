@@ -148,7 +148,7 @@ class postfix::vmail(
     command     => "postmap ${postfix::params::baseconf}/smtp_virtual_user_map",
     refreshonly => true,
     notify      => Class['postfix::service'],
-    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/smtp_virtual_user_map"] ],
+    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/smtpd_sender_login_maps"] ],
   }
 
   #
