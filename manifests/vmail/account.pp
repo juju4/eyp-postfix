@@ -38,6 +38,12 @@ define postfix::vmail::account(
     content => template("${module_name}/vmail/mailbox/account.erb"),
   }
 
+  concat::fragment{ "/etc/postfix/smtpd_sender_login_maps ${accountname} ${domain}":
+    target  => '/etc/postfix/smtpd_sender_login_maps',
+    order   => $order,
+    content => template("${module_name}/vmail/mailbox/smtpd_sender_login_maps.erb"),
+  }
+
   if(! defined(Concat::Fragment["/etc/postfix/vmail_domains ${domain}"]))
   {
     concat::fragment{ "/etc/postfix/vmail_domains ${domain}":
