@@ -73,12 +73,16 @@ class postfix::vmail(
   }
 
   file { $mailbox_base:
-    ensure  => 'directory',
-    owner   => $postfix::postfix_username,
-    group   => $postfix::postfix_username,
-    mode    => '0770',
-    require => Exec['eyp-postfix mailbox base'],
-    before  => Class['postfix::service'],
+    ensure   => 'directory',
+    owner    => $postfix::postfix_username,
+    group    => $postfix::postfix_username,
+    mode     => '0770',
+    selrange => 's0',
+    selrole  => 'object_r',
+    seltype  => 'mail_spool_t',
+    seluser  => 'system_u',
+    require  => Exec['eyp-postfix mailbox base'],
+    before   => Class['postfix::service'],
   }
 
   #
@@ -122,6 +126,40 @@ class postfix::vmail(
     notify      => Class['postfix::service'],
     require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/vmail_mailbox"] ],
   }
+
+  #
+  # sender login maps
+  #
+  #smtpd_sender_login_maps=hash:/etc/postfix/smtpd_sender_login_maps
+
+  concat::fragment{ '/etc/postfix/main.cf smtpd_sender_login_maps':
+    target  => '/etc/postfix/main.cf',
+    order   => '56',
+    content => "\n# virtual mailboxes\nsmtpd_sender_login_maps=hash:/etc/postfix/smtpd_sender_login_maps\n",
+  }
+
+  concat { "${postfix::params::baseconf}/smtpd_sender_login_maps":
+    ensure  => 'present',
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    require => Package[$postfix::params::package_name],
+    notify  => Exec['reload postfix smtpd_sender_login_maps'],
+  }
+
+  exec { 'reload postfix smtpd_sender_login_maps':
+    command     => "postmap ${postfix::params::baseconf}/smtpd_sender_login_maps",
+    refreshonly => true,
+    notify      => Class['postfix::service'],
+    require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/smtpd_sender_login_maps"] ],
+  }
+
+  concat::fragment{ '/etc/postfix/smtpd_sender_login_maps header':
+    target  => "${postfix::params::baseconf}/smtpd_sender_login_maps",
+    order   => '00',
+    content => template("${module_name}/vmail/mailbox/header.erb"),
+  }
+
 
   #
   # virtual domains
