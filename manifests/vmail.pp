@@ -122,7 +122,7 @@ class postfix::vmail(
     group   => 'root',
     mode    => '0644',
     require => Package[$postfix::params::package_name],
-    notify  => Exec['reload postfix smtp_virtual_user_map'],
+    notify  => Exec['reload postfix smtpd_virtual_user_map'],
   }
 
   concat::fragment{ '/etc/postfix/vmail_mailbox header':
@@ -144,8 +144,8 @@ class postfix::vmail(
     require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/vmail_mailbox"] ],
   }
 
-  exec { 'reload postfix smtp_virtual_user_map':
-    command     => "postmap ${postfix::params::baseconf}/smtp_virtual_user_map",
+  exec { 'reload postfix smtpd_virtual_user_map':
+    command     => "postmap ${postfix::params::baseconf}/smtpd_virtual_user_map",
     refreshonly => true,
     notify      => Class['postfix::service'],
     require     => [ Package[$postfix::params::package_name], Concat["${postfix::params::baseconf}/smtpd_sender_login_maps"] ],
