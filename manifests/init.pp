@@ -297,8 +297,16 @@ class postfix (
   exec { 'reload postfix local aliases':
     command     => "newaliases -oA${alias_maps}",
     refreshonly => true,
-    notify      => Class['postfix::service'],
+    notify      => [ File["${alias_maps}.db"], Class['postfix::service']],
     require     => [ Package[$postfix::params::package_name], Concat[$alias_maps] ],
+  }
+
+  file { "${alias_maps}.db":
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    selmode => 'etc_aliases_t',
   }
 
   concat { $alias_maps:
