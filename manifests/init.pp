@@ -306,7 +306,7 @@ class postfix (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    selmode => 'etc_aliases_t',
+    seltype => 'etc_aliases_t',
   }
 
   concat { $alias_maps:
