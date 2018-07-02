@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.2.32
+
+* added SELinux context to (thanks to [Tony Green](https://github.com/albatrossflavour) for this [PR-89](https://github.com/NTTCom-MS/eyp-postfix/pull/51)):
+  - alias maps
+  - mailboxes directory and subdirectories (default: /var/vmail)
+
 ## 0.2.31
 
 * added Ubuntu 18.04 support
