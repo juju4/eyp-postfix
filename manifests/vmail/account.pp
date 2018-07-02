@@ -24,12 +24,16 @@ define postfix::vmail::account(
   }
 
   file { "${postfix::vmail::mailbox_base}/${domain}/${accountname}":
-    ensure  => 'directory',
-    owner   => $postfix::postfix_username,
-    group   => $postfix::postfix_username,
-    mode    => '0770',
-    require => Exec["eyp-postfix mailbox ${accountname}@${domain}"],
-    before  => Class['postfix::service'],
+    ensure   => 'directory',
+    owner    => $postfix::postfix_username,
+    group    => $postfix::postfix_username,
+    mode     => '0770',
+    selrange => 's0',
+    selrole  => 'object_r',
+    seltype  => 'mail_spool_t',
+    seluser  => 'system_u',
+    require  => Exec["eyp-postfix mailbox ${accountname}@${domain}"],
+    before   => Class['postfix::service'],
   }
 
   concat::fragment{ "/etc/postfix/vmail_mailbox ${accountname} ${domain}":
@@ -47,12 +51,16 @@ define postfix::vmail::account(
     }
 
     file { "${postfix::vmail::mailbox_base}/${domain}":
-      ensure  => 'directory',
-      owner   => $postfix::postfix_username,
-      group   => $postfix::postfix_username,
-      mode    => '0770',
-      require => Exec["eyp-postfix mailbox ${accountname}@${domain}"],
-      before  => Class['postfix::service'],
+      ensure   => 'directory',
+      owner    => $postfix::postfix_username,
+      group    => $postfix::postfix_username,
+      mode     => '0770',
+      selrange => 's0',
+      selrole  => 'object_r',
+      seltype  => 'mail_spool_t',
+      seluser  => 'system_u',
+      require  => Exec["eyp-postfix mailbox ${accountname}@${domain}"],
+      before   => Class['postfix::service'],
     }
   }
 }

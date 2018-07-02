@@ -73,12 +73,16 @@ class postfix::vmail(
   }
 
   file { $mailbox_base:
-    ensure  => 'directory',
-    owner   => $postfix::postfix_username,
-    group   => $postfix::postfix_username,
-    mode    => '0770',
-    require => Exec['eyp-postfix mailbox base'],
-    before  => Class['postfix::service'],
+    ensure   => 'directory',
+    owner    => $postfix::postfix_username,
+    group    => $postfix::postfix_username,
+    mode     => '0770',
+    selrange => 's0',
+    selrole  => 'object_r',
+    seltype  => 'mail_spool_t',
+    seluser  => 'system_u',
+    require  => Exec['eyp-postfix mailbox base'],
+    before   => Class['postfix::service'],
   }
 
   #
