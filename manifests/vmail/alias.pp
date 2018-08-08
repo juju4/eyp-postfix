@@ -34,7 +34,7 @@ define postfix::vmail::alias(
       notify  => Exec["reload postfix aliases ${instance_name}"],
     }
 
-    concat::fragment{ '/etc/postfix/${instance_name}_aliases header':
+    concat::fragment{ "/etc/postfix/${instance_name}_aliases header":
       target  => "${postfix::params::baseconf}/${instance_name}_aliases",
       order   => '00',
       content => template("${module_name}/vmail/aliases/header.erb"),
