@@ -7,8 +7,9 @@ postfix::vmail::alias { 'example@systemadmin.es':
 }
 
 postfix::vmail::alias { 'example@saltait.com':
-  aliasto       => [ 'exemple@saltait.com' ],
-  instance_name => 'instance_2',
+  aliasto                     => [ 'exemple@saltait.com' ],
+  instance_name               => 'instance_2',
+  add_config_default_instance => false,
 }
 
 postfix::vmail::account { 'example@systemadmin.es':
