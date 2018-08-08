@@ -76,11 +76,11 @@ define postfix::vmail::alias(
 
   if($regex)
   {
-    $target_file='/etc/postfix/${instance_name}_aliases_regex'
+    $target_file="/etc/postfix/${instance_name}_aliases_regex"
   }
   else
   {
-    $target_file='/etc/postfix/${instance_name}_aliases'
+    $target_file="/etc/postfix/${instance_name}_aliases"
   }
 
   concat::fragment{ "/etc/postfix/${instance_name}_aliases ${aliasfrom} ${aliasto}":
