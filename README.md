@@ -49,7 +49,9 @@ class { 'postfix':
 
 ```puppet
 class { 'postfix':
-  relayhost => '1.2.3.4',
+  inetinterfaces => 'all',
+  relayhost      => '1.2.3.4',
+  mynetworks     => [ '127.0.0.1/32', '1.1.1.1/32' ],
 }
 ```
 
