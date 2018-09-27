@@ -162,6 +162,10 @@ class postfix::params {
             {
               $postfix_ver='2.9.4'
             }
+            '12.3':
+            {
+              $postfix_ver='3.2.0'
+            }
             default: { fail("Unsupported operating system ${::operatingsystem} ${::operatingsystemrelease}") }
           }
         }

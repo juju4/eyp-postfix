@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.34
+
+* added SLES 12.3 support
+
 ## 0.2.33
 
 * added support for multi-instance virtual_alias_maps
