@@ -752,21 +752,21 @@ disable_vrfy_command = <%= @disable_vrfy_command %>
 
 <%- if(@smtp_sasl_auth_enable) -%>
 smtp_sasl_auth_enable = <%= @smtp_sasl_auth_enable %>
-<%- if(@smtp_sasl_security_options) ->
+<%- if(@smtp_sasl_security_options) %>
 smtp_sasl_security_options = <%= @smtp_sasl_security_options %>
 <% end -%>
 
 <% end -%>
-<%- if(@smtpd_use_tls) ->
+<%- if(@smtpd_use_tls) %>
 smtpd_use_tls = <%= @smtpd_use_tls %>
-<%- if(@smtpd_tls_protocols) ->
+<%- if(@smtpd_tls_protocols) %>
 smtpd_tls_protocols = <%= @smtpd_tls_protocols %>
 <% end -%>
 
 <% end -%>
-<%- if(@smtp_use_tls) ->
+<%- if(@smtp_use_tls) %>
 smtp_use_tls = <%= @smtp_use_tls %>
-<%- if(@smtp_tls_exclude_ciphers) ->
+<%- if(@smtp_tls_exclude_ciphers) %>
 smtp_tls_exclude_ciphers = <%= @smtp_tls_exclude_ciphers %>
 <% end -%>
 
