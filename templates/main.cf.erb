@@ -747,8 +747,30 @@ sample_directory = /usr/share/doc/postfix-2.6.6/samples
 #
 readme_directory = <%= scope.function_bool2yesno([@readme_directory]) %>
 
+smtpd_helo_required = <%= @smtpd_helo_required %>
+disable_vrfy_command = <%= @disable_vrfy_command %>
 
+<%- if(@smtp_sasl_auth_enable) -%>
+smtp_sasl_auth_enable = <%= @smtp_sasl_auth_enable %>
+<%- if(@smtp_sasl_security_options) ->
+smtp_sasl_security_options = <%= @smtp_sasl_security_options %>
+<% end -%>
 
+<% end -%>
+<%- if(@smtpd_use_tls) ->
+smtpd_use_tls = <%= @smtpd_use_tls %>
+<%- if(@smtpd_tls_protocols) ->
+smtpd_tls_protocols = <%= @smtpd_tls_protocols %>
+<% end -%>
+
+<% end -%>
+<%- if(@smtp_use_tls) ->
+smtp_use_tls = <%= @smtp_use_tls %>
+<%- if(@smtp_tls_exclude_ciphers) ->
+smtp_tls_exclude_ciphers = <%= @smtp_tls_exclude_ciphers %>
+<% end -%>
+
+<% end -%>
 <%- if(@opportunistictls) -%>
 #opportunistic TLS
 
