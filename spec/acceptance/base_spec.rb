@@ -20,8 +20,10 @@ describe 'postfix class' do
            recipient_delimiter  => '+',
            mail_spool_directory => '/tmp',
            home_mailbox         => '',
-           smtpd_tls_protocols  => '!SSLv2,!SSLv3,!TLSv1,!TLSv1.1',
-           smtp_tls_exclude_ciphers => 'aNULL, eNULL, EXP, MD5, IDEA, KRB5, RC2, SEED, SRP',
+           opts                 => {
+               smtpd_tls_protocols  => '!SSLv2,!SSLv3,!TLSv1,!TLSv1.1',
+               smtp_tls_exclude_ciphers => 'aNULL, eNULL, EXP, MD5, IDEA, KRB5, RC2, SEED, SRP',
+           }
         }
 
       EOF
