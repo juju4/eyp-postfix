@@ -72,6 +72,14 @@ class postfix (
                 $message_size_limit                  = undef, # @param message_size_limit The maximal size in bytes of a message, including envelope information. (default: undef)
                 $compatibility_level                 = $postfix::params::compatibility_level_default,
                 $mynetworks_style                    = 'subnet',
+                $smtpd_helo_required                 = true,
+                $disable_vrfy_command                = true,
+                $smtp_sasl_auth_enable               = true,
+                $smtp_sasl_security_options          = 'noanonymous',
+                $smtpd_use_tls                       = true,
+                $smtpd_tls_protocols                 = '!SSLv2,!SSLv3,!TLSv1,!TLSv1.1',
+                $smtp_use_tls                        = true,
+                $smtp_tls_exclude_ciphers            = 'EXPORT, LOW',
               ) inherits postfix::params {
 
   Exec {
