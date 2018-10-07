@@ -76,10 +76,13 @@ class postfix (
                 $disable_vrfy_command                = true,
                 $smtp_sasl_auth_enable               = true,
                 $smtp_sasl_security_options          = 'noanonymous',
+                $smtpd_sasl_auth_enable              = true,
                 $smtpd_use_tls                       = true,
                 $smtpd_tls_protocols                 = '!SSLv2,!SSLv3,!TLSv1,!TLSv1.1',
                 $smtp_use_tls                        = true,
                 $smtp_tls_exclude_ciphers            = 'EXPORT, LOW',
+                $smtpd_tls_mandatory_ciphers         = undef,
+                $tls_medium_cipherlist               = undef,
               ) inherits postfix::params {
 
   Exec {
@@ -98,14 +101,53 @@ class postfix (
     validate_bool($append_dot_mydomain)
   }
 
+  if($smtpd_helo_required)
+  {
+    validate_bool($smtpd_helo_required)
+  }
+
+  if($disable_vrfy_command)
+  {
+    validate_bool($disable_vrfy_command)
+  }
+
+  if($smtp_sasl_auth_enable)
+  {
+    validate_bool($smtp_sasl_auth_enable)
+  }
+
+  if($smtpd_use_tls)
+  {
+    validate_bool($smtpd_use_tls)
+  }
+
+  if($smtp_use_tls)
+  {
+    validate_bool($smtp_use_tls)
+  }
+
   if($readme_directory)
   {
     validate_string($readme_directory)
   }
 
+  if($smtpd_tls_mandatory_ciphers)
+  {
+    validate_string($smtpd_tls_mandatory_ciphers)
+  }
+
+  if($tls_medium_cipherlist)
+  {
+    validate_string($tls_medium_cipherlist)
+  }
+
   validate_string($myorigin)
 
   validate_string($mydomain)
+
+  validate_string($smtpd_tls_protocols)
+
+  validate_string($smtp_tls_exclude_ciphers)
 
   if($recipient_delimiter)
   {

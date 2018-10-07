@@ -750,6 +750,10 @@ readme_directory = <%= scope.function_bool2yesno([@readme_directory]) %>
 smtpd_helo_required = <%= @smtpd_helo_required %>
 disable_vrfy_command = <%= @disable_vrfy_command %>
 
+<%- if(@smtpd_sasl_auth_enable) -%>
+smtpd_sasl_auth_enable = <%= @smtpd_sasl_auth_enable %>
+
+<% end -%>
 <%- if(@smtp_sasl_auth_enable) -%>
 smtp_sasl_auth_enable = <%= @smtp_sasl_auth_enable %>
 <%- if(@smtp_sasl_security_options) %>
