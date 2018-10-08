@@ -2,7 +2,7 @@
 
 ## 0.2.35
 
-* added security related options (thanks to [juju4](https://github.com/juju4) for this [PR-69](https://github.com/NTTCom-MS/eyp-postfix/pull/69) - merged with changes)
+* added security related options (thanks to [juju4](https://github.com/juju4) for this [PR-63](https://github.com/NTTCom-MS/eyp-postfix/pull/63) - merged with changes)
 
 ## 0.2.34
 
