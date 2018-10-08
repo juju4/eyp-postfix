@@ -62,7 +62,7 @@ describe 'postfix class' do
       its(:content) { should match /disable_vrfy_command = yes/ }
       its(:content) { should match /smtpd_helo_required = yes/ }
       its(:content) { should match /smtpd_tls_protocols = !SSLv2,!SSLv3,!TLSv1,!TLSv1.1/ }
-      its(:content) { should match /smtp_tls_exclude_ciphers = aNULL, eNULL, EXP, MD5, IDEA, KRB5, RC2, SEED, SRP/ }
+      its(:content) { should match /smtp_tls_exclude_ciphers = aNULL,eNULL,EXP,MD5,IDEA,KRB5,RC2,SEED,SRP/ }
       its(:content) { should match /smtpd_tls_mandatory_ciphers = medium/ }
       its(:content) { should match /tls_medium_cipherlist = AES128\+EECDH:AES128\+EDH/ }
     end
