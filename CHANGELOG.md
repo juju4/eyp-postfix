@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 0.2.35
+
+* added security related options (thanks to [juju4](https://github.com/juju4) for this [PR-69](https://github.com/NTTCom-MS/eyp-postfix/pull/69) - merged with changes)
+
 ## 0.2.34
 
 * added SLES 12.3 support
@@ -10,7 +14,7 @@
 
 ## 0.2.32
 
-* added SELinux context to (thanks to [Tony Green](https://github.com/albatrossflavour) for this [PR-89](https://github.com/NTTCom-MS/eyp-postfix/pull/51)):
+* added SELinux context to (thanks to [Tony Green](https://github.com/albatrossflavour) for this [PR-51](https://github.com/NTTCom-MS/eyp-postfix/pull/51)):
   - alias maps
   - mailboxes directory and subdirectories (default: /var/vmail)
 
