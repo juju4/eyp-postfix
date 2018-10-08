@@ -101,53 +101,14 @@ class postfix (
     validate_bool($append_dot_mydomain)
   }
 
-  if($smtpd_helo_required)
-  {
-    validate_bool($smtpd_helo_required)
-  }
-
-  if($disable_vrfy_command)
-  {
-    validate_bool($disable_vrfy_command)
-  }
-
-  if($smtp_sasl_auth_enable)
-  {
-    validate_bool($smtp_sasl_auth_enable)
-  }
-
-  if($smtpd_use_tls)
-  {
-    validate_bool($smtpd_use_tls)
-  }
-
-  if($smtp_use_tls)
-  {
-    validate_bool($smtp_use_tls)
-  }
-
   if($readme_directory)
   {
     validate_string($readme_directory)
   }
 
-  if($smtpd_tls_mandatory_ciphers)
-  {
-    validate_string($smtpd_tls_mandatory_ciphers)
-  }
-
-  if($tls_medium_cipherlist)
-  {
-    validate_string($tls_medium_cipherlist)
-  }
-
   validate_string($myorigin)
 
   validate_string($mydomain)
-
-  validate_string($smtpd_tls_protocols)
-
-  validate_string($smtp_tls_exclude_ciphers)
 
   if($recipient_delimiter)
   {
